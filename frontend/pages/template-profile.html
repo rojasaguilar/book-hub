@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      width: fit-content;
+      align-content: center;
+      padding: 3rem 0 1.5rem 0;
+    }
+
+    .profile-info img {
+      width: 8rem;
+      height: 8rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .profile-stats {
+      display: flex;
+      align-items: center;
+      align-content: center;
+    }
+
+    .sobre-mi {
+      padding: 0 20rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  </style>
+  <body>
+    <div style="width: 100%; background-color: cyan; height: fit-content; display: flex; justify-content: center">
+      <div class="profile-info">
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
+          <img src="../assets/cat.jpg" alt="" />
+          <p style="font-weight: 600; font-size: x-large">Ramses Rojas Aguilar</p>
+          <p style="height: fit-content">@Rojas_AG</p>
+        </div>
+
+        <div class="profile-stats">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center; flex: 1">
+            <p>12</p>
+            <p>Libros subidos</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center; flex: 1">
+            <p>32</p>
+            <p>Favoritos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sobre-mi">
+      <div style="display: flex; flex-direction: row; background-color: red; justify-content: space-between">
+        <p style="font-weight: 600; font-size: large">Sobre mi</p>
+        <p>Editar perfil</p>
+      </div>
+
+      <div style="max-height: 10rem; overflow: hidden">
+        <p style="font-weight: 100;">
+          Lorem ipsum dolor sit amet consectetur adipiscing, elit eleifend per porta luctus tortor, netus semper hac
+          mauris ultricies. Porttitor nascetur cum nisl venenatis duis porta hendrerit, natoque lectus tincidunt
+          inceptos eget parturient habitasse, tempus varius malesuada etiam himenaeos suspendisse. Suspendisse hendrerit
+          nascetur hac tempus, nullam elementum vulputate magnis condimentum, tellus netus nulla. Risus venenatis in
+          placerat dapibus tincidunt malesuada per, tortor tristique ac felis ultrices rutrum. Accumsan quisque egestas
+          nunc consequat mauris sociis cubilia donec venenatis ut cum sagittis neque, sem arcu facilisis metus in
+          interdum eleifend nullam dui volutpat pulvinar mollis. Pretium odio magna posuere neque libero proin lacus ad
+          mattis, orci vel augue suspendisse cum senectus aliquam pharetra iaculis, massa rhoncus eu congue montes
+          mauris quam nibh. Lorem ipsum dolor sit amet consectetur adipiscing, elit eleifend per porta luctus tortor.
+        </p>
+      </div>
+
+      <div>
+        <p><strong>Se unió</strong> hace 18 horas</p>
+      </div>
+    </div>
+  </body>
+</html>

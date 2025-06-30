@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    form {
+        display: flex;
+        flex-direction: column;
+        gap:2rem;
+        width: fit-content;
+        background-color: slateblue;
+    }
+
+    .campo p{
+        padding: 0;
+        margin: 0;
+        height: fit-content;
+        font-weight: 600;
+    }
+
+    .campo {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    button {
+        padding: .3rem 3rem;
+        width: fit-content;
+        border-radius: .5rem;
+        font-weight: 600;
+        align-self: end;
+    }
+  </style>
+  <body>
+    <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">Detalles del libro</p>
+
+    <form>
+        <div class="campo-imagen">
+            <p>Agregar portada</p>
+            <input type="file">
+        </div>
+
+        <div class="campo">
+            <p>Título</p>
+        <input type="text">
+        </div>
+    </div>
+    <div class="campo">
+        <p>Descripción</p>
+        <input type="text">
+    </div>
+    <div class="campo">
+        <p>Autor</p>
+        <input type="text">
+    </div>
+    <div class="campo">
+        <p>Fecha de publicación</p>
+        <input type="date">
+    </div>
+    <div class="campo">
+        <p>Etiquetas</p>
+        <input type="text">
+    </div>
+
+    <button type="submit">Guardar</button>
+    </form>
+  </body>
+</html>
