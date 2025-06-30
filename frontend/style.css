@@ -8,7 +8,7 @@ body {
     background: green;
     display: flex;
     justify-content: space-between;
-    padding: 1.5rem 1rem;
+    padding: 1rem 1rem;
 }
 
 .box{
@@ -18,4 +18,11 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 6rem;
+}
+
+.profile-picture img{
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 100%;
 }
