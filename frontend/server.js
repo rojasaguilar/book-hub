@@ -1,7 +1,12 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const mongoose = require('mongoose')
+const User = require('./models/users')
 
+const connectDB = require('./database')
+
+connectDB();
 const port = 3000;
 let index = fs.readFileSync(`index.html`, "utf-8");
 const cat = fs.readFileSync(`${__dirname}/assets/cat.jpg`);
@@ -32,6 +37,15 @@ const server = http.createServer((req, res) => {
     res.end(icon);
   }
 
+  if(req.url === "/find"){
+ getUsers()
+ .then(usuarios => {
+    res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(usuarios))
+ })
+ .catch(err => res.end(`${err}`))
+  }
+
   if (req.url === "/perfil") {
     const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`);
     res.writeHead(200, { "content-type": "text/html" });
@@ -45,6 +59,15 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(port, "127.0.0.1", () => {
+mongoose.connection.once('open', () => {
+  console.log("connected to mongodb")
+  server.listen(port, "127.0.0.1", () => {
   console.log(`listening in ${port}`);
 });
+})
+
+const getUsers = async () => {
+  const usuarios = await User.find();
+  return usuarios;
+}
+
