@@ -5,6 +5,7 @@ const path = require("path");
 const port = 3000;
 let index = fs.readFileSync(`index.html`, "utf-8");
 const cat = fs.readFileSync(`${__dirname}/assets/cat.jpg`);
+const icon = fs.readFileSync(`${__dirname}/assets/book-hub.png`)
 const style = fs.readFileSync("style.css", "utf-8");
 
 const server = http.createServer((req, res) => {
@@ -18,6 +19,17 @@ const server = http.createServer((req, res) => {
   if (req.url === "/assets/cat.jpg") {
     res.writeHead(200, { "content-type": "image/jpeg" });
     res.end(cat);
+  }
+
+    if (req.url === "/assets/book-hub.png") {
+    res.writeHead(200, { "content-type": "image/png" });
+    res.end(icon);
+  }
+
+  if(req.url.includes('/assets/icons')) {
+    let icon = fs.readFileSync(`${__dirname}${req.url}`)
+    res.writeHead(200, { "content-type": "image/svg+xml" });
+    res.end(icon);
   }
 
   if (req.url === "/perfil") {
