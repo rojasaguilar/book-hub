@@ -8,66 +8,87 @@
 
   <style>
     form {
-        display: flex;
-        flex-direction: column;
-        gap:2rem;
-        width: fit-content;
-        background-color: slateblue;
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      width: fit-content;
+      background-color: slateblue;
     }
 
-    .campo p{
-        padding: 0;
-        margin: 0;
-        height: fit-content;
-        font-weight: 600;
+    .campo p {
+      padding: 0;
+      margin: 0;
+      height: fit-content;
+      font-weight: 600;
     }
 
     .campo {
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .informacion-libro input {
+      border-radius: 0.3rem;
+      padding: 0.3rem;
     }
 
     button {
-        padding: .3rem 3rem;
-        width: fit-content;
-        border-radius: .5rem;
-        font-weight: 600;
-        align-self: end;
+      padding: 0.3rem 3rem;
+      width: fit-content;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      align-self: end;
     }
-  </style>
-  <body>
-    <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">Detalles del libro</p>
 
+    .campo-imagen {
+      background-color: gray;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .campo-imagen input {
+        text-decoration: none;
+    }
+        
+  </style>
+
+  <body>
     <form>
+      <div class="portada">
         <div class="campo-imagen">
-            <p>Agregar portada</p>
-            <input type="file">
+           <p>Agregar portada</p> 
+           <input style="width: 10rem; height: 10rem; border: green dashed .2rem" type="file">
+        </div>
+   
+      </div>
+
+      <div class="informacion-libro" style="display: flex; flex-direction: column; gap: 2rem">
+        <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">Detalles del libro</p>
+
+        <div class="campo">
+          <p>Título</p>
+          <input type="text" />
         </div>
 
         <div class="campo">
-            <p>Título</p>
-        <input type="text">
+          <p>Descripción</p>
+          <textarea name="" id=""></textarea>
         </div>
-    </div>
-    <div class="campo">
-        <p>Descripción</p>
-        <input type="text">
-    </div>
-    <div class="campo">
-        <p>Autor</p>
-        <input type="text">
-    </div>
-    <div class="campo">
-        <p>Fecha de publicación</p>
-        <input type="date">
-    </div>
-    <div class="campo">
-        <p>Etiquetas</p>
-        <input type="text">
-    </div>
-
-    <button type="submit">Guardar</button>
+        <div class="campo">
+          <p>Autor</p>
+          <input type="text" />
+        </div>
+        <div class="campo">
+          <p>Fecha de publicación</p>
+          <input type="date" />
+        </div>
+        <div class="campo">
+          <p>Etiquetas</p>
+          <input type="text" />
+        </div>
+        <button type="submit">Guardar</button>
+      </div>
     </form>
   </body>
 </html>

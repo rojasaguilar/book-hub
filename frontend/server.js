@@ -8,7 +8,7 @@ const cat = fs.readFileSync(`${__dirname}/assets/cat.jpg`);
 const style = fs.readFileSync("style.css", "utf-8");
 
 const server = http.createServer((req, res) => {
-  if (req.url === "/") {
+  if (req.url === "/" || req.url === "/home") {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(index);
   }
