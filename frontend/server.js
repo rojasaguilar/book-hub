@@ -47,10 +47,22 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/perfil") {
-    const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`);
+    const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`,"utf-8");
     res.writeHead(200, { "content-type": "text/html" });
     res.end(index.replace('<div id="main-page"></div>', perfil));
   }
+
+  if (req.url === "/profile") {
+    const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`,"utf-8");
+    getUser('Ramses')
+    .then(usuario => {
+        let perfil2 = perfil;
+        perfil2 = perfil2.replace("%nombre%",usuario.name)
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(index.replace('<div id="main-page"></div>', perfil2));
+    })
+  }
+
 
   if (req.url === "/agregar") {
     const perfil = fs.readFileSync(`${__dirname}/pages/template-subir.html`);
@@ -70,3 +82,9 @@ const getUsers = async () => {
   const usuarios = await User.find();
   return usuarios;
 };
+
+const getUser = async (name) => {
+  const usuarios = await User.findOne({"name":`${name}`});
+  return usuarios;
+};
+  
