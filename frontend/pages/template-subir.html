@@ -67,7 +67,7 @@
   <body>
     <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">Detalles del libro</p>
 
-    <form>
+    <form id="form-libro">
       <div class="portada">
         <div class="campo-imagen">
           <p>Agregar portada</p>
@@ -78,27 +78,53 @@
       <div class="informacion-libro" style="display: flex; flex-direction: column; gap: 2rem">
         <div class="campo">
           <p>Título</p>
-          <input type="text" />
+          <input name="titulo" type="text" />
         </div>
 
         <div class="campo">
           <p>Descripción</p>
-          <textarea name="" id=""></textarea>
+          <textarea name="descripcion" id=""></textarea>
         </div>
         <div class="campo">
           <p>Autor</p>
-          <input type="text" />
+          <input name="autor" type="text" />
         </div>
         <div class="campo">
           <p>Fecha de publicación</p>
-          <input type="date" />
+          <input name="fechaPublicacion" type="date" />
         </div>
         <div class="campo">
           <p>Etiquetas</p>
-          <input type="text" />
+          <input name="etiquetas" type="text" />
         </div>
         <button type="submit">Guardar</button>
       </div>
     </form>
   </body>
+
+  <script>
+    const form = document.getElementById('form-libro');
+    form.addEventListener('submit', async(e) => {
+      console.log("evennto")
+      e.preventDefault();
+
+      const data = {
+      titulo: form.titulo.value,
+      descripcion: form.descripcion.value,
+      autor: form.autor.value,
+      fechaPublicacion: form.fechaPublicacion.value,
+      etiquetas: form.etiquetas.value,
+      fechaSubido: new Date()
+    }
+
+      const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "aplication/json"
+        },
+        body: JSON.stringify(data)
+      })
+    })
+    
+  </script>
 </html>

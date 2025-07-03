@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+
+    
+    .form-signup {
+      display: flex;
+      flex-direction: column;
+      width: 24rem;
+      gap: 1rem;
+    }
+
+    .form-signup input {
+      border-radius: 0.7rem;
+      padding: 0.6rem;
+      background-color: #e5e7eb;
+      border: none;
+    }
+
+    .form-signup input::placeholder {
+      font-size: 12px;
+    }
+
+    .form-signup button {
+      border-radius: 1rem;
+      padding: 0.6rem 3rem;
+      font-weight: 600;
+      font-size: 16px;
+      color: white;
+      border: none;
+      background-color: #147c58;
+      margin-top:1rem ;
+    }
+
+    .icon-msg {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: large;
+    }
+
+    .icon-msg img {
+      border-radius: 0.5rem;
+      height: 5rem;
+      width: 5rem;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: fit-content;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    body{
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+
+  <body>
+    <div class="form-container">
+      <div class="icon-msg">
+        <img src="/assets/book-hub.png" alt="img" />
+        <strong>Inicia sesión en book-hub</strong>
+      </div>
+
+      <form class="form-login" action="">
+        <div class="campo">
+          <strong>Email</strong>
+          <input type="email" placeholder="Ingresa tu correo electrónico" />
+        </div>
+
+        <div class="campo">
+          <strong>Contraseña</strong>
+          <input type="text" placeholder="Ingresa tu contraseña" />
+        </div>
+
+        <button type="submit">Iniciar sesión</button>
+      </form>
+    </div>
+  </body>
+</html>
