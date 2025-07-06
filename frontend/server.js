@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
   if (req.url === "/style.css") res.end(style);
 
   if(req.url === "/login"){
-    const loginPage = fs.readFileSync(`${__dirname}/pages/login.html`,"utf-8");
+    let loginPage = fs.readFileSync(`${__dirname}/pages/login.html`,"utf-8");
     res.writeHead(200, {'Content-Type': "text/html"});
     res.end(loginPage);
     return

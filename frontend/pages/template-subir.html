@@ -4,9 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <style>
+    body{
+      font-family: "Roboto";
+    }
     form {
       display: flex;
       flex-direction: row;
@@ -103,28 +113,27 @@
   </body>
 
   <script>
-    const form = document.getElementById('form-libro');
-    form.addEventListener('submit', async(e) => {
-      console.log("evennto")
+    const form = document.getElementById("form-libro");
+    form.addEventListener("submit", async (e) => {
+      console.log("evennto");
       e.preventDefault();
 
       const data = {
-      titulo: form.titulo.value,
-      descripcion: form.descripcion.value,
-      autor: form.autor.value,
-      fechaPublicacion: form.fechaPublicacion.value,
-      etiquetas: form.etiquetas.value,
-      fechaSubido: new Date()
-    }
+        titulo: form.titulo.value,
+        descripcion: form.descripcion.value,
+        autor: form.autor.value,
+        fechaPublicacion: form.fechaPublicacion.value,
+        etiquetas: form.etiquetas.value,
+        fechaSubido: new Date(),
+      };
 
       const response = await fetch("/login", {
         method: "POST",
         headers: {
-          "Content-Type": "aplication/json"
+          "Content-Type": "aplication/json",
         },
-        body: JSON.stringify(data)
-      })
-    })
-    
+        body: JSON.stringify(data),
+      });
+    });
   </script>
 </html>

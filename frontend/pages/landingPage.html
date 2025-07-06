@@ -1,11 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book-hub</title>
-</head>
-<body>
-    <h1>landing page</h1>
-</body>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <style>
+    .logo {
+      height: 2rem;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+      font-family: "Roboto";
+    }
+    nav {
+      height: 4rem;
+      width: 100%;
+      border: solid black 1px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 0 1rem; */
+    }
+    .container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    .signup {
+      margin-left: 0.5rem;
+      padding: 0.5rem 2rem;
+      background-color: #147c58;
+      color: white;
+      border-radius: 2rem;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    /* .content-container{
+        background-color: aqua;
+        display: flex;
+        height: max-content;
+    } */
+    .content {
+      width: 50%;
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
+    .text{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .imagen{
+
+    }
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      padding: 0;
+    }
+  </style>
+  <body>
+    <div class="main">
+      <nav>
+        <div class="container">
+          <img class="logo" src="/assets/book-hub.png" alt="" />
+          <p>BOOK-HUB</p>
+        </div>
+
+        <div class="container">
+          <a href="#">Sobre nosotros</a>
+        </div>
+
+        <div class="container">
+          <a href="/login">Iniciar sesión</a>
+          <a class="signup" href="/signup">Regístrate</a>
+        </div>
+      </nav>
+      <!-- <div class="content-container"> -->
+      <div class="content">
+        <div class="text">
+          <div style="display: flex; flex-direction: column; gap: 2rem">
+            <h1 style="color: #147c58">Hola, Somos BOOK-HUB.</h1>
+            <p style="font-weight: 700; font-size: 24px">La comunidad digital donde los libros viven y crecen.</p>
+          </div>
+          <p style="font-weight: 300; font-size: 16px">
+            En nuestra biblioteca virtual, los lectores y escritores se conectan para compartir, descubrir y disfrutar
+            de historias únicas. Aquí, cada usuario puede contribuir subiendo sus propios libros, creando así un
+            repositorio vivo que crece con cada nueva lectura.
+          </p>
+          <p>Únete a una comunidad apasionada por los libros.</p>
+          <strong>Empieza a leer. Empieza a compartir.</strong>
+        </div>
+        <div class="imagen">
+            <img src="/assets/imagen-landing.jpeg" alt="">
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </body>
 </html>
