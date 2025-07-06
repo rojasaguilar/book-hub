@@ -92,12 +92,27 @@
         </div>
 
         <div class="campo">
-          <p>Descripción</p>
-          <textarea name="descripcion" id=""></textarea>
+          <p>Sinopsis</p>
+          <textarea rows="8" name="sinopsis" id=""></textarea>
         </div>
         <div class="campo">
           <p>Autor</p>
           <input name="autor" type="text" />
+        </div>
+        <div class="campo">
+          <p>Genero</p>
+          <select name="genero" id="">
+            <option value="terror">terror</option>
+            <option value="educativo">educativo</option>
+            <option value="accion">accion</option>
+            <option value="ciencia ficcion">ciencia ficcion</option>
+            <option value="romance">romance</option>
+            <option value="suspenso">suspenso</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="noPaginas">Numero de páginas</label>
+          <input type="text" name="noPaginas" id="">
         </div>
         <div class="campo">
           <p>Fecha de publicación</p>
@@ -120,17 +135,18 @@
 
       const data = {
         titulo: form.titulo.value,
-        descripcion: form.descripcion.value,
         autor: form.autor.value,
         fechaPublicacion: form.fechaPublicacion.value,
-        etiquetas: form.etiquetas.value,
-        fechaSubido: new Date(),
+        noPaginas: form.noPaginas.value,
+        genero: form.genero.value,
+        sinopsis: form.sinopsis.value,
+        etiquetas: form.etiquetas.value.split(' ').map(etiqueta => etiqueta.trim())
       };
 
-      const response = await fetch("/login", {
+      const response = await fetch("/agregar", {
         method: "POST",
         headers: {
-          "Content-Type": "aplication/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
