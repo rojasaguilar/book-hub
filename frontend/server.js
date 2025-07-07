@@ -37,11 +37,29 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  if (req.url === "/signup") {
+  if (req.url === "/signup" && req.method === 'GET') {
     const signupPage = fs.readFileSync(`${__dirname}/pages/signup.html`);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(signupPage);
     return;
+  }
+  if (req.url === "/signup" && req.method === 'POST') {
+    let body = "";
+    req.on("data", chunk => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      try {
+        let data = JSON.parse(body);
+        console.log(data)
+        res.writeHead(200,{"Content-Type":"application/json"})
+        res.end(JSON.stringify({mensaje: "Successfull"}))
+        return
+      } catch (error) {
+        
+      }
+    })
   }
 
   if (req.url === "/assets/cat.jpg") {
