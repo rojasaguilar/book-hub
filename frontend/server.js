@@ -4,7 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const User = require("./models/users");
 
-const { getUser, getUsers, insertBook } = require("./controllers/crud.js");
+const { getUser, getUsers, insertBook, insertUser } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
 connectDB();
@@ -37,29 +37,33 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  if (req.url === "/signup" && req.method === 'GET') {
+  if (req.url === "/signup" && req.method === "GET") {
     const signupPage = fs.readFileSync(`${__dirname}/pages/signup.html`);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(signupPage);
     return;
   }
-  if (req.url === "/signup" && req.method === 'POST') {
+  if (req.url === "/signup" && req.method === "POST") {
     let body = "";
-    req.on("data", chunk => {
+    req.on("data", (chunk) => {
       body += chunk;
     });
 
-    req.on('end', () => {
+    req.on("end", () => {
       try {
         let data = JSON.parse(body);
-        console.log(data)
-        res.writeHead(200,{"Content-Type":"application/json"})
-        res.end(JSON.stringify({mensaje: "Successfull"}))
-        return
-      } catch (error) {
-        
-      }
-    })
+        console.log(data);
+        insertUser(data)
+          .then(() => {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ mensaje: "Successfull" }));
+            return;
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      } catch (error) {}
+    });
   }
 
   if (req.url === "/assets/cat.jpg") {
@@ -122,11 +126,12 @@ const server = http.createServer((req, res) => {
         const data = JSON.parse(body);
         console.log("Datos recibidos: ", data);
 
-        insertBook(data).then(() => {
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ mensaje: "Datos recibidos correctamente" }));
-        })
-        .catch(error => console.error(error))
+        insertBook(data)
+          .then(() => {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ mensaje: "Datos recibidos correctamente" }));
+          })
+          .catch((error) => console.error(error));
       } catch (error) {}
     });
   }

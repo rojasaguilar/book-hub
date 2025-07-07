@@ -17,4 +17,9 @@ const insertBook = async (data) => {
   return await book.save();
 };
 
-module.exports = { getUser, getUsers, insertBook };
+const insertUser = async (data) => {
+  const user = new User (data);
+  return await user.save();
+}
+
+module.exports = { getUser, getUsers, insertBook, insertUser};
