@@ -14,7 +14,7 @@
   </head>
 
   <style>
-    body{
+    body {
       font-family: "Roboto";
     }
     form {
@@ -81,7 +81,7 @@
       <div class="portada">
         <div class="campo-imagen">
           <p>Agregar portada</p>
-          <input type="file" />
+          <input id="portada" name="portada" type="file" />
         </div>
       </div>
 
@@ -112,7 +112,7 @@
         </div>
         <div class="campo">
           <label for="noPaginas">Numero de páginas</label>
-          <input type="text" name="noPaginas" id="">
+          <input type="text" name="noPaginas" id="" />
         </div>
         <div class="campo">
           <p>Fecha de publicación</p>
@@ -129,6 +129,11 @@
 
   <script>
     const form = document.getElementById("form-libro");
+
+    // const fileInput = document.getElementById("portada");
+    // const file = fileInput.files[0];
+
+
     form.addEventListener("submit", async (e) => {
       console.log("evennto");
       e.preventDefault();
@@ -140,9 +145,8 @@
         noPaginas: form.noPaginas.value,
         genero: form.genero.value,
         sinopsis: form.sinopsis.value,
-        etiquetas: form.etiquetas.value.split(' ').map(etiqueta => etiqueta.trim())
+        etiquetas: form.etiquetas.value.split(' ').map(etiqueta => etiqueta.trim()),
       };
-
       const response = await fetch("/agregar", {
         method: "POST",
         headers: {

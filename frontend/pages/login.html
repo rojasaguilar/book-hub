@@ -83,19 +83,41 @@
         <strong>Inicia sesión en book-hub</strong>
       </div>
 
-      <form class="form-login" action="">
+      <form class="form-login" action="" id="form-login">
         <div class="campo">
-          <strong>Email</strong>
-          <input type="email" placeholder="Ingresa tu correo electrónico" />
+          <label for="nombreUsuario">Usuario</label>
+          <input name="nombreUsuario" type="usuario" placeholder="Usuario" />
         </div>
 
         <div class="campo">
-          <strong>Contraseña</strong>
-          <input type="text" placeholder="Ingresa tu contraseña" />
+          <label for="password">Contraseña</label>
+          <input name="password" type="text" placeholder="Ingresa tu contraseña" />
         </div>
 
         <button type="submit">Iniciar sesión</button>
       </form>
     </div>
   </body>
+  <script>
+    const formulario = document.getElementById("form-login");
+    formulario.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = {
+        nombreUsuario: formulario.nombreUsuario.value,
+        password: formulario.password.value,
+      };
+
+      fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application:json" },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data ? window.sessionStorage.setItem("user", JSON.stringify(data)) : alert(error);
+          // res.status === 200? window.location.href = '/home' : alert('error')
+        })
+        .catch(err => console.error(err))
+    });
+  </script>
 </html>

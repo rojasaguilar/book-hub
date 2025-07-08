@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- <style>
       body {
@@ -41,23 +47,47 @@
     <div id="root">
       <nav class="nav-bar">
         <div class="box">
-          <div><a href="/home"><img style="width: 2.5rem; height: 2.5rem;" src="/assets/book-hub.png" alt="img" /></a></div>
-
-          <div style="display: flex; align-items: center; justify-content: center; gap: .5rem;">
-            <p>Categorías</p>
-            <img style="width: 18px; height: 18px;" src="/assets/icons/chevron-down.svg" alt="">
+          <div>
+            <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
           </div>
-          <form style="border: #616161 solid 1px; color: #616161; padding: .3rem; border-radius: .6rem; display: flex; align-items: center; justify-content: center; ">
-            <input class="buscar-libro" style="border: none; outline: none;" type="text" placeholder="Buscar libro...">
-            <img style="width: 16px; height: 16px;" src="/assets/icons/search.svg" alt="">
+
+          <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
+            <p>Categorías</p>
+            <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
+            <div class="select-categorias" id="categorias">
+              <div class="row">
+                <a href="">Terror</a>
+                <a href="">Juegos</a>
+              </div>
+
+              <div class="row">
+                <a href="">Aventura</a>
+              </div>
+            </div>
+          </div>
+          <form
+            style="
+              border: #616161 solid 1px;
+              color: #616161;
+              padding: 0.3rem;
+              border-radius: 0.6rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
+            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
           </form>
         </div>
 
         <div class="box">
-    
-            <a style="display: flex; align-items: center; justify-content: center; gap: .5rem;" href="/agregar" style="color: black">Subir libro  <img style="width: 18px; height: 18px;" src="/assets/icons/upload.svg" alt=""> </a>
-           
-    
+          <a
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+            href="/agregar"
+            style="color: black"
+            >Subir libro <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
+          </a>
 
           <div class="profile-picture">
             <a href="/perfil"><img src="/assets/cat.jpg" alt="img" /></a>
@@ -67,4 +97,22 @@
       <div id="main-page"></div>
     </div>
   </body>
+  <script>
+    let open = false;
+
+    const selector = document.getElementById("cat");
+    selector.addEventListener("click", (event) => {
+      const categorias = document.getElementById("categorias");
+      if (!open) {
+        // alert("clicked")
+        categorias.style.visibility = "visible";
+        open = true;
+        return;
+      } else {
+        categorias.style.visibility = "hidden";
+        open = false;
+        return;
+      }
+    });
+  </script>
 </html>

@@ -30,11 +30,40 @@ const server = http.createServer((req, res) => {
 
   if (req.url === "/style.css") res.end(style);
 
-  if (req.url === "/login") {
+  if (req.url === "/login" && req.method === "GET") {
     let loginPage = fs.readFileSync(`${__dirname}/pages/login.html`, "utf-8");
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(loginPage);
     return;
+  }
+
+  if (req.url === "/login" && req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+
+    req.on("end", () => {
+      try {
+        let data = JSON.parse(body);
+        console.log("data",data)
+        getUser(data.nombreUsuario)
+        .then(user => {
+          if(user.password === data.password) {
+            res.writeHead(200,{
+              "Content-Type": "application/json"
+            })
+            res.end(JSON.stringify(user))
+            return
+          }
+          res.writeHead(401,{
+            "Content-Type":"application/json"
+          })
+          res.end('{not validated}')
+          return
+        })
+      } catch (error) {}
+    });
   }
 
   if (req.url === "/signup" && req.method === "GET") {
@@ -133,26 +162,6 @@ const server = http.createServer((req, res) => {
           })
           .catch((error) => console.error(error));
       } catch (error) {}
-    });
-  }
-
-  if (req.url === "/login") {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk;
-    });
-
-    req.on("end", () => {
-      try {
-        const data = JSON.parse(body); // Suponiendo que recibes JSON
-        console.log("Datos recibidos:", data);
-
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ mensaje: "Datos recibidos correctamente" }));
-      } catch (err) {
-        res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "JSON inválido" }));
-      }
     });
   }
 

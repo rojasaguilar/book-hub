@@ -7,9 +7,9 @@ const getUsers = async () => {
   return usuarios;
 };
 
-const getUser = async (name) => {
-  const usuarios = await User.findOne({ name: `${name}` });
-  return usuarios;
+const getUser = async (user) => {
+  const usuario = await User.findOne({ nombreUsuario: `${user}` });
+  return usuario;
 };
 
 const insertBook = async (data) => {

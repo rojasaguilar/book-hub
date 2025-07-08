@@ -1,39 +1,62 @@
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-bar{
-    width: screen;
-    /* background: green; */
-    display: flex;
-    justify-content: space-between;
-    padding: .3rem .3rem;
+.nav-bar {
+  width: screen;
+  /* background: green; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0.3rem;
 }
 
-.box{
-    width:fit-content;
-    /* background-color: blue; */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    gap: 4rem;
+.box {
+  width: fit-content;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  gap: 4rem;
 }
 
-.profile-picture img{
-    width: 3rem;
-    height: 3rem;
-    object-fit: cover;
-    border-radius: 100%;
+.profile-picture img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 100%;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .buscar-libro::placeholder {
-    font-size: 15px;
-    align-self: center;
+  font-size: 15px;
+  align-self: center;
 }
+
+.select-categorias {
+  background-color: red;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 3000;
+  position: absolute;
+  top: 3rem;
+  width: 20rem;
+  left: 8rem;
+  height: fit-content;
+  font-size: large;
+}
+
+body {
+  font-family: "Roboto";
+}
+/* 
+.select-categorias .row{
+    display: flex;
+    justify-content: space-around;
+} */

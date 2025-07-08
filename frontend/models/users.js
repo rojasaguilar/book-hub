@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    fechaRegistro: {
+        type: Date,
+        default: () => Date.now(),
+        immutable: true
+    }
     /*
     librosSubidos: {
     type: [Book]
