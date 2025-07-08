@@ -30,13 +30,6 @@ const server = http.createServer((req, res) => {
 
   if (req.url === "/style.css") res.end(style);
 
-  if (req.url === "/login" && req.method === "GET") {
-    let loginPage = fs.readFileSync(`${__dirname}/pages/login.html`, "utf-8");
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(loginPage);
-    return;
-  }
-
   if (req.url === "/login" && req.method === "POST") {
     let body = "";
     req.on("data", (chunk) => {
@@ -59,19 +52,13 @@ const server = http.createServer((req, res) => {
           res.writeHead(401,{
             "Content-Type":"application/json"
           })
-          res.end('{not validated}')
+          res.end('not validated')
           return
         })
       } catch (error) {}
     });
   }
 
-  if (req.url === "/signup" && req.method === "GET") {
-    const signupPage = fs.readFileSync(`${__dirname}/pages/signup.html`);
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(signupPage);
-    return;
-  }
   if (req.url === "/signup" && req.method === "POST") {
     let body = "";
     req.on("data", (chunk) => {
