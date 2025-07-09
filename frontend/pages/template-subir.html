@@ -72,10 +72,126 @@
       outline: none;
       border-radius: 0.2rem;
     }
+
+    .nav-bar {
+      width: screen;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+    }
+
+    .box {
+      width: fit-content;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
+      gap: 4rem;
+    }
+
+    .profile-picture img {
+      width: 3rem;
+      height: 3rem;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .buscar-libro::placeholder {
+      font-size: 15px;
+      align-self: center;
+    }
+
+    .select-categorias {
+      background-color: red;
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 3000;
+      position: absolute;
+      top: 3rem;
+      width: 20rem;
+      left: 8rem;
+      height: fit-content;
+      font-size: large;
+    }
   </style>
 
   <body>
-    <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">Detalles del libro</p>
+    <nav class="nav-bar">
+      <div class="box">
+        <div>
+          <a href="/home"
+            ><img
+              style="width: 2.5rem; height: 2.5rem"
+              src="/assets/book-hub.png"
+              alt="img"
+          /></a>
+        </div>
+
+        <div
+          id="cat"
+          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+        >
+          <p>Categorías</p>
+          <img
+            style="width: 18px; height: 18px"
+            src="/assets/icons/chevron-down.svg"
+            alt=""
+          />
+          <div class="select-categorias" id="categorias">
+            <div class="row">
+              <a href="">Terror</a>
+              <a href="">Juegos</a>
+            </div>
+
+            <div class="row">
+              <a href="">Aventura</a>
+            </div>
+          </div>
+        </div>
+        <form
+          style="
+            border: #616161 solid 1px;
+            color: #616161;
+            padding: 0.3rem;
+            border-radius: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <input
+            class="buscar-libro"
+            style="border: none; outline: none"
+            type="text"
+            placeholder="Buscar libro..."
+          />
+          <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
+        </form>
+      </div>
+
+      <div class="box">
+        <a
+          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+          href="/agregar"
+          style="color: black"
+          >Subir libro
+          <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
+        </a>
+
+        <div class="profile-picture">
+          <a href="/profile"><img src="/assets/cat.jpg" alt="img" /></a>
+        </div>
+      </div>
+    </nav>
+    <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">
+      Detalles del libro
+    </p>
 
     <form id="form-libro">
       <div class="portada">
@@ -85,7 +201,10 @@
         </div>
       </div>
 
-      <div class="informacion-libro" style="display: flex; flex-direction: column; gap: 2rem">
+      <div
+        class="informacion-libro"
+        style="display: flex; flex-direction: column; gap: 2rem"
+      >
         <div class="campo">
           <p>Título</p>
           <input name="titulo" type="text" />
@@ -133,7 +252,6 @@
     // const fileInput = document.getElementById("portada");
     // const file = fileInput.files[0];
 
-
     form.addEventListener("submit", async (e) => {
       console.log("evennto");
       e.preventDefault();
@@ -145,7 +263,7 @@
         noPaginas: form.noPaginas.value,
         genero: form.genero.value,
         sinopsis: form.sinopsis.value,
-        etiquetas: form.etiquetas.value.split(' ').map(etiqueta => etiqueta.trim()),
+        etiquetas: form.etiquetas.value.split(" ").map((etiqueta) => etiqueta.trim()),
       };
       const response = await fetch("/agregar", {
         method: "POST",

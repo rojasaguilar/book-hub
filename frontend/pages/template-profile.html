@@ -39,6 +39,53 @@
       margin: 0;
     }
 
+    .nav-bar {
+      width: screen;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+    }
+
+    .box {
+      width: fit-content;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
+      gap: 4rem;
+    }
+
+    .profile-picture img {
+      width: 3rem;
+      height: 3rem;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .buscar-libro::placeholder {
+      font-size: 15px;
+      align-self: center;
+    }
+
+    .select-categorias {
+      background-color: red;
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 3000;
+      position: absolute;
+      top: 3rem;
+      width: 20rem;
+      left: 8rem;
+      height: fit-content;
+      font-size: large;
+    }
+
     .profile-stats {
       display: flex;
       align-items: center;
@@ -54,21 +101,113 @@
     }
   </style>
   <body>
-    <div style="width: 100%; background-color: cyan; height: fit-content; display: flex; justify-content: center">
+    <nav class="nav-bar">
+      <div class="box">
+        <div>
+          <a href="/home"
+            ><img
+              style="width: 2.5rem; height: 2.5rem"
+              src="/assets/book-hub.png"
+              alt="img"
+          /></a>
+        </div>
+
+        <div
+          id="cat"
+          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+        >
+          <p>Categorías</p>
+          <img
+            style="width: 18px; height: 18px"
+            src="/assets/icons/chevron-down.svg"
+            alt=""
+          />
+          <div class="select-categorias" id="categorias">
+            <div class="row">
+              <a href="">Terror</a>
+              <a href="">Juegos</a>
+            </div>
+
+            <div class="row">
+              <a href="">Aventura</a>
+            </div>
+          </div>
+        </div>
+        <form
+          style="
+            border: #616161 solid 1px;
+            color: #616161;
+            padding: 0.3rem;
+            border-radius: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <input
+            class="buscar-libro"
+            style="border: none; outline: none"
+            type="text"
+            placeholder="Buscar libro..."
+          />
+          <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
+        </form>
+      </div>
+
+      <div class="box">
+        <a
+          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+          href="/agregar"
+          style="color: black"
+          >Subir libro
+          <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
+        </a>
+
+        <div class="profile-picture">
+          <a href="/profile"><img src="/assets/cat.jpg" alt="img" /></a>
+        </div>
+      </div>
+    </nav>
+    <div
+      style="
+        width: 100%;
+        background-color: cyan;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+      "
+    >
       <div class="profile-info">
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
+        <div
+          style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center"
+        >
           <img src="../assets/cat.jpg" alt="" />
-          <p style="font-weight: 600; font-size: x-large">%nombre%</p>
-          <p style="height: fit-content">@Rojas_AG</p>
+          <p style="font-weight: 600; font-size: x-large">%correo%</p>
+          <p style="height: fit-content">%nomreUsuario%</p>
         </div>
 
         <div class="profile-stats">
-          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center; width: fit-content">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              align-items: center;
+              width: fit-content;
+            "
+          >
             <p>12</p>
             <p>Libros subidos</p>
           </div>
 
-          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              align-items: center;
+            "
+          >
             <p>32</p>
             <p>Favoritos</p>
           </div>
@@ -77,22 +216,21 @@
     </div>
 
     <div class="sobre-mi">
-      <div style="display: flex; flex-direction: row; background-color: red; justify-content: space-between">
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          background-color: red;
+          justify-content: space-between;
+        "
+      >
         <p style="font-weight: 600; font-size: large">Sobre mi</p>
         <p>Editar perfil</p>
       </div>
 
       <div style="max-height: 10rem; overflow: hidden">
-        <p style="font-weight: 100;">
-          Lorem ipsum dolor sit amet consectetur adipiscing, elit eleifend per porta luctus tortor, netus semper hac
-          mauris ultricies. Porttitor nascetur cum nisl venenatis duis porta hendrerit, natoque lectus tincidunt
-          inceptos eget parturient habitasse, tempus varius malesuada etiam himenaeos suspendisse. Suspendisse hendrerit
-          nascetur hac tempus, nullam elementum vulputate magnis condimentum, tellus netus nulla. Risus venenatis in
-          placerat dapibus tincidunt malesuada per, tortor tristique ac felis ultrices rutrum. Accumsan quisque egestas
-          nunc consequat mauris sociis cubilia donec venenatis ut cum sagittis neque, sem arcu facilisis metus in
-          interdum eleifend nullam dui volutpat pulvinar mollis. Pretium odio magna posuere neque libero proin lacus ad
-          mattis, orci vel augue suspendisse cum senectus aliquam pharetra iaculis, massa rhoncus eu congue montes
-          mauris quam nibh. Lorem ipsum dolor sit amet consectetur adipiscing, elit eleifend per porta luctus tortor.
+        <p style="font-weight: 100">
+          %sobreMi%
         </p>
       </div>
 

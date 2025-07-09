@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: () => Date.now(),
         immutable: true
+    },
+    sobreMi:{
+        type: String,
+        default: ""
     }
     /*
     librosSubidos: {

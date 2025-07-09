@@ -59,7 +59,7 @@
           </a>
 
           <div class="profile-picture">
-            <a href="/perfil"><img src="/assets/cat.jpg" alt="img" /></a>
+            <img id="profile-picture"  src="/assets/cat.jpg" alt="img" />
           </div>
         </div>
       </nav>
@@ -85,5 +85,13 @@
         return;
       }
     });
+
+    const profilePicture = document.getElementById('profile-picture');
+    profilePicture.addEventListener('click', () =>{
+    const response = fetch('/profile', {
+      method: 'POST',
+      body: window.sessionStorage.getItem('user')
+    })
+    })
   </script>
 </html>

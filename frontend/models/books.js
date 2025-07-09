@@ -21,7 +21,7 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  genero: {
+  categoria: {
     type: String,
     required: false,
   },
@@ -32,6 +32,9 @@ const bookSchema = new mongoose.Schema({
   etiquetas: {
     type: [String],
     required: false
+  },
+  portada: {
+    type: String
   }
 });
 

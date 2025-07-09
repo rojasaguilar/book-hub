@@ -4,7 +4,13 @@ const path = require("path");
 const mongoose = require("mongoose");
 const User = require("./models/users");
 
-const { getUser, getUsers, insertBook, insertUser, getLibros } = require("./controllers/crud.js");
+const {
+  getUser,
+  getUsers,
+  insertBook,
+  insertUser,
+  getLibros,
+} = require("./controllers/crud.js");
 const connectDB = require("./database");
 
 connectDB();
@@ -22,6 +28,13 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.url.includes("/portadas")) {
+    res.writeHead(200, { "Content-Type": "image/webp" });
+    const portada = fs.readFileSync(`${__dirname}${req.url}`);
+    res.end(portada);
+    return;
+  }
+
   if (req.url === "/home") {
     getLibros().then((libros) => {
       let page = fs.readFileSync(`index.html`, "utf-8");
@@ -30,11 +43,11 @@ const server = http.createServer((req, res) => {
           (libro) =>
             `
   <div class="libro">
-  <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
-  <strong>${libro.titulo}</strong>
-  <p style="margin: 0; padding: 0">${libro.categoria}</p>
+    <div><img src="/public/portadas/${libro.portada}.webp" alt="" /></div>
+    <strong>${libro.titulo}</strong>
+    <p style="margin: 0; padding: 0">${libro.categoria}</p>
 </div>
-  `
+            `
         )
         .join("");
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -152,19 +165,30 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/profile") {
-    const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`, "utf-8");
-    getUser("Ramses").then((usuario) => {
-      let perfil2 = perfil;
-      perfil2 = perfil2.replace("%nombre%", usuario.name);
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(index.replace('<div id="main-page"></div>', perfil2));
+    // const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`, "utf-8");
+    // getUser("RamsesRO").then((usuario) => {
+    //   let perfil2 = perfil;
+    //   perfil2 = perfil2.replace("%nombre%", usuario.nombreUsuario);
+    //   res.writeHead(200, { "Content-Type": "text/html" });
+    //   const reemplazar = `<div id="main-page">
+    //       <div class="parent">%libros%</div>
+    //     </div>`;
+    //   res.end(perfil);
+    // });
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+
+    req.on("end", () => {
+      console.log(req.body);
     });
   }
 
   if (req.url === "/agregar" && req.method === "GET") {
     const agregar = fs.readFileSync(`${__dirname}/pages/template-subir.html`);
     res.writeHead(200, { "content-type": "text/html" });
-    res.end(index.replace('<div id="main-page"></div>', agregar));
+    res.end(agregar);
     return;
   }
 
