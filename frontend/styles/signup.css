@@ -1,0 +1,88 @@
+.form-signup {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 2rem;
+}
+
+.form-signup input {
+  border-radius: 0.4rem;
+  padding: 1.5rem 1rem;
+  border: solid 2px #e5e7eb;
+  font-size: 16px;
+}
+
+.form-signup input::placeholder {
+  font-size: 14px;
+}
+
+.form-signup button {
+  border-radius: 1rem;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  border: none;
+  background-color: #147c58;
+  margin-top: 1rem;
+  width: 50%;
+  align-self: center;
+}
+
+.icon-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: large;
+}
+
+.icon-msg img {
+  border-radius: 0.5rem;
+  height: 5rem;
+  width: 5rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: fit-content;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto";
+}
+
+.contras {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.usuario-email {
+  flex: 1;
+}
+label {
+  position: relative;
+  top: 1.1rem;
+  left: 1rem;
+  background-color: white;
+  width: fit-content;
+  color: #616161;
+}
+.campos-container {
+  display: flex;
+  flex-direction: row;
+  width: 50svw;
+  gap: 2rem;
+  justify-content: space-between;
+}

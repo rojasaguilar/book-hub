@@ -11,50 +11,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/styles/login.css">
   </head>
-  <style>
-    body {
-      font-family: "Roboto";
-      margin: 0;
-      padding: 0;
-    }
-
-    .icon-msg {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: large;
-    }
-
-    .icon-msg img {
-      border-radius: 0.5rem;
-      height: 5rem;
-      width: 5rem;
-    }
-
-    .login-container {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      width: fit-content;
-      z-index: 3000;
-      background-color: white;
-    }
-
-    .campo {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .form-login{
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-  </style>
 
   <body>
     <div class="login-container">
@@ -78,26 +36,5 @@
       </form>
     </div>
   </body>
-  <script>
-    const formularioLogin = document.getElementById("form-login");
-    formularioLogin.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const data = {
-        nombreUsuario: formularioLogin.nombreUsuario.value,
-        password: formularioLogin.password.value,
-      };
-
-      fetch("/login", {
-        method: "POST",
-        headers: { "Content-Type": "application:json" },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          data? window.sessionStorage.setItem("user", JSON.stringify(data)) : console.log("vacio")
-          
-        })
-        .catch(err => console.error(err))
-    });
-  </script>
+  <script src="/scripts/login.js"></script>
 </html>

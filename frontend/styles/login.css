@@ -1,0 +1,41 @@
+body {
+  font-family: "Roboto";
+  margin: 0;
+  padding: 0;
+}
+
+.icon-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: large;
+}
+
+.icon-msg img {
+  border-radius: 0.5rem;
+  height: 5rem;
+  width: 5rem;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: fit-content;
+  z-index: 3000;
+  background-color: white;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

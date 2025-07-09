@@ -4,44 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-
-    <!-- <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav-bar {
-        width: 100vw;
-        background: green;
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem 1rem;
-      }
-
-      .box {
-        width: fit-content;
-        background-color: blue;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 6rem;
-      }
-
-      .profile-picture img {
-        width: 3rem;
-        height: 3rem;
-        object-fit: cover;
-        border-radius: 100%;
-      }
-    </style> -->
   </head>
   <body>
     <div id="root">
@@ -94,7 +63,10 @@
           </div>
         </div>
       </nav>
-      <div id="main-page"></div>
+
+      <div id="main-page">
+        <div class="parent">%libros%</div>
+      </div>
     </div>
   </body>
   <script>
@@ -104,7 +76,6 @@
     selector.addEventListener("click", (event) => {
       const categorias = document.getElementById("categorias");
       if (!open) {
-        // alert("clicked")
         categorias.style.visibility = "visible";
         open = true;
         return;

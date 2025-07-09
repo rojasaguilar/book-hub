@@ -4,7 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const User = require("./models/users");
 
-const { getUser, getUsers, insertBook, insertUser } = require("./controllers/crud.js");
+const { getUser, getUsers, insertBook, insertUser, getLibros } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
 connectDB();
@@ -12,7 +12,7 @@ const port = 3000;
 let index = fs.readFileSync(`index.html`, "utf-8");
 const cat = fs.readFileSync(`${__dirname}/assets/cat.jpg`);
 const icon = fs.readFileSync(`${__dirname}/assets/book-hub.png`);
-const style = fs.readFileSync("style.css", "utf-8");
+// const style = fs.readFileSync("style.css", "utf-8");
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
@@ -23,12 +23,36 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/home") {
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(index);
+    getLibros().then((libros) => {
+      let page = fs.readFileSync(`index.html`, "utf-8");
+      const tarjetas = libros
+        .map(
+          (libro) =>
+            `
+  <div class="libro">
+  <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
+  <strong>${libro.titulo}</strong>
+  <p style="margin: 0; padding: 0">${libro.categoria}</p>
+</div>
+  `
+        )
+        .join("");
+      res.writeHead(200, { "Content-Type": "text/html" });
+      page = page.replace("%libros%", tarjetas);
+
+      res.end(page);
+    });
     return;
   }
 
-  if (req.url === "/style.css") res.end(style);
+  // if (req.url === "/style.css") res.end(style);
+
+  if (req.url.includes("/styles")) {
+    let estilo = fs.readFileSync(`${__dirname}${req.url}`, "utf-8");
+    res.writeHead(200, { "Content-Type": "text/css" });
+    res.end(estilo);
+    return;
+  }
 
   if (req.url === "/login" && req.method === "POST") {
     let body = "";
@@ -39,22 +63,21 @@ const server = http.createServer((req, res) => {
     req.on("end", () => {
       try {
         let data = JSON.parse(body);
-        console.log("data",data)
-        getUser(data.nombreUsuario)
-        .then(user => {
-          if(user.password === data.password) {
-            res.writeHead(200,{
-              "Content-Type": "application/json"
-            })
-            res.end(JSON.stringify(user))
-            return
+        console.log("data", data);
+        getUser(data.nombreUsuario).then((user) => {
+          if (user.password === data.password) {
+            res.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+            res.end(JSON.stringify(user));
+            return;
           }
-          res.writeHead(401,{
-            "Content-Type":"application/json"
-          })
-          res.end('not validated')
-          return
-        })
+          res.writeHead(401, {
+            "Content-Type": "application/json",
+          });
+          res.end("not validated");
+          return;
+        });
       } catch (error) {}
     });
   }
@@ -98,6 +121,12 @@ const server = http.createServer((req, res) => {
     res.end(icon);
   }
 
+  if (req.url.includes("/public")) {
+    let img = fs.readFileSync(`${__dirname}${req.url}`);
+    res.writeHead(200, { "Content-Type": "image/webp" });
+    res.end(img);
+  }
+
   if (req.url === "/find") {
     getUsers()
       .then((usuarios) => {
@@ -105,6 +134,15 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify(usuarios));
       })
       .catch((err) => res.end(`${err}`));
+  }
+
+  if (req.url === "/libros") {
+    getLibros()
+      .then((libros) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(libros));
+      })
+      .catch((err) => console.error(err));
   }
 
   if (req.url === "/perfil") {

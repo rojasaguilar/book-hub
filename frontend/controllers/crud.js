@@ -22,4 +22,9 @@ const insertUser = async (data) => {
   return await user.save();
 }
 
-module.exports = { getUser, getUsers, insertBook, insertUser};
+const getLibros = async () => {
+  const books = await Book.find();
+  return books;
+}
+
+module.exports = { getUser, getUsers, insertBook, insertUser, getLibros};
