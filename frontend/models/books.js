@@ -15,6 +15,7 @@ const bookSchema = new mongoose.Schema({
   },
   fechaSubido: {
     type: Date,
+    default: () => Date.now(),
     immutable: true,
   },
   noPaginas: {
@@ -34,7 +35,12 @@ const bookSchema = new mongoose.Schema({
     required: false
   },
   portada: {
-    type: String
+    type: String,
+    required: true
+  },
+  libro: {
+    type: String,
+    required: true
   }
 });
 

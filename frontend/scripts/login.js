@@ -8,12 +8,15 @@ formularioLogin.addEventListener("submit", async (event) => {
 
   fetch("/login", {
     method: "POST",
-    headers: { "Content-Type": "application:json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
     .then((res) => res.json())
     .then((data) => {
-      data ? window.sessionStorage.setItem("user", JSON.stringify(data)) : console.log("vacio");
+  if(data){
+    localStorage.setItem('user',JSON.stringify(data));
+    window.location.href='/home'
+  }
     })
     .catch((err) => console.error(err,"hubo error"));
 });

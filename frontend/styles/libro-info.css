@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-bar {
+  width: screen;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.box {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  gap: 4rem;
+}
+
+.profile-picture img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.buscar-libro::placeholder {
+  font-size: 15px;
+  align-self: center;
+}
+
+.select-categorias {
+  background-color: red;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 3000;
+  position: absolute;
+  top: 3rem;
+  width: 20rem;
+  left: 8rem;
+  height: fit-content;
+  font-size: large;
+}
+
+body {
+  font-family: "Roboto";
+}
+
+.primera-parte {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.cont-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.cont-titulo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.info-libro {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.element {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 14px;
+}
+
+.subtitulo {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.element img {
+  height: 16px;
+  object-fit: contain;
+}
+
+
+
+.leer {
+  background-color: #147c58;
+  border-radius: 2rem 0rem 0rem 2rem;
+  padding: 0.8rem 2.5rem;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  gap: .3rem;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+
+.download {
+  background-color: #147c58;
+    border-radius: 0rem 2rem 2rem 0rem;
+  padding: 0.8rem 2.5rem;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  gap: .3rem;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+
+.acciones {
+display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.portada img{
+    border-radius: .5rem;
+}

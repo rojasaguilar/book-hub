@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/libro-info.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -65,7 +65,49 @@
       </nav>
 
       <div id="main-page">
-        <div class="parent">%libros%</div>
+        <div class="primera-parte">
+          <div class="portada">
+            <img src="/public/portadas/labella.jpeg" alt="" />
+          </div>
+          <div class="cont-info">
+            <div class="cont-titulo">
+              <strong>%titulo%</strong>
+              <img src="/assets/icons/star.svg" alt="" />
+            </div>
+
+            <div class="info-libro">
+              <div class="element">
+                <div class="subtitulo">
+                  <img src="/assets/icons/book-open.svg" alt="" />
+                  <p>Páginas</p>
+                </div>
+                <strong>%noPaginas%</strong>
+              </div>
+              <div class="element">
+                <div class="subtitulo">
+                  <img src="/assets/icons/book-open.svg" alt="" />
+                  <p>Capítulos</p>
+                </div>
+                <strong>%capitulos%</strong>
+              </div>
+              <div class="element">
+                <div class="subtitulo">
+                  <img src="/assets/icons/book-open.svg" alt="" />
+                  <p>Autor</p>
+                </div>
+                <strong>%autor%</strong>
+              </div>
+            </div>
+
+            <div class="acciones">
+              <div class="leer">
+                <img src="/assets/icons/book-open.svg" alt="" />
+                <p>Comenzar a Leer</p>
+              </div>
+              <div class="download"><img src="/assets/icons/download.svg" alt="" /></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
@@ -85,21 +127,5 @@
         return;
       }
     });
-
-    // const profilePicture = document.getElementById('profile-picture');
-    // profilePicture.addEventListener('click', () =>{
-    //  fetch('/profile', {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type":"application/json"
-    //   },
-    //   body: localStorage.getItem('user')
-    // })
-    // }).then(res => res.text())
-    // .then(html=>{
-    //   document.open();
-    //   document.write(html);
-    //   document.close()
-    // })
   </script>
 </html>

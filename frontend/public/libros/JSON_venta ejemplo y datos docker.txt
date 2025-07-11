@@ -1,0 +1,28 @@
+        '{ 
+          "ve_id": "2025-04-10-36-2-1388.22",
+          "ve_total": "1388.22", 
+          "cli_id": 1, 
+          "usu_id": 36, 
+          "ve_tipoPago": "b", 
+          "productos": [
+		{
+		  "prod_id": 17,
+		  "prod_nombre": "Baraja",
+		  "prod_precio": "34.99",
+		  "prod_cantidad": "1"
+		},
+		
+		{
+		  "prod_id": "15",
+		  "prod_nombre": "Botella ",
+		  "prod_precio": "22.00",
+		  "prod_cantidad": "1"
+		}
+        	  ]
+         }'
+         
+docker run --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
+
+
+
+
