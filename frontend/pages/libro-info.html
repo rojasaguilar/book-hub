@@ -138,30 +138,28 @@
             </div>
 
             <div class="acciones">
-              <div class="leer">
+              <div id="leer" class="leer">
                 <img src="/assets/icons/book-open.svg" alt="" />
                 <p>Comenzar a Leer</p>
               </div>
-              <div class="download"><img src="/assets/icons/download.svg" alt="" /></div>
+              <div id="download" class="download">
+                <img src="/assets/icons/download.svg" alt="" />
+              </div>
             </div>
           </div>
         </div>
         <div class="segunda-parte">
           <div class="subio-sinopsis">
             <div class="perfil">
-              <img src="/assets/cat.jpg" alt="">
+              <img src="/assets/cat.jpg" alt="" />
               <p>%nombre%</p>
             </div>
-            <p class="texto">
-              %sinopsis%
-            </p>
+            <p class="texto">%sinopsis%</p>
           </div>
           <div class="etiquetas-reportar">
-            <div class="etiquetas">
-              %etiquetas%
-            </div>
+            <div class="etiquetas">%etiquetas%</div>
             <div class="reportar">
-              <img src="/assets/icons/flag.svg" alt="" class="icono">
+              <img src="/assets/icons/flag.svg" alt="" class="icono" />
               <p>Reportar este libro</p>
             </div>
           </div>
@@ -185,5 +183,59 @@
         return;
       }
     });
+
+    const btn_download = document.getElementById("download");
+    btn_download.addEventListener("click", () => {
+      const params = new URLSearchParams(window.location.search);
+      const title = params.get('titulo');
+      fetchPDF(title).
+      then(() => {
+        console.log('encontrado')
+        return
+      })
+      .catch(err => {
+        console.log(err)
+       alert("No se pudo descargar")
+       return
+      })
+    });
+
+    const btn_leer = document.getElementById("leer");
+    btn_leer.addEventListener("click", () => {
+      const params = new URLSearchParams(window.location.search);
+      const titulo = params.get("titulo");
+      fetchLibro(titulo)
+        .then(() => {
+          console.log("pdf cargado correctamente");
+        })
+        .catch((err) => console.log(err));
+    });
+
+    const fetchPDF = async (titulo) => {
+     const response = await fetch(`/descargar?titulo=${encodeURIComponent(titulo)}`)
+
+      if(!response.ok)throw new Error(700,"No se encontró el archivo")
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${titulo}.pdf`; // o el formato que corresponda
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    };
+
+    const fetchLibro = async (titulo) => {
+      const response = await fetch(`/leer?titulo=${encodeURIComponent(titulo)}`);
+      if (!response.ok) {
+        throw new Error("Error al cargar pdf");
+      }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      // Puedes mostrarlo en un visor, o abrirlo en una nueva pestaña
+      window.open(url, "_blank");
+    };
   </script>
 </html>

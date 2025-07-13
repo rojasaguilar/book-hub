@@ -22,6 +22,10 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  capitulos:{
+    type: Number,
+    required: true,
+  },
   categoria: {
     type: String,
     required: false,

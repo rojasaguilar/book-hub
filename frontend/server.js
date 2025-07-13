@@ -4,6 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const User = require("./models/users");
 const formidable = require("formidable");
+const url = require("url");
 
 const {
   getUser,
@@ -11,7 +12,7 @@ const {
   insertBook,
   insertUser,
   getLibros,
-  getLibro
+  getLibro,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -52,11 +53,16 @@ const server = http.createServer((req, res) => {
         .map(
           (libro) =>
             `
-  <div class="libro">
-    <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
-    <strong>${libro.titulo}</strong>
-    <p style="margin: 0; padding: 0">${libro.categoria}</p>
-</div>
+  <div class="cont-libro">
+      <a class="libro" href="/libro?titulo=${libro.titulo}">
+        <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
+        <strong>${libro.titulo.replace(
+          libro.titulo[0],
+          libro.titulo[0].toUpperCase()
+        )}</strong>
+        <p style="margin: 0; padding: 0">${libro.categoria}</p>
+      </a>
+  </div>
             `
         )
         .join("");
@@ -72,6 +78,7 @@ const server = http.createServer((req, res) => {
     let estilo = fs.readFileSync(`${__dirname}${req.url}`, "utf-8");
     res.writeHead(200, { "Content-Type": "text/css" });
     res.end(estilo);
+    res.download;
     return;
   }
 
@@ -82,10 +89,10 @@ const server = http.createServer((req, res) => {
     });
 
     req.on("end", () => {
-      try {
-        let data = JSON.parse(body);
-        console.log("data", data);
-        getUser(data.nombreUsuario).then((user) => {
+      let data = JSON.parse(body);
+      console.log("data", data);
+      getUser(data.nombreUsuario)
+        .then((user) => {
           if (user.password === data.password) {
             res.writeHead(200, {
               "Content-Type": "application/json",
@@ -99,11 +106,51 @@ const server = http.createServer((req, res) => {
           });
           res.end("not validated");
           return;
-        });
-      } catch (error) {
-        return;
-      }
+        })
+        .catch((err) => console.log(err));
     });
+  }
+
+  if (req.url.includes(`/leer`)) {
+    const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+    const titulo = reqUrl.searchParams.get("titulo");
+    getLibro(titulo)
+      .then((libro) => {
+        res.writeHead(200, {
+          "Content-Type": "application/pdf",
+        });
+        res.end(fs.readFileSync(`${__dirname}/public/libros/${libro.libro}`));
+        return;
+      })
+      .catch((err) => {
+        res.writeHead(300, {
+          "Content-Type": "application/json",
+        });
+        res.end(`error`);
+        return;
+      });
+  }
+
+  if (req.url.includes("/descargar")) {
+    const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+    const titulo = reqUrl.searchParams.get('titulo');
+    getLibro(titulo)
+    .then(libro => {
+      res.writeHead(200,{
+        "Content-Type": 'application/pdf'
+      });
+      res.end(fs.readFileSync(`${__dirname}/public/libros/${libro.libro}`))
+      return
+    })
+    .catch(err =>
+    {
+       res.writeHead(300,{
+        "Content-Type": 'application/json'
+      });
+      res.end(err)
+      return
+    }
+    )
   }
 
   if (req.url.includes("/scripts")) {
@@ -239,6 +286,7 @@ const server = http.createServer((req, res) => {
       const autorField = fields.autor[0];
       const categoriaField = fields.categoria[0];
       const noPaginasField = fields.noPaginas[0];
+      const capitulosField = fields.capitulos[0];
       const fechaPublicacionField = fields.fechaPublicacion[0];
       const etiquetasField = fields.etiquetas[0];
       console.log(etiquetasField);
@@ -249,6 +297,7 @@ const server = http.createServer((req, res) => {
         autor: autorField.trim(),
         categoria: categoriaField.trim(),
         noPaginas: parseInt(noPaginasField),
+        capitulos: parseInt(capitulosField),
         fechaPublicacion: new Date(fechaPublicacionField),
         etiquetas: etiquetasField.split(" ").map((e) => e.trim()),
         portada: portada.originalFilename,
@@ -282,43 +331,43 @@ const server = http.createServer((req, res) => {
         .catch((err) => {
           console.log(err);
           res.writeHead(500), { "Content-Type": "application/json" };
-          res.end("book not inserted not inserted");
+          res.end(`${err}`);
           return;
         });
     });
-  
   }
 
-  if (req.url.includes("/libro") && req.method === 'GET') {
-    const titulo = (req.url.slice(req.url.indexOf('=')+1)).replaceAll("%20", " ").toLowerCase();
+  if (req.url.includes("/libro") && req.method === "GET") {
+    const titulo = req.url
+      .slice(req.url.indexOf("=") + 1)
+      .replaceAll("%20", " ")
+      .toLowerCase();
     // titulo = titulo
-    console.log(titulo)
-    getLibro(titulo)
-    .then((libro) =>
-    {
-      let pagina = fs.readFileSync(`${__dirname}/pages/libro-info.html`,'utf-8');
-      const etiquetaTemplate = 
-      `<div class="etiqueta">
+    console.log(titulo);
+    getLibro(titulo).then((libro) => {
+      let pagina = fs.readFileSync(`${__dirname}/pages/libro-info.html`, "utf-8");
+      const etiquetaTemplate = `<div class="etiqueta">
         <p>%tag%</p>
        </div>`;
-       const etiquetas = 
-       libro.etiquetas.map(tag => (
-        etiquetaTemplate.replace('%tag%',tag)
-       )).join("");
-       console.log(libro)
-      pagina = pagina.replace('%etiquetas%',etiquetas);
-      pagina = pagina.replace('%titulo%',libro.titulo.replace(libro.titulo[0],libro.titulo[0].toUpperCase()));
-      pagina = pagina.replace('%noPaginas%',libro.noPaginas);
-      pagina = pagina.replace('%autor%',libro.autor);
-      pagina = pagina.replace('%capitulos%',libro.capitulos); 
-      pagina = pagina.replace('%sinopsis%',libro.sinopsis); 
-      pagina = pagina.replace('%portada%',libro.portada); 
-      res.writeHead(200,{
-        "Content-Type":'text/html'
-      })
+      const etiquetas = libro.etiquetas
+        .map((tag) => etiquetaTemplate.replace("%tag%", tag))
+        .join("");
+      pagina = pagina.replace("%etiquetas%", etiquetas);
+      pagina = pagina.replace(
+        "%titulo%",
+        libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())
+      );
+      pagina = pagina.replace("%noPaginas%", libro.noPaginas);
+      pagina = pagina.replace("%autor%", libro.autor);
+      pagina = pagina.replace("%capitulos%", libro.capitulos);
+      pagina = pagina.replace("%sinopsis%", libro.sinopsis);
+      pagina = pagina.replace("%portada%", libro.portada);
+      res.writeHead(200, {
+        "Content-Type": "text/html",
+      });
       res.end(pagina);
       return;
-    })
+    });
   }
 });
 
