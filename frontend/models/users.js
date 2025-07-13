@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     sobreMi:{
         type: String,
         default: ""
+    },
+    fotoPerfil: {
+        type: String,
+        required: false
     }
     /*
     librosSubidos: {
