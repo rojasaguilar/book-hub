@@ -5,7 +5,14 @@ const mongoose = require("mongoose");
 const User = require("./models/users");
 const formidable = require("formidable");
 
-const { getUser, getUsers, insertBook, insertUser, getLibros } = require("./controllers/crud.js");
+const {
+  getUser,
+  getUsers,
+  insertBook,
+  insertUser,
+  getLibros,
+  getLibro
+} = require("./controllers/crud.js");
 const connectDB = require("./database");
 
 connectDB();
@@ -234,18 +241,18 @@ const server = http.createServer((req, res) => {
       const noPaginasField = fields.noPaginas[0];
       const fechaPublicacionField = fields.fechaPublicacion[0];
       const etiquetasField = fields.etiquetas[0];
-      console.log(etiquetasField)
+      console.log(etiquetasField);
 
       const data = {
-        titulo: tituloField.trim(),
+        titulo: tituloField.trim().toLowerCase(),
         sinopsis: sinopsisField.trim(),
         autor: autorField.trim(),
         categoria: categoriaField.trim(),
         noPaginas: parseInt(noPaginasField),
         fechaPublicacion: new Date(fechaPublicacionField),
-        etiquetas: etiquetasField.split(" ").map( e => (e.trim())),
+        etiquetas: etiquetasField.split(" ").map((e) => e.trim()),
         portada: portada.originalFilename,
-        libro: libro.originalFilename
+        libro: libro.originalFilename,
       };
       const oldPathPortada = portada.filepath;
       const newPathPortada = `${__dirname}/public/portadas/${portada.originalFilename}`;
@@ -279,15 +286,40 @@ const server = http.createServer((req, res) => {
           return;
         });
     });
+  
+  }
 
-  } //else {
-  //   const page404 = fs.readFileSync(`${__dirname}/pages/404.html`, "utf-8");
-  //   res.writeHead(404, {
-  //     "Content-Type": "text/html",
-  //   });
-  //   res.end(page404);
-  //   return;
-  // }
+  if (req.url.includes("/libro") && req.method === 'GET') {
+    const titulo = (req.url.slice(req.url.indexOf('=')+1)).replaceAll("%20", " ").toLowerCase();
+    // titulo = titulo
+    console.log(titulo)
+    getLibro(titulo)
+    .then((libro) =>
+    {
+      let pagina = fs.readFileSync(`${__dirname}/pages/libro-info.html`,'utf-8');
+      const etiquetaTemplate = 
+      `<div class="etiqueta">
+        <p>%tag%</p>
+       </div>`;
+       const etiquetas = 
+       libro.etiquetas.map(tag => (
+        etiquetaTemplate.replace('%tag%',tag)
+       )).join("");
+       console.log(libro)
+      pagina = pagina.replace('%etiquetas%',etiquetas);
+      pagina = pagina.replace('%titulo%',libro.titulo.replace(libro.titulo[0],libro.titulo[0].toUpperCase()));
+      pagina = pagina.replace('%noPaginas%',libro.noPaginas);
+      pagina = pagina.replace('%autor%',libro.autor);
+      pagina = pagina.replace('%capitulos%',libro.capitulos); 
+      pagina = pagina.replace('%sinopsis%',libro.sinopsis); 
+      pagina = pagina.replace('%portada%',libro.portada); 
+      res.writeHead(200,{
+        "Content-Type":'text/html'
+      })
+      res.end(pagina);
+      return;
+    })
+  }
 });
 
 mongoose.connection.once("open", () => {

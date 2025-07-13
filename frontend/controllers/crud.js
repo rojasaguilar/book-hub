@@ -13,18 +13,23 @@ const getUser = async (user) => {
 };
 
 const insertBook = async (data) => {
-  const book = new Book (data);
+  const book = new Book(data);
   return await book.save();
 };
 
 const insertUser = async (data) => {
-  const user = new User (data);
+  const user = new User(data);
   return await user.save();
-}
+};
 
 const getLibros = async () => {
   const books = await Book.find();
   return books;
-}
+};
 
-module.exports = { getUser, getUsers, insertBook, insertUser, getLibros};
+const getLibro = async (titulo) => {
+  const book = await Book.findOne({titulo: `${titulo}`});
+  return book;
+};
+
+module.exports = { getUser, getUsers, insertBook, insertUser, getLibros, getLibro };

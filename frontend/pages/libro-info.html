@@ -17,12 +17,29 @@
       <nav class="nav-bar">
         <div class="box">
           <div>
-            <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
+            <a href="/home"
+              ><img
+                style="width: 2.5rem; height: 2.5rem"
+                src="/assets/book-hub.png"
+                alt="img"
+            /></a>
           </div>
 
-          <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
+          <div
+            id="cat"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 0.5rem;
+            "
+          >
             <p>Categorías</p>
-            <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
+            <img
+              style="width: 18px; height: 18px"
+              src="/assets/icons/chevron-down.svg"
+              alt=""
+            />
             <div class="select-categorias" id="categorias">
               <div class="row">
                 <a href="">Terror</a>
@@ -45,21 +62,42 @@
               justify-content: center;
             "
           >
-            <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
-            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
+            <input
+              class="buscar-libro"
+              style="border: none; outline: none"
+              type="text"
+              placeholder="Buscar libro..."
+            />
+            <img
+              style="width: 16px; height: 16px"
+              src="/assets/icons/search.svg"
+              alt=""
+            />
           </form>
         </div>
 
         <div class="box">
           <a
-            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 0.5rem;
+            "
             href="/agregar"
             style="color: black"
-            >Subir libro <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
+            >Subir libro
+            <img
+              style="width: 18px; height: 18px"
+              src="/assets/icons/upload.svg"
+              alt=""
+            />
           </a>
 
           <div class="profile-picture">
-            <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
+            <a href="/profile"
+              ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
+            /></a>
           </div>
         </div>
       </nav>
@@ -67,7 +105,7 @@
       <div id="main-page">
         <div class="primera-parte">
           <div class="portada">
-            <img src="/public/portadas/labella.jpeg" alt="" />
+            <img src="/public/portadas/%portada%" alt="" />
           </div>
           <div class="cont-info">
             <div class="cont-titulo">
@@ -105,6 +143,26 @@
                 <p>Comenzar a Leer</p>
               </div>
               <div class="download"><img src="/assets/icons/download.svg" alt="" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="segunda-parte">
+          <div class="subio-sinopsis">
+            <div class="perfil">
+              <img src="/assets/cat.jpg" alt="">
+              <p>%nombre%</p>
+            </div>
+            <p class="texto">
+              %sinopsis%
+            </p>
+          </div>
+          <div class="etiquetas-reportar">
+            <div class="etiquetas">
+              %etiquetas%
+            </div>
+            <div class="reportar">
+              <img src="/assets/icons/flag.svg" alt="" class="icono">
+              <p>Reportar este libro</p>
             </div>
           </div>
         </div>

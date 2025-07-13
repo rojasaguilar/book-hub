@@ -57,7 +57,18 @@ body {
 .primera-parte {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 4rem;
+  border-bottom: 1px solid #9e9e9e;
+  box-shadow: #9e9e9e 0rem 0.1rem;
+  justify-content: center;
+  padding: 1rem 0 1rem 0;
+}
+
+strong{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
 }
 
 .cont-info {
@@ -76,14 +87,14 @@ body {
 .info-libro {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .element {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .subtitulo {
@@ -104,8 +115,6 @@ p {
   object-fit: contain;
 }
 
-
-
 .leer {
   background-color: #147c58;
   border-radius: 2rem 0rem 0rem 2rem;
@@ -113,7 +122,7 @@ p {
   display: flex;
   flex-direction: row;
   color: white;
-  gap: .3rem;
+  gap: 0.3rem;
   justify-content: center;
   align-items: center;
   width: fit-content;
@@ -121,23 +130,94 @@ p {
 
 .download {
   background-color: #147c58;
-    border-radius: 0rem 2rem 2rem 0rem;
-  padding: 0.8rem 2.5rem;
+  border-radius: 0rem 2rem 2rem 0rem;
+  padding: 0.8rem 1.5rem;
   display: flex;
   flex-direction: row;
   color: white;
-  gap: .3rem;
+  gap: 0.3rem;
   justify-content: center;
   align-items: center;
   width: fit-content;
 }
 
 .acciones {
-display: flex;
+  display: flex;
   flex-direction: row;
   gap: 2px;
 }
 
-.portada img{
-    border-radius: .5rem;
+.portada img {
+  border-radius: 0.5rem;
+}
+
+.subio-sinopsis {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* background-color: red; */
+    max-width: 54rem; 
+    min-width: 22rem;
+
+}
+
+.icono {
+  height: 16px;
+}
+
+.reportar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.etiquetas-reportar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.segunda-parte {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2.6rem;
+  padding: 1.5rem 0 1.5rem 0;
+  /* max-width: 54rem;  */
+  /* width: 48rem;  */
+  /* background-color: blue; */
+}
+
+.perfil img {
+  height: 2.8rem;
+  width: 2.8rem;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.perfil {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.etiquetas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 22rem;
+  gap: 1rem;
+}
+
+.etiqueta {
+  display: flex;
+  align-items: center;
+  background-color: #21BA64;
+  font-size: 14px;
+  height: 2.8rem;
+  padding: 0 0.7rem 0 0.7rem;
+  border-radius: 1.5rem;
+  color: black;
 }
