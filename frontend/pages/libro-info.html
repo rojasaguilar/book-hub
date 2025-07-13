@@ -219,7 +219,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${titulo}.pdf`; // o el formato que corresponda
+      a.download = `${titulo}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -234,7 +234,6 @@
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
 
-      // Puedes mostrarlo en un visor, o abrirlo en una nueva pestaña
       window.open(url, "_blank");
     };
   </script>
