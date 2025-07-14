@@ -45,6 +45,10 @@ const bookSchema = new mongoose.Schema({
   libro: {
     type: String,
     required: true
+  },
+  subidoPor:{
+    type: String,
+    required: true
   }
 });
 

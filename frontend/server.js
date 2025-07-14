@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const User = require("./models/users");
 const formidable = require("formidable");
 const url = require("url");
+const crypto = require("crypto");
 
 const {
   getUser,
@@ -21,7 +22,7 @@ const port = 3000;
 let index = fs.readFileSync(`index.html`, "utf-8");
 const cat = fs.readFileSync(`${__dirname}/assets/cat.jpg`);
 const icon = fs.readFileSync(`${__dirname}/assets/book-hub.png`);
-let sesion = "";
+const sessiones = new Map();
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
@@ -39,12 +40,14 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/home") {
-    if (!sesion) {
-      res.writeHead(200, {
+    const cookies = getCookies(req);
+    const user = sessiones.get(cookies.sessionID);
+    console.log(user,"hello")
+    if (!user) {
+      res.writeHead(401, {
         "Content-Type": "text/html",
       });
-      let perfilLanding = fs.readFileSync(`${__dirname}/pages/landingPage.html`, "utf-8");
-      res.end(perfilLanding);
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
       return;
     }
     getLibros().then((libros) => {
@@ -94,11 +97,13 @@ const server = http.createServer((req, res) => {
       getUser(data.nombreUsuario)
         .then((user) => {
           if (user.password === data.password) {
+            const sessionID = crypto.randomUUID();
+            sessiones.set(sessionID, user);
             res.writeHead(200, {
               "Content-Type": "application/json",
+              "Set-Cookie": `sessionID=${sessionID}; HTTPOnly; Path=/`,
             });
             res.end(JSON.stringify(user));
-            sesion = data;
             return;
           }
           res.writeHead(401, {
@@ -116,10 +121,12 @@ const server = http.createServer((req, res) => {
     const titulo = reqUrl.searchParams.get("titulo");
     getLibro(titulo)
       .then((libro) => {
+        const stream = fs.createReadStream(`${__dirname}/public/libros/${libro.libro}`);
         res.writeHead(200, {
           "Content-Type": "application/pdf",
         });
-        res.end(fs.readFileSync(`${__dirname}/public/libros/${libro.libro}`));
+        // res.end(fs.readFileSync(`${__dirname}/public/libros/${libro.libro}`));
+        stream.pipe(res);
         return;
       })
       .catch((err) => {
@@ -133,24 +140,22 @@ const server = http.createServer((req, res) => {
 
   if (req.url.includes("/descargar")) {
     const reqUrl = new URL(req.url, `http://${req.headers.host}`);
-    const titulo = reqUrl.searchParams.get('titulo');
+    const titulo = reqUrl.searchParams.get("titulo");
     getLibro(titulo)
-    .then(libro => {
-      res.writeHead(200,{
-        "Content-Type": 'application/pdf'
+      .then((libro) => {
+        res.writeHead(200, {
+          "Content-Type": "application/pdf",
+        });
+        res.end(fs.readFileSync(`${__dirname}/public/libros/${libro.libro}`));
+        return;
+      })
+      .catch((err) => {
+        res.writeHead(300, {
+          "Content-Type": "application/json",
+        });
+        res.end(err);
+        return;
       });
-      res.end(fs.readFileSync(`${__dirname}/public/libros/${libro.libro}`))
-      return
-    })
-    .catch(err =>
-    {
-       res.writeHead(300,{
-        "Content-Type": 'application/json'
-      });
-      res.end(err)
-      return
-    }
-    )
   }
 
   if (req.url.includes("/scripts")) {
@@ -239,17 +244,18 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/profile") {
-    if (!sesion) {
-      res.writeHead(200, {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
         "Content-Type": "text/html",
       });
-      let perfilLanding = fs.readFileSync(`${__dirname}/pages/landingPage.html`, "utf-8");
-      res.end(perfilLanding);
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
       return;
     }
     let perfilPage = fs.readFileSync(`${__dirname}/pages/template-profile.html`, "utf-8");
 
-    getUser(sesion.nombreUsuario).then((usuario) => {
+    getUser(user.nombreUsuario).then((usuario) => {
       perfilPage = perfilPage.replace("%correo%", usuario.email);
       perfilPage = perfilPage.replace("%nombreUsuario%", usuario.nombreUsuario);
       perfilPage = perfilPage.replace("%sobreMi%", usuario.sobreMi);
@@ -262,6 +268,16 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/agregar" && req.method === "GET") {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
+      return;
+    }
+
     const agregar = fs.readFileSync(`${__dirname}/pages/template-subir.html`);
     res.writeHead(200, { "content-type": "text/html" });
     res.end(agregar);
@@ -269,6 +285,16 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/agregar" && req.method === "POST") {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
+      return;
+    }
+
     const formulario = new formidable.IncomingForm();
 
     formulario.parse(req, (err, fields, files) => {
@@ -302,6 +328,7 @@ const server = http.createServer((req, res) => {
         etiquetas: etiquetasField.split(" ").map((e) => e.trim()),
         portada: portada.originalFilename,
         libro: libro.originalFilename,
+        subidoPor: user.nombreUsuario
       };
       const oldPathPortada = portada.filepath;
       const newPathPortada = `${__dirname}/public/portadas/${portada.originalFilename}`;
@@ -324,7 +351,7 @@ const server = http.createServer((req, res) => {
 
       insertBook(data)
         .then(() => {
-          res.writeHead(200), { "Content-Type": "application/json" };
+          res.writeHead(200, { "Content-Type": "application/json" });
           res.end("book inserted successfully");
           return;
         })
@@ -342,8 +369,7 @@ const server = http.createServer((req, res) => {
       .slice(req.url.indexOf("=") + 1)
       .replaceAll("%20", " ")
       .toLowerCase();
-    // titulo = titulo
-    console.log(titulo);
+
     getLibro(titulo).then((libro) => {
       let pagina = fs.readFileSync(`${__dirname}/pages/libro-info.html`, "utf-8");
       const etiquetaTemplate = `<div class="etiqueta">
@@ -362,6 +388,7 @@ const server = http.createServer((req, res) => {
       pagina = pagina.replace("%capitulos%", libro.capitulos);
       pagina = pagina.replace("%sinopsis%", libro.sinopsis);
       pagina = pagina.replace("%portada%", libro.portada);
+      pagina = pagina.replace("%nombre%", libro.subidoPor);
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
@@ -370,6 +397,16 @@ const server = http.createServer((req, res) => {
     });
   }
 });
+
+function getCookies(req) {
+  const cookies = {};
+  const raw = req.headers.cookie;
+  if (!raw) return cookies;
+  const [key, value] = raw.trim().split("=");
+  cookies[key] = value;
+
+  return cookies;
+}
 
 mongoose.connection.once("open", () => {
   console.log("connected to mongodb");

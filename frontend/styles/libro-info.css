@@ -128,6 +128,10 @@ p {
   width: fit-content;
 }
 
+.texto{
+  text-align: justify;
+}
+
 .download {
   background-color: #147c58;
   border-radius: 0rem 2rem 2rem 0rem;
