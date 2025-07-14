@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
   if (req.url === "/home") {
     const cookies = getCookies(req);
     const user = sessiones.get(cookies.sessionID);
-    console.log(user,"hello")
+    console.log(user, "hello");
     if (!user) {
       res.writeHead(401, {
         "Content-Type": "text/html",
@@ -105,14 +105,25 @@ const server = http.createServer((req, res) => {
             });
             res.end(JSON.stringify(user));
             return;
+          } else {
+            res.writeHead(401, {
+              "Content-Type": "application/json",
+            });
+            res.end(JSON.stringify({ "error": "Incorrect Password" }));
+            return;
           }
-          res.writeHead(401, {
+        })
+        .catch((err) => {
+          res.writeHead(501, {
             "Content-Type": "application/json",
           });
-          res.end("not validated");
+          res.end(
+            JSON.stringify({
+              "error": `Verifica tu nombre de usuario`,
+            })
+          );
           return;
-        })
-        .catch((err) => console.log(err));
+        });
     });
   }
 
@@ -328,7 +339,7 @@ const server = http.createServer((req, res) => {
         etiquetas: etiquetasField.split(" ").map((e) => e.trim()),
         portada: portada.originalFilename,
         libro: libro.originalFilename,
-        subidoPor: user.nombreUsuario
+        subidoPor: user.nombreUsuario,
       };
       const oldPathPortada = portada.filepath;
       const newPathPortada = `${__dirname}/public/portadas/${portada.originalFilename}`;
