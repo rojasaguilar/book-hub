@@ -58,15 +58,17 @@ body {
 .parent {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-column-gap: 1rem;
+  grid-column-gap: 2rem;
   grid-row-gap: 2rem;
-  padding: 1.5rem 24rem 1.5rem 24rem;
+  padding: 1.5rem 12rem 1.5rem 12rem;
+  justify-content: center;
 }
 
 .cont-libro{
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 .libro {
   display: flex;
@@ -74,12 +76,12 @@ body {
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
-  width: fit-content;
 }
 
 .parent div img {
-  height: 12rem;
-  object-fit: contain;
+  height: 14rem;
+  /* width: 10rem; */
+  object-fit: cover;
   border-radius: 1rem;
 }
 
