@@ -25,12 +25,12 @@ const userSchema = new mongoose.Schema({
     fotoPerfil: {
         type: String,
         required: false
-    }
-    /*
+    },
     librosSubidos: {
-    type: [Book]
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'book'
     }
-    */
+
 });
 
 module.exports =  mongoose.model('users',userSchema)

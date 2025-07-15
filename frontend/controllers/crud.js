@@ -28,8 +28,22 @@ const getLibros = async () => {
 };
 
 const getLibro = async (titulo) => {
-  const book = await Book.findOne({titulo: `${titulo}`});
+  const book = await Book.findOne({ titulo: `${titulo}` }).populate("subidoPor");
   return book;
 };
 
-module.exports = { getUser, getUsers, insertBook, insertUser, getLibros, getLibro };
+const addBook = async (idLibro, idUser) => {
+  const user = await User.findById(idUser);
+  if (!user) {
+    throw new Error("Cant insert book")
+  }
+  user.librosSubidos.push(idLibro);
+  return await user.save();
+};
+
+// const obtenerUser = async (id) =>{
+//   const book = await Book.findById(id).populate('subidoPor')
+//   return book;
+// }
+
+module.exports = { getUser, getUsers, insertBook, insertUser, getLibros, getLibro, addBook };

@@ -47,8 +47,9 @@ const bookSchema = new mongoose.Schema({
     required: true
   },
   subidoPor:{
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'users'
   }
 });
 

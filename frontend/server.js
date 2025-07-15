@@ -14,6 +14,7 @@ const {
   insertUser,
   getLibros,
   getLibro,
+  addBook,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -42,7 +43,6 @@ const server = http.createServer((req, res) => {
   if (req.url === "/home") {
     const cookies = getCookies(req);
     const user = sessiones.get(cookies.sessionID);
-    console.log(user, "hello");
     if (!user) {
       res.writeHead(401, {
         "Content-Type": "text/html",
@@ -50,6 +50,13 @@ const server = http.createServer((req, res) => {
       res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
       return;
     }
+    // console.log(user, "hello");
+    // obtenerUser(user._id).then(usuario => {
+    //   console.log("usuario es",usuario)
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
     getLibros().then((libros) => {
       let page = fs.readFileSync(`index.html`, "utf-8");
       const tarjetas = libros
@@ -59,10 +66,7 @@ const server = http.createServer((req, res) => {
   <div class="cont-libro">
       <a class="libro" href="/libro?titulo=${libro.titulo}">
         <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
-        <strong>${libro.titulo.replace(
-          libro.titulo[0],
-          libro.titulo[0].toUpperCase()
-        )}</strong>
+        <strong>${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
         <p style="margin: 0; padding: 0">${libro.categoria}</p>
       </a>
   </div>
@@ -109,7 +113,7 @@ const server = http.createServer((req, res) => {
             res.writeHead(401, {
               "Content-Type": "application/json",
             });
-            res.end(JSON.stringify({ "error": "Incorrect Password" }));
+            res.end(JSON.stringify({ error: "Incorrect Password" }));
             return;
           }
         })
@@ -119,7 +123,7 @@ const server = http.createServer((req, res) => {
           });
           res.end(
             JSON.stringify({
-              "error": `Verifica tu nombre de usuario`,
+              error: `Verifica tu nombre de usuario`,
             })
           );
           return;
@@ -270,6 +274,7 @@ const server = http.createServer((req, res) => {
       perfilPage = perfilPage.replace("%correo%", usuario.email);
       perfilPage = perfilPage.replace("%nombreUsuario%", usuario.nombreUsuario);
       perfilPage = perfilPage.replace("%sobreMi%", usuario.sobreMi);
+      perfilPage = perfilPage.replace("%librosSubidos%", usuario.librosSubidos.length);
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
@@ -326,7 +331,6 @@ const server = http.createServer((req, res) => {
       const capitulosField = fields.capitulos[0];
       const fechaPublicacionField = fields.fechaPublicacion[0];
       const etiquetasField = fields.etiquetas[0];
-      console.log(etiquetasField);
 
       const data = {
         titulo: tituloField.trim().toLowerCase(),
@@ -339,7 +343,7 @@ const server = http.createServer((req, res) => {
         etiquetas: etiquetasField.split(" ").map((e) => e.trim()),
         portada: portada.originalFilename,
         libro: libro.originalFilename,
-        subidoPor: user.nombreUsuario,
+        subidoPor: user._id,
       };
       const oldPathPortada = portada.filepath;
       const newPathPortada = `${__dirname}/public/portadas/${portada.originalFilename}`;
@@ -361,7 +365,8 @@ const server = http.createServer((req, res) => {
       });
 
       insertBook(data)
-        .then(() => {
+        .then((libro) => {
+          addBook(libro._id,user._id).then(() => console.log("yes")).catch(err => console.log(err))
           res.writeHead(200, { "Content-Type": "application/json" });
           res.end("book inserted successfully");
           return;
@@ -386,20 +391,15 @@ const server = http.createServer((req, res) => {
       const etiquetaTemplate = `<div class="etiqueta">
         <p>%tag%</p>
        </div>`;
-      const etiquetas = libro.etiquetas
-        .map((tag) => etiquetaTemplate.replace("%tag%", tag))
-        .join("");
+      const etiquetas = libro.etiquetas.map((tag) => etiquetaTemplate.replace("%tag%", tag)).join("");
       pagina = pagina.replace("%etiquetas%", etiquetas);
-      pagina = pagina.replace(
-        "%titulo%",
-        libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())
-      );
+      pagina = pagina.replace("%titulo%", libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase()));
       pagina = pagina.replace("%noPaginas%", libro.noPaginas);
       pagina = pagina.replace("%autor%", libro.autor);
       pagina = pagina.replace("%capitulos%", libro.capitulos);
       pagina = pagina.replace("%sinopsis%", libro.sinopsis);
       pagina = pagina.replace("%portada%", libro.portada);
-      pagina = pagina.replace("%nombre%", libro.subidoPor);
+      pagina = pagina.replace("%nombre%", libro.subidoPor.nombreUsuario);
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
