@@ -1,0 +1,175 @@
+body {
+  font-family: "Roboto";
+}
+form {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  width: fit-content;
+}
+
+.campo p {
+  padding: 0;
+  margin: 0;
+  height: fit-content;
+  font-weight: 600;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* width: fit-content; */
+}
+
+.campo input {
+  width: 3rem;
+}
+
+.informacion-libro input {
+  border-radius: 0.2rem;
+  padding: 0.3rem;
+  border: solid black 1px;
+  outline: none;
+  width: 20rem;
+}
+
+button {
+  padding: 0.3rem 3rem;
+  width: fit-content;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  align-self: end;
+}
+
+.campo-imagen {
+  display: flex;
+  flex-direction: column;
+}
+
+.portada {
+  border: green dashed 0.2rem;
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  padding: 2rem;
+}
+
+.portada input {
+  display: none;
+}
+
+textarea {
+  resize: none;
+  border: solid black 1px;
+  outline: none;
+  border-radius: 0.2rem;
+}
+
+.nav-bar {
+  width: screen;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.box {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  gap: 4rem;
+}
+
+.profile-picture img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.buscar-libro::placeholder {
+  font-size: 15px;
+  align-self: center;
+}
+
+.select-categorias {
+  background-color: red;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 3000;
+  position: absolute;
+  top: 3rem;
+  width: 20rem;
+  left: 8rem;
+  height: fit-content;
+  font-size: large;
+}
+
+.imagen-portada {
+  display: none;
+  height: 12rem;
+  object-fit: "contain";
+}
+
+.titulo-autor-sinopsis {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+}
+
+.titulo-autor {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.genero-paginas-capitulos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.genero-paginas-capitulos .campo input {
+  width: 8rem;
+}
+
+.genero-paginas-capitulos .campo select {
+  font-size: 18px;
+  border: none;
+}
+
+.input-libro {
+}
+
+.fecha-input-etiquetas {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.fecha-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+button {
+  border: none;
+  color: white;
+  background-color: green;
+  padding: 0.6rem 4rem;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 2rem;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}

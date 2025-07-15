@@ -11,138 +11,19 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/styles/template-subir.css">
   </head>
-
-  <style>
-    body {
-      font-family: "Roboto";
-    }
-    form {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      width: fit-content;
-    }
-
-    .campo p {
-      padding: 0;
-      margin: 0;
-      height: fit-content;
-      font-weight: 600;
-    }
-
-    .campo {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .informacion-libro input {
-      border-radius: 0.2rem;
-      padding: 0.3rem;
-      border: solid black 1px;
-      outline: none;
-      width: 20rem;
-    }
-
-    button {
-      padding: 0.3rem 3rem;
-      width: fit-content;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      align-self: end;
-    }
-
-    .campo-imagen {
-      background-color: gray;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .campo-imagen input {
-      text-decoration: none;
-      border: green dashed 0.2rem;
-      width: 15rem;
-      height: 15rem;
-    }
-
-    textarea {
-      resize: none;
-      border: solid black 1px;
-      outline: none;
-      border-radius: 0.2rem;
-    }
-
-    .nav-bar {
-      width: screen;
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-    }
-
-    .box {
-      width: fit-content;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      align-content: center;
-      gap: 4rem;
-    }
-
-    .profile-picture img {
-      width: 3rem;
-      height: 3rem;
-      object-fit: cover;
-      border-radius: 100%;
-    }
-
-    a {
-      text-decoration: none;
-      color: black;
-    }
-
-    .buscar-libro::placeholder {
-      font-size: 15px;
-      align-self: center;
-    }
-
-    .select-categorias {
-      background-color: red;
-      visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      z-index: 3000;
-      position: absolute;
-      top: 3rem;
-      width: 20rem;
-      left: 8rem;
-      height: fit-content;
-      font-size: large;
-    }
-  </style>
 
   <body>
     <nav class="nav-bar">
       <div class="box">
         <div>
-          <a href="/home"
-            ><img
-              style="width: 2.5rem; height: 2.5rem"
-              src="/assets/book-hub.png"
-              alt="img"
-          /></a>
+          <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
         </div>
 
-        <div
-          id="cat"
-          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
-        >
+        <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
           <p>Categorías</p>
-          <img
-            style="width: 18px; height: 18px"
-            src="/assets/icons/chevron-down.svg"
-            alt=""
-          />
+          <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
           <div class="select-categorias" id="categorias">
             <div class="row">
               <a href="">Terror</a>
@@ -165,12 +46,7 @@
             justify-content: center;
           "
         >
-          <input
-            class="buscar-libro"
-            style="border: none; outline: none"
-            type="text"
-            placeholder="Buscar libro..."
-          />
+          <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
           <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
         </form>
       </div>
@@ -189,97 +65,120 @@
         </div>
       </div>
     </nav>
-    <p style="border-bottom: 2px solid green; width: fit-content; font-size: 16px">
-      Detalles del libro
-    </p>
-
-    <form id="form-libro" action="/agregar" method="POST" enctype="multipart/form-data">
-      <div class="portada">
-        <div class="campo-imagen">
+    <div class="form-container">
+      <form id="form-libro" action="/agregar" method="POST" enctype="multipart/form-data">
+        <div id="campo-imagen" class="campo-imagen">
           <p>Agregar portada</p>
-          <input id="portada" name="portada" type="file" />
+          <div class="portada">
+            <label
+              for="portada"
+              class="label-file"
+              style="
+                border: none;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                font-size: 3rem;
+                color: white;
+                font-weight: 300;
+              "
+            >
+              <img class="imagen-portada" src="" alt="" />
+              <p class="plus" style="margin: 0; padding: 0 1rem 0 1rem; background-color: green">+</p>
+            </label>
+            <input
+              class="portada-input"
+              id="portada"
+              name="portada"
+              type="file"
+              accept="imagen/jpeg image/png image/jpg image/webp"
+            />
+          </div>
         </div>
-      </div>
 
-      <div
-        class="informacion-libro"
-        style="display: flex; flex-direction: column; gap: 2rem"
-      >
-        <div class="campo">
-          <p>Título</p>
-          <input name="titulo" type="text" />
-        </div>
+        <div class="informacion-libro" style="display: flex; flex-direction: column; gap: 2rem">
+          <p style="border-bottom: 2px solid green; padding: 0; margin: 0; width: fit-content; font-size: 16px">
+            Detalles del libro
+          </p>
 
-        <div class="campo">
-          <p>Sinopsis</p>
-          <textarea rows="8" name="sinopsis" id=""></textarea>
+          <div class="titulo-autor-sinopsis">
+            <div class="titulo-autor">
+              <div class="campo">
+                <p>Título</p>
+                <input name="titulo" type="text" />
+              </div>
+
+              <div class="campo">
+                <p>Autor</p>
+                <input name="autor" type="text" />
+              </div>
+            </div>
+            <div class="campo">
+              <p>Sinopsis</p>
+              <textarea rows="10" cols="48" name="sinopsis" id=""></textarea>
+            </div>
+          </div>
+
+          <div class="genero-paginas-capitulos">
+            <div class="campo">
+              <p>Genero</p>
+              <select name="categoria" id="">
+                <option value="terror">terror</option>
+                <option value="educativo">educativo</option>
+                <option value="accion">accion</option>
+                <option value="ciencia ficcion">ciencia ficcion</option>
+                <option value="romance">romance</option>
+                <option value="suspenso">suspenso</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="noPaginas">Número de páginas</label>
+              <input type="text" name="noPaginas" id="" />
+            </div>
+            <div class="campo">
+              <label for="capitulos">Número de capítulos</label>
+              <input type="text" name="capitulos" id="" />
+            </div>
+          </div>
+
+          <div class="fecha-input-etiquetas">
+            <div class="fecha-input">
+              <div class="campo">
+                <p>Fecha de publicación</p>
+                <input name="fechaPublicacion" type="date" />
+              </div>
+
+              <div class="campo">
+                <p>Inserta tu libro aquí</p>
+                <input class="input-libro" name="libro" type="file" />
+              </div>
+            </div>
+
+            <div class="campo">
+              <p>Etiquetas</p>
+              <!-- <input class="etiquetas" name="etiquetas" type="text" /> -->
+              <textarea rows="7" cols="48" class="etiquetas" name="etiquetas" id=""></textarea>
+            </div>
+          </div>
+          <button type="submit">Guardar</button>
         </div>
-        <div class="campo">
-          <p>Autor</p>
-          <input name="autor" type="text" />
-        </div>
-        <div class="campo">
-          <p>Genero</p>
-          <select name="categoria" id="">
-            <option value="terror">terror</option>
-            <option value="educativo">educativo</option>
-            <option value="accion">accion</option>
-            <option value="ciencia ficcion">ciencia ficcion</option>
-            <option value="romance">romance</option>
-            <option value="suspenso">suspenso</option>
-          </select>
-        </div>
-        <div class="campo">
-          <label for="noPaginas">Número de páginas</label>
-          <input type="text" name="noPaginas" id="" />
-        </div>
-        <div class="campo">
-          <label for="capitulos">Número de capítulos</label>
-          <input type="text" name="capitulos" id="" />
-        </div>
-        <div class="campo">
-          <p>Fecha de publicación</p>
-          <input name="fechaPublicacion" type="date" />
-        </div>
-        <div class="campo">
-          <p>Etiquetas</p>
-          <input name="etiquetas" type="text" />
-        </div>
-        <div class="campo">
-          <p>Libro</p>
-          <input name="libro" type="file" />
-        </div>
-        <button type="submit">Guardar</button>
-      </div>
-    </form>
+      </form>
+    </div>
   </body>
 
   <script>
-    // const form = document.getElementById("form-libro");
-
-    // // const fileInput = document.getElementById("portada");
-    // // const file = fileInput.files[0];
-
-    // form.addEventListener("submit", async (e) => {
-    //   console.log("evennto");
-    //   e.preventDefault();
-
-    //   const data = {
-    //     titulo: form.titulo.value,
-    //     autor: form.autor.value,
-    //     fechaPublicacion: form.fechaPublicacion.value,
-    //     noPaginas: form.noPaginas.value,
-    //     genero: form.genero.value,
-    //     sinopsis: form.sinopsis.value,
-    //     etiquetas: form.etiquetas.value.split(" ").map((etiqueta) => etiqueta.trim()),
-    //   };
-    //   const response = await fetch("/agregar", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
-    // });
+    const portada = document.querySelector(".portada-input");
+    portada.addEventListener("change", (event) => {
+      let img = portada.files[0];
+      let url = window.URL.createObjectURL(img);
+      const preview = document.querySelector(".imagen-portada");
+      preview.src = url;
+      preview.setAttribute("style", "display: block");
+      const add = document.querySelector(".plus");
+      add.setAttribute("style", "display: none;");
+      // document.getElementById("imagen-portada").style.display = block;
+    });
   </script>
 </html>
