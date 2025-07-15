@@ -41,9 +41,12 @@ const addBook = async (idLibro, idUser) => {
   return await user.save();
 };
 
-// const obtenerUser = async (id) =>{
-//   const book = await Book.findById(id).populate('subidoPor')
-//   return book;
-// }
-
-module.exports = { getUser, getUsers, insertBook, insertUser, getLibros, getLibro, addBook };
+const addFav = async (idLibro, idUser) =>{
+  const user = await User.findById(idUser);
+  if(!user) {
+    throw new Error('Cant find user');
+  }
+  user.librosFavoritos.push(idLibro);
+  return await user.save();
+}
+module.exports = { getUser, getUsers, insertBook, insertUser, getLibros, getLibro, addBook, addFav };

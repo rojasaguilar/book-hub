@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     librosSubidos: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'book'
+    },
+    librosFavoritos:{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'book'
     }
 
 });

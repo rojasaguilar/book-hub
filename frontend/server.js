@@ -15,6 +15,7 @@ const {
   getLibros,
   getLibro,
   addBook,
+  addFav,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -275,6 +276,7 @@ const server = http.createServer((req, res) => {
       perfilPage = perfilPage.replace("%nombreUsuario%", usuario.nombreUsuario);
       perfilPage = perfilPage.replace("%sobreMi%", usuario.sobreMi);
       perfilPage = perfilPage.replace("%librosSubidos%", usuario.librosSubidos.length);
+      perfilPage = perfilPage.replace("%favoritos%", usuario.librosFavoritos.length);
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
@@ -298,6 +300,37 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "content-type": "text/html" });
     res.end(agregar);
     return;
+  }
+  if (req.url.includes("favorito")) {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
+      return;
+    }
+    const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+    const titulo = reqUrl.searchParams.get("titulo");
+    getLibro(titulo).then(async (libro) => {
+      try {
+        addFav(libro._id, user._id);
+        console.log("Si se agregó");
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+        });
+        res.end(JSON.stringify({ successful: "Se pudo marcar fav" }));
+        return;
+      } catch (error) {
+        console.log(error);
+        res.writeHead(301, {
+          "Content-Type": "application/json",
+        });
+        res.end(JSON.stringify({ error: "No se pudo marcar fav" }));
+        return;
+      }
+    });
   }
 
   if (req.url === "/agregar" && req.method === "POST") {
@@ -366,7 +399,9 @@ const server = http.createServer((req, res) => {
 
       insertBook(data)
         .then((libro) => {
-          addBook(libro._id,user._id).then(() => console.log("yes")).catch(err => console.log(err))
+          addBook(libro._id, user._id)
+            .then(() => console.log("yes"))
+            .catch((err) => console.log(err));
           res.writeHead(200, { "Content-Type": "application/json" });
           res.end("book inserted successfully");
           return;
@@ -381,6 +416,15 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url.includes("/libro") && req.method === "GET") {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
+      return;
+    }
     const titulo = req.url
       .slice(req.url.indexOf("=") + 1)
       .replaceAll("%20", " ")

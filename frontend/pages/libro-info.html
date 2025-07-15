@@ -110,7 +110,7 @@
           <div class="cont-info">
             <div class="cont-titulo">
               <strong>%titulo%</strong>
-              <img src="/assets/icons/star.svg" alt="" />
+              <img class="fav" id="fav" src="/assets/icons/star.svg" alt="" />
             </div>
 
             <div class="info-libro">
@@ -226,6 +226,15 @@
       URL.revokeObjectURL(url);
     };
 
+    const favIcon = document.getElementById('fav');
+    favIcon.addEventListener('click', () =>{
+      const params = new URLSearchParams(window.location.search);
+      const titulo = params.get('titulo');
+      addFav(titulo).then(() =>{
+       favIcon.style.backgroundColor = red;
+      }).catch(err => console.log(err))
+    })
+
     const fetchLibro = async (titulo) => {
       const response = await fetch(`/leer?titulo=${encodeURIComponent(titulo)}`);
       if (!response.ok) {
@@ -236,5 +245,14 @@
 
       window.open(url, "_blank");
     };
+
+    const addFav = async (titulo) => {
+      const response = await fetch(`/favorito?titulo=${encodeURIComponent(titulo)}`);
+      if(!response.ok){
+        throw new Error("Error al marcar favorito");
+        return;
+      }
+      return true;
+    }
   </script>
 </html>
