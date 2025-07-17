@@ -19,7 +19,7 @@
           <div>
             <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
           </div>
-
+          <!-- CATEGORIAS
           <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
             <p>Categorías</p>
             <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
@@ -33,7 +33,7 @@
                 <a href="">Aventura</a>
               </div>
             </div>
-          </div>
+          </div> -->
           <form
             style="
               border: #616161 solid 1px;
@@ -72,34 +72,18 @@
   <script>
     let open = false;
 
-    const selector = document.getElementById("cat");
-    selector.addEventListener("click", (event) => {
-      const categorias = document.getElementById("categorias");
-      if (!open) {
-        categorias.style.visibility = "visible";
-        open = true;
-        return;
-      } else {
-        categorias.style.visibility = "hidden";
-        open = false;
-        return;
-      }
-    });
-
-    // const profilePicture = document.getElementById('profile-picture');
-    // profilePicture.addEventListener('click', () =>{
-    //  fetch('/profile', {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type":"application/json"
-    //   },
-    //   body: localStorage.getItem('user')
-    // })
-    // }).then(res => res.text())
-    // .then(html=>{
-    //   document.open();
-    //   document.write(html);
-    //   document.close()
-    // })
+    // const selector = document.getElementById("cat");
+    // selector.addEventListener("click", (event) => {
+    //   const categorias = document.getElementById("categorias");
+    //   if (!open) {
+    //     categorias.style.visibility = "visible";
+    //     open = true;
+    //     return;
+    //   } else {
+    //     categorias.style.visibility = "hidden";
+    //     open = false;
+    //     return;
+    //   }
+    // });
   </script>
 </html>

@@ -20,6 +20,7 @@
             <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
           </div>
 
+          <!-- CATEGORIAS
           <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
             <p>Categorías</p>
             <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
@@ -33,7 +34,7 @@
                 <a href="">Aventura</a>
               </div>
             </div>
-          </div>
+          </div> -->
           <form
             style="
               border: #616161 solid 1px;
@@ -133,19 +134,35 @@
   <script>
     let open = false;
 
-    const selector = document.getElementById("cat");
-    selector.addEventListener("click", (event) => {
-      const categorias = document.getElementById("categorias");
-      if (!open) {
-        categorias.style.visibility = "visible";
-        open = true;
-        return;
-      } else {
-        categorias.style.visibility = "hidden";
-        open = false;
-        return;
+    // const selector = document.getElementById("cat");
+    // selector.addEventListener("click", (event) => {
+    //   const categorias = document.getElementById("categorias");
+    //   if (!open) {
+    //     categorias.style.visibility = "visible";
+    //     open = true;
+    //     return;
+    //   } else {
+    //     categorias.style.visibility = "hidden";
+    //     open = false;
+    //     return;
+    //   }
+    // });
+
+    (async () => {
+      const favIcon = document.getElementById("fav");
+      const params = new URLSearchParams(window.location.search);
+      const titulo = params.get("titulo");
+
+      try {
+        const response = await fetch(`/isFav?titulo=${encodeURIComponent(titulo)}`);
+        if (!response.ok) throw new Error("No se pudo obtener");
+
+        const data = await response.json();
+        favIcon.src = data.favorito ? "/assets/icons/blackStar.svg" : "/assets/icons/star.svg";
+      } catch (err) {
+        console.error(err);
       }
-    });
+    })();
 
     const btn_download = document.getElementById("download");
     btn_download.addEventListener("click", () => {
@@ -199,7 +216,7 @@
       if (response.favorito === true) {
         favIcon.src = "/assets/icons/blackStar.svg";
         return;
-      }else{
+      } else {
         favIcon.src = "/assets/icons/star.svg";
       }
     });
@@ -219,6 +236,32 @@
       const response = await fetch(`/favorito?titulo=${encodeURIComponent(titulo)}`);
       if (!response.ok) {
         throw new Error("Error al marcar favorito");
+      }
+      return response.json();
+    };
+
+    // window.addEventListener("DOMContentLoaded", async () => {
+    //   const params = new URLSearchParams(window.location.search);
+    //   const titulo = params.get("titulo");
+
+    //  try {
+    //    const response = await fetchIsFav(titulo.trim());
+
+    //   if (response.favorito === true) {
+    //     favIcon.src = "/assets/icons/blackStar.svg";
+    //     return;
+    //   } else {
+    //     favIcon.src = "/assets/icons/star.svg";
+    //   }
+    //  } catch (error) {
+    //   console.log(error)
+    //  }
+    // });
+
+    const fetchIsFav = async (titulo) => {
+      const response = await fetch(`/isFav?titulo=${encodeURIComponent(titulo)}`);
+      if (!response.ok) {
+        throw new Error("No se pudo obtener");
       }
       return response.json();
     };

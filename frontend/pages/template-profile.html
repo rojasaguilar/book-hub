@@ -94,25 +94,74 @@
     }
 
     .sobre-mi {
-      padding: 0 34rem;
+      /* padding: 0 34rem; */
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       gap: 1rem;
+      width: fit-content;
+    }
+    .contenedor-sobre-mi {
+      padding: 1rem 0rem;
+      display: flex;
+      /* flex-direction: column; */
+      justify-content: center;
+      align-items: center;
+      /* gap: 1rem; */
+      width: 100%;
+      /* background-color: red; */
+    }
+
+    .se-unio {
+      /* background-color: blue; */
+      width: 100%;
+    }
+
+    .sobre-mi textarea {
+      border: none;
+      resize: none;
+      background-color: white;
+    }
+    .editar {
+      display: flex;
+      flex-direction: row;
+      gap: 0.3rem;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .editar img {
+      height: 1.2rem;
+    }
+
+    .fecha-confirmar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
+    .fecha-confirmar button {
+      color: white;
+      border: none;
+      background-color: #21ba64;
+      padding: 0.5rem 2rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      display: none;
     }
   </style>
   <body>
     <nav class="nav-bar">
       <div class="box">
         <div>
-          <a href="/home"
-            ><img
-              style="width: 2.5rem; height: 2.5rem"
-              src="/assets/book-hub.png"
-              alt="img"
-          /></a>
+          <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
         </div>
 
-        <div
+        <!--
+        CATEGORIAS  <div
           id="cat"
           style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
         >
@@ -132,7 +181,7 @@
               <a href="">Aventura</a>
             </div>
           </div>
-        </div>
+        </div> -->
         <form
           style="
             border: #616161 solid 1px;
@@ -144,12 +193,7 @@
             justify-content: center;
           "
         >
-          <input
-            class="buscar-libro"
-            style="border: none; outline: none"
-            type="text"
-            placeholder="Buscar libro..."
-          />
+          <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
           <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
         </form>
       </div>
@@ -168,46 +212,21 @@
         </div>
       </div>
     </nav>
-    <div
-      style="
-        width: 100%;
-        background-color: cyan;
-        height: fit-content;
-        display: flex;
-        justify-content: center;
-      "
-    >
+    <div style="width: 100%; background-color: cyan; height: fit-content; display: flex; justify-content: center">
       <div class="profile-info">
-        <div
-          style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center"
-        >
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
           <img src="../assets/cat.jpg" alt="" />
           <p style="font-weight: 600; font-size: x-large">%correo%</p>
-          <p style="height: fit-content">%nombreUsuario%</p>
+          <p style="height: fit-content">@%nombreUsuario%</p>
         </div>
 
         <div class="profile-stats">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 0.5rem;
-              align-items: center;
-              width: fit-content;
-            "
-          >
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center; width: fit-content">
             <p>%librosSubidos%</p>
             <p>Libros subidos</p>
           </div>
 
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 0.5rem;
-              align-items: center;
-            "
-          >
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
             <p>%favoritos%</p>
             <p>Favoritos</p>
           </div>
@@ -215,28 +234,72 @@
       </div>
     </div>
 
-    <div class="sobre-mi">
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          background-color: red;
-          justify-content: space-between;
-        "
-      >
-        <p style="font-weight: 600; font-size: large">Sobre mi</p>
-        <p>Editar perfil</p>
-      </div>
+    <div class="contenedor-sobre-mi">
+      <div class="sobre-mi">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+          <p style="font-weight: 600; font-size: large">Sobre mi</p>
+          <div class="editar" id="editar">
+            <img src="/assets/icons/settings.svg" alt="" />
+            <p>Editar perfil</p>
+          </div>
+        </div>
 
-      <div style="max-height: 10rem; overflow: hidden">
-        <p style="font-weight: 100; max-width: 23rem;">
-          %sobreMi%
-        </p>
-      </div>
+        <div style="width: fit-content; height: fit-content">
+          <textarea disabled name="" id="" rows="12" cols="70">%sobremi%</textarea>
+        </div>
 
-      <div>
-        <p><strong>Se unió</strong> hace 18 horas</p>
+        <div class="fecha-confirmar">
+          <p class="se-unio"><strong>Se unió: </strong>%fecha%</p>
+          <button class="confirmar">Confirmar</button>
+        </div>
       </div>
     </div>
   </body>
+
+  <script>
+    let state = 0;
+    const btn = document.querySelector(".confirmar");
+    const editar = document.getElementById("editar");
+    const textArea = document.querySelector("textarea");
+    editar.addEventListener("click", () => {
+      if (state === 0) {
+        const textArea = document.querySelector("textarea");
+        const btn = document.querySelector(".confirmar");
+        textArea.disabled = false;
+        textArea.focus();
+        btn.style.display = "inline";
+        state = 1;
+      } else if (state === 1) {
+        textArea.disabled = true;
+        btn.style.display = "none";
+        state = 0;
+      }
+    });
+
+    btn.addEventListener("click", async () => {
+      const texto = textArea.value;
+      const response = await sendUpdate(texto);
+      if (response) {
+        textArea.disabled = true;
+        btn.style.display = "none";
+        state = 0;
+      }
+    });
+
+    const sendUpdate = async (text) => {
+      const response = await fetch("/editar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sobreMi: text }),
+      });
+      if (!response.ok) {
+        alert("errro");
+        return;
+      }
+      alert("Datos actualizados correctamente");
+      return true;
+    };
+  </script>
 </html>

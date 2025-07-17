@@ -81,6 +81,13 @@ const isFav = async (idLibro, idUser) => {
   }
   return user.librosFavoritos.some((libro) => libro.toString() === idLibro.toString());
 };
+
+const editProfile = async (idUser,data) => {
+  const user = await User.findById(idUser);
+  if(!user) throw new Error("cant find user");
+  user.set({sobreMi: data.sobreMi});
+  return await user.save();
+}
 module.exports = {
   getUser,
   getUsers,
@@ -93,4 +100,5 @@ module.exports = {
   removeFav,
   toggleFav,
   isFav,
+  editProfile
 };

@@ -17,6 +17,8 @@ const {
   addBook,
   addFav,
   toggleFav,
+  isFav,
+  editProfile,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -92,7 +94,6 @@ const server = http.createServer((req, res) => {
 
     req.on("end", () => {
       let data = JSON.parse(body);
-      console.log("data", data);
       getUser(data.nombreUsuario)
         .then((user) => {
           if (user.password === data.password) {
@@ -243,11 +244,11 @@ const server = http.createServer((req, res) => {
       .catch((err) => console.error(err));
   }
 
-  if (req.url === "/perfil") {
-    const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`, "utf-8");
-    res.writeHead(200, { "content-type": "text/html" });
-    res.end(index.replace('<div id="main-page"></div>', perfil));
-  }
+  // if (req.url === "/perfil") {
+  //   const perfil = fs.readFileSync(`${__dirname}/pages/template-profile.html`, "utf-8");
+  //   res.writeHead(200, { "content-type": "text/html" });
+  //   res.end(index.replace('<div id="main-page"></div>', perfil));
+  // }
 
   if (req.url === "/profile") {
     const cookie = getCookies(req);
@@ -264,9 +265,16 @@ const server = http.createServer((req, res) => {
     getUser(user.nombreUsuario).then((usuario) => {
       perfilPage = perfilPage.replace("%correo%", usuario.email);
       perfilPage = perfilPage.replace("%nombreUsuario%", usuario.nombreUsuario);
-      perfilPage = perfilPage.replace("%sobreMi%", usuario.sobreMi);
+      perfilPage = perfilPage.replace("%sobremi%", usuario.sobreMi);
       perfilPage = perfilPage.replace("%librosSubidos%", usuario.librosSubidos.length);
       perfilPage = perfilPage.replace("%favoritos%", usuario.librosFavoritos.length);
+      let dia = usuario.fechaRegistro.getDate();
+      const mes = months[usuario.fechaRegistro.getMonth()];
+      parseInt(dia) < 10 ? `0${dia}` : dia;
+      const anio = usuario.fechaRegistro.getFullYear();
+
+      perfilPage = perfilPage.replace("%fecha%", `el ${dia} de ${mes} del ${anio}`);
+
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
@@ -403,11 +411,6 @@ const server = http.createServer((req, res) => {
       pagina = pagina.replace("%sinopsis%", libro.sinopsis);
       pagina = pagina.replace("%portada%", libro.portada);
       pagina = pagina.replace("%nombre%", libro.subidoPor.nombreUsuario);
-      const favorito = user.librosFavoritos.some((lib) => lib.toString() === libro._id.toString());
-      console.log(favorito);
-      favorito
-        ? (pagina = pagina.replace("%icono%", `/assets/icons/blackStar.svg`))
-        : (pagina = pagina.replace("%icono%", `/assets/icons/star.svg`));
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
@@ -415,8 +418,8 @@ const server = http.createServer((req, res) => {
       return;
     });
   }
-//PARA VERIFICAR SI ESTA EN FAVORITO. PRUEBA
-  if (req.url.inclides("/isFav")) {
+  //PARA VERIFICAR SI ESTA EN FAVORITO. PRUEBA
+  if (req.url.includes("/isFav")) {
     const cookie = getCookies(req);
     const user = sessiones.get(cookie.sessionID);
     if (!user) {
@@ -430,23 +433,23 @@ const server = http.createServer((req, res) => {
     const reqUrl = new URL(req.url, `http://${req.headers.host}`);
     const titulo = reqUrl.searchParams.get("titulo");
     getLibro(titulo).then(async (libro) => {
-      const response = await isFav(libro._id);
+      const response = await isFav(libro._id, user._id);
       if (response) {
         res.writeHead(200, {
           "Content-Type": "application/json",
         });
-        res.end(JSON.stringify({ favorite: true }));
+        res.end(JSON.stringify({ favorito: true }));
         return;
       }
       res.writeHead(200, {
         "Content-Type": "application/json",
       });
-      res.end(JSON.stringify({ favorite: false }));
+      res.end(JSON.stringify({ favorito: false }));
       return;
     });
   }
+
   if (req.url.includes("/favorito") && req.method === "GET") {
-    console.log("Entro favorito");
     const cookie = getCookies(req);
     const user = sessiones.get(cookie.sessionID);
     if (!user) {
@@ -458,26 +461,7 @@ const server = http.createServer((req, res) => {
     }
     const reqUrl = new URL(req.url, `http://${req.headers.host}`);
     const titulo = reqUrl.searchParams.get("titulo");
-    console.log(titulo);
     getLibro(titulo).then(async (libro) => {
-      console.log(libro);
-      // addFav(libro._id, user._id)
-      //   .then(() => {
-      //     console.log("Si se agregó");
-      //     res.writeHead(200, {
-      //       "Content-Type": "application/json",
-      //     });
-      //     res.end(JSON.stringify({ successful: "Se pudo marcar fav" }));
-      //     return;
-      //   })
-      //   .catch((err) => {
-      //     console.log("no se pudo");
-      //     res.writeHead(301, {
-      //       "Content-Type": "application/json",
-      //     });
-      //     res.end(JSON.stringify({ err: `No se pudo marcar fav ${err}` }));
-      //     return;
-      //   });
       toggleFav(libro._id, user._id).then((response) => {
         if (response) {
           res.writeHead(200, {
@@ -495,6 +479,45 @@ const server = http.createServer((req, res) => {
       });
     });
   }
+
+  if (req.url.includes("/editar") && req.method === "POST") {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${$__dirname}/pages/landingPage.html`, "utf-8"));
+      return;
+    }
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+
+    req.on("end", async () => {
+      body = JSON.parse(body);
+      editProfile(user._id, body)
+        .then(() => {
+          res.writeHead(200, {
+            "Content-Type": "application/json",
+          });
+          res.end(JSON.stringify({ updated: true }));
+          return;
+        })
+        .catch((err) => {
+          console.log(err)
+          res.writeHead(500, {
+            "Content-Type": "application/json",
+          });
+          res.end(JSON.stringify({ updated: false }));
+          return;
+        });
+    });
+
+    //PETICION PARA EDTIAR USUARIO
+  }
 });
 
 function getCookies(req) {
@@ -506,6 +529,54 @@ function getCookies(req) {
 
   return cookies;
 }
+
+// function dateDiffDays(a,b){
+//   const ms_per_day = 1000 * 60 * 60 * 24;
+//   let dif = Math.floor((a-b)/ms_per_day);
+//   return haceCuanto(dif);
+// }
+
+// function haceCuanto(dif){
+//   const month = new Date().getMonth();
+//   let daysOfMonth = months[month];
+//   if(dif < daysOfMonth)return `hace ${dif} días`;
+//   if(dif === daysOfMonth)return `hace 1 mes`;
+//   while(dif<daysOfMonth){
+//     dif = daysOfMonth - dif;
+
+//   }
+
+// }
+
+const DayOfMonths = {
+  0: 31,
+  1: new Date().getFullYear() % 4 ? 29 : 28,
+  2: 31,
+  3: 30,
+  4: 31,
+  5: 30,
+  6: 31,
+  7: 31,
+  8: 31,
+  9: 30,
+  10: 31,
+  11: 31,
+};
+
+const months = {
+  0: "enero",
+  1: "febrero",
+  2: "marzo",
+  3: "abril",
+  4: "mayo",
+  5: "junio",
+  6: "julio",
+  7: "agosto",
+  8: "septiembre",
+  9: "octubre",
+  10: "noviembre",
+  11: "diciembre",
+};
 
 mongoose.connection.once("open", () => {
   console.log("connected to mongodb");
