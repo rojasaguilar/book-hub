@@ -17,29 +17,12 @@
       <nav class="nav-bar">
         <div class="box">
           <div>
-            <a href="/home"
-              ><img
-                style="width: 2.5rem; height: 2.5rem"
-                src="/assets/book-hub.png"
-                alt="img"
-            /></a>
+            <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
           </div>
 
-          <div
-            id="cat"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-            "
-          >
+          <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
             <p>Categorías</p>
-            <img
-              style="width: 18px; height: 18px"
-              src="/assets/icons/chevron-down.svg"
-              alt=""
-            />
+            <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
             <div class="select-categorias" id="categorias">
               <div class="row">
                 <a href="">Terror</a>
@@ -62,42 +45,22 @@
               justify-content: center;
             "
           >
-            <input
-              class="buscar-libro"
-              style="border: none; outline: none"
-              type="text"
-              placeholder="Buscar libro..."
-            />
-            <img
-              style="width: 16px; height: 16px"
-              src="/assets/icons/search.svg"
-              alt=""
-            />
+            <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
+            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
           </form>
         </div>
 
         <div class="box">
           <a
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-            "
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
             href="/agregar"
             style="color: black"
             >Subir libro
-            <img
-              style="width: 18px; height: 18px"
-              src="/assets/icons/upload.svg"
-              alt=""
-            />
+            <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
           </a>
 
           <div class="profile-picture">
-            <a href="/profile"
-              ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
-            /></a>
+            <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
           </div>
         </div>
       </nav>
@@ -110,7 +73,7 @@
           <div class="cont-info">
             <div class="cont-titulo">
               <strong>%titulo%</strong>
-              <img class="fav" id="fav" src="/assets/icons/star.svg" alt="" />
+              <img class="fav" id="fav" src="%icono%" alt="" />
             </div>
 
             <div class="info-libro">
@@ -139,11 +102,11 @@
 
             <div class="acciones">
               <div id="leer" class="leer">
-                <img src="/assets/icons/book-open.svg" alt="" />
+                <img class="icon" src="/assets/icons/book-open.svg" alt="" />
                 <p>Comenzar a Leer</p>
               </div>
               <div id="download" class="download">
-                <img src="/assets/icons/download.svg" alt="" />
+                <img class="icon" src="/assets/icons/download.svg" alt="" />
               </div>
             </div>
           </div>
@@ -187,17 +150,17 @@
     const btn_download = document.getElementById("download");
     btn_download.addEventListener("click", () => {
       const params = new URLSearchParams(window.location.search);
-      const title = params.get('titulo');
-      fetchPDF(title).
-      then(() => {
-        console.log('encontrado')
-        return
-      })
-      .catch(err => {
-        console.log(err)
-       alert("No se pudo descargar")
-       return
-      })
+      const title = params.get("titulo");
+      fetchPDF(title)
+        .then(() => {
+          console.log("encontrado");
+          return;
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("No se pudo descargar");
+          return;
+        });
     });
 
     const btn_leer = document.getElementById("leer");
@@ -212,9 +175,9 @@
     });
 
     const fetchPDF = async (titulo) => {
-     const response = await fetch(`/descargar?titulo=${encodeURIComponent(titulo)}`)
+      const response = await fetch(`/descargar?titulo=${encodeURIComponent(titulo)}`);
 
-      if(!response.ok)throw new Error(700,"No se encontró el archivo")
+      if (!response.ok) throw new Error(700, "No se encontró el archivo");
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -226,14 +189,20 @@
       URL.revokeObjectURL(url);
     };
 
-    const favIcon = document.getElementById('fav');
-    favIcon.addEventListener('click', () =>{
+    const favIcon = document.getElementById("fav");
+    favIcon.addEventListener("click", async () => {
       const params = new URLSearchParams(window.location.search);
-      const titulo = params.get('titulo');
-      addFav(titulo).then(() =>{
-       favIcon.style.backgroundColor = red;
-      }).catch(err => console.log(err))
-    })
+      const titulo = params.get("titulo");
+
+      const response = await addFav(titulo.trim());
+
+      if (response.favorito === true) {
+        favIcon.src = "/assets/icons/blackStar.svg";
+        return;
+      }else{
+        favIcon.src = "/assets/icons/star.svg";
+      }
+    });
 
     const fetchLibro = async (titulo) => {
       const response = await fetch(`/leer?titulo=${encodeURIComponent(titulo)}`);
@@ -248,11 +217,10 @@
 
     const addFav = async (titulo) => {
       const response = await fetch(`/favorito?titulo=${encodeURIComponent(titulo)}`);
-      if(!response.ok){
+      if (!response.ok) {
         throw new Error("Error al marcar favorito");
-        return;
       }
-      return true;
-    }
+      return response.json();
+    };
   </script>
 </html>

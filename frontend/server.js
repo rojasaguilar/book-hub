@@ -16,6 +16,7 @@ const {
   getLibro,
   addBook,
   addFav,
+  toggleFav,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -51,13 +52,6 @@ const server = http.createServer((req, res) => {
       res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
       return;
     }
-    // console.log(user, "hello");
-    // obtenerUser(user._id).then(usuario => {
-    //   console.log("usuario es",usuario)
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
     getLibros().then((libros) => {
       let page = fs.readFileSync(`index.html`, "utf-8");
       const tarjetas = libros
@@ -133,6 +127,7 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url.includes(`/leer`)) {
+    // console.log("entre")
     const reqUrl = new URL(req.url, `http://${req.headers.host}`);
     const titulo = reqUrl.searchParams.get("titulo");
     getLibro(titulo)
@@ -236,12 +231,7 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/find") {
-    getUsers()
-      .then((usuarios) => {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(usuarios));
-      })
-      .catch((err) => res.end(`${err}`));
+    addFav("6876b36c1995b8c47120fef9", "6876b9fa82943df813e1f3ec").then(() => console.log("si"));
   }
 
   if (req.url === "/libros") {
@@ -300,37 +290,6 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "content-type": "text/html" });
     res.end(agregar);
     return;
-  }
-  if (req.url.includes("favorito")) {
-    const cookie = getCookies(req);
-    const user = sessiones.get(cookie.sessionID);
-    if (!user) {
-      res.writeHead(401, {
-        "Content-Type": "text/html",
-      });
-      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
-      return;
-    }
-    const reqUrl = new URL(req.url, `http://${req.headers.host}`);
-    const titulo = reqUrl.searchParams.get("titulo");
-    getLibro(titulo).then(async (libro) => {
-      try {
-        addFav(libro._id, user._id);
-        console.log("Si se agregó");
-        res.writeHead(200, {
-          "Content-Type": "application/json",
-        });
-        res.end(JSON.stringify({ successful: "Se pudo marcar fav" }));
-        return;
-      } catch (error) {
-        console.log(error);
-        res.writeHead(301, {
-          "Content-Type": "application/json",
-        });
-        res.end(JSON.stringify({ error: "No se pudo marcar fav" }));
-        return;
-      }
-    });
   }
 
   if (req.url === "/agregar" && req.method === "POST") {
@@ -444,11 +403,96 @@ const server = http.createServer((req, res) => {
       pagina = pagina.replace("%sinopsis%", libro.sinopsis);
       pagina = pagina.replace("%portada%", libro.portada);
       pagina = pagina.replace("%nombre%", libro.subidoPor.nombreUsuario);
+      const favorito = user.librosFavoritos.some((lib) => lib.toString() === libro._id.toString());
+      console.log(favorito);
+      favorito
+        ? (pagina = pagina.replace("%icono%", `/assets/icons/blackStar.svg`))
+        : (pagina = pagina.replace("%icono%", `/assets/icons/star.svg`));
       res.writeHead(200, {
         "Content-Type": "text/html",
       });
       res.end(pagina);
       return;
+    });
+  }
+//PARA VERIFICAR SI ESTA EN FAVORITO. PRUEBA
+  if (req.url.inclides("/isFav")) {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "application/json",
+      });
+      res.end(JSON.stringify({ error: "Not signed in" }));
+      return;
+    }
+
+    const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+    const titulo = reqUrl.searchParams.get("titulo");
+    getLibro(titulo).then(async (libro) => {
+      const response = await isFav(libro._id);
+      if (response) {
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+        });
+        res.end(JSON.stringify({ favorite: true }));
+        return;
+      }
+      res.writeHead(200, {
+        "Content-Type": "application/json",
+      });
+      res.end(JSON.stringify({ favorite: false }));
+      return;
+    });
+  }
+  if (req.url.includes("/favorito") && req.method === "GET") {
+    console.log("Entro favorito");
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`));
+      return;
+    }
+    const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+    const titulo = reqUrl.searchParams.get("titulo");
+    console.log(titulo);
+    getLibro(titulo).then(async (libro) => {
+      console.log(libro);
+      // addFav(libro._id, user._id)
+      //   .then(() => {
+      //     console.log("Si se agregó");
+      //     res.writeHead(200, {
+      //       "Content-Type": "application/json",
+      //     });
+      //     res.end(JSON.stringify({ successful: "Se pudo marcar fav" }));
+      //     return;
+      //   })
+      //   .catch((err) => {
+      //     console.log("no se pudo");
+      //     res.writeHead(301, {
+      //       "Content-Type": "application/json",
+      //     });
+      //     res.end(JSON.stringify({ err: `No se pudo marcar fav ${err}` }));
+      //     return;
+      //   });
+      toggleFav(libro._id, user._id).then((response) => {
+        if (response) {
+          res.writeHead(200, {
+            "Content-Type": "application/json",
+          });
+          res.end(JSON.stringify(response));
+          return;
+        } else {
+          res.writeHead(500, {
+            "Content-Type": "application/json",
+          });
+          res.end(JSON.stringify({ error: "No se pudo toggle" }));
+          return;
+        }
+      });
     });
   }
 });
