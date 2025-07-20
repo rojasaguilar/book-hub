@@ -11,20 +11,32 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles/template-subir.css">
+    <link rel="stylesheet" href="/styles/template-subir.css" />
   </head>
 
   <body>
     <nav class="nav-bar">
       <div class="box">
         <div>
-          <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
+          <a href="/home"
+            ><img
+              style="width: 2.5rem; height: 2.5rem"
+              src="/assets/book-hub.png"
+              alt="img"
+          /></a>
         </div>
 
-        <!-- CATEGORIAS
-        <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
+        <!--
+        CATEGORIAS  <div
+          id="cat"
+          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+        >
           <p>Categorías</p>
-          <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
+          <img
+            style="width: 18px; height: 18px"
+            src="/assets/icons/chevron-down.svg"
+            alt=""
+          />
           <div class="select-categorias" id="categorias">
             <div class="row">
               <a href="">Terror</a>
@@ -36,7 +48,7 @@
             </div>
           </div>
         </div> -->
-        <form
+        <div
           style="
             border: #616161 solid 1px;
             color: #616161;
@@ -47,13 +59,19 @@
             justify-content: center;
           "
         >
-          <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
+          <input
+            class="buscar-libro"
+            style="border: none; outline: none"
+            type="text"
+            placeholder="Buscar libro..."
+          />
           <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
-        </form>
+        </div>
       </div>
 
       <div class="box">
         <a
+          class="subir-btn"
           style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
           href="/agregar"
           style="color: black"
@@ -71,23 +89,14 @@
         <div id="campo-imagen" class="campo-imagen">
           <p>Agregar portada</p>
           <div class="portada">
-            <label
-              for="portada"
-              class="label-file"
-              style="
-                border: none;
-                background-color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                font-size: 3rem;
-                color: white;
-                font-weight: 300;
-              "
-            >
+            <label for="portada" class="label-file">
               <img class="imagen-portada" src="" alt="" />
-              <p class="plus" style="margin: 0; padding: 0 1rem 0 1rem; background-color: green">+</p>
+              <p
+                class="plus"
+                style="margin: 0; padding: 0 1rem 0 1rem; background-color: #147c58"
+              >
+                +
+              </p>
             </label>
             <input
               class="portada-input"
@@ -99,8 +108,19 @@
           </div>
         </div>
 
-        <div class="informacion-libro" style="display: flex; flex-direction: column; gap: 2rem">
-          <p style="border-bottom: 2px solid green; padding: 0; margin: 0; width: fit-content; font-size: 16px">
+        <div
+          class="informacion-libro"
+          style="display: flex; flex-direction: column; gap: 2rem"
+        >
+          <p
+            style="
+              border-bottom: 2px solid #147c58;
+              padding: 0;
+              margin: 0;
+              width: fit-content;
+              font-size: 16px;
+            "
+          >
             Detalles del libro
           </p>
 
@@ -160,7 +180,13 @@
             <div class="campo">
               <p>Etiquetas</p>
               <!-- <input class="etiquetas" name="etiquetas" type="text" /> -->
-              <textarea rows="7" cols="48" class="etiquetas" name="etiquetas" id=""></textarea>
+              <textarea
+                rows="7"
+                cols="48"
+                class="etiquetas"
+                name="etiquetas"
+                id=""
+              ></textarea>
             </div>
           </div>
           <button type="submit">Guardar</button>

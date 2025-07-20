@@ -533,10 +533,8 @@ const server = http.createServer((req, res) => {
     req.on("end", async () => {
       console.log(body)
       const filtro = body;
-      console.log(filtro)
       filtrarLibrosPorNombre(filtro)
         .then((libros) => {
-          console.log(libros)
           if (libros) {
             res.writeHead(200, {
               "Content-Type": "text/html",
@@ -556,8 +554,8 @@ const server = http.createServer((req, res) => {
             `
               )
               .join("");
-            page = page.replace("%libros%", tarjetas);
-            res.end(page);
+            // page = page.replace("%libros%", tarjetas);
+            res.end(tarjetas);
             return;
           }
         })

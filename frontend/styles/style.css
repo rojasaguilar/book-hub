@@ -36,6 +36,20 @@ a {
   align-self: center;
 }
 
+.buscar-libro-cont:focus-within {
+  border: 3px solid #147c58;
+}
+
+.buscar-libro-cont {
+  border: #616161 solid 1px;
+  color: #616161;
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .select-categorias {
   background-color: red;
   visibility: hidden;
@@ -54,6 +68,20 @@ body {
   font-family: "Roboto";
 }
 
+.subir-btn {
+  background-color: #147c58;
+  color: white;
+  /* font-weight: 700; */
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.subir-btn img {
+  filter: invert(100%);
+  height: 18px;
+  width: 18px;
+}
+
 /* GRID */
 .parent {
   display: grid;
@@ -64,11 +92,10 @@ body {
   justify-content: center;
 }
 
-.cont-libro{
+.cont-libro {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .libro {
   display: flex;
@@ -84,4 +111,3 @@ body {
   object-fit: cover;
   border-radius: 1rem;
 }
-

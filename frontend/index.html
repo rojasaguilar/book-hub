@@ -17,7 +17,12 @@
       <nav class="nav-bar">
         <div class="box">
           <div>
-            <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
+            <a href="/home"
+              ><img
+                style="width: 2.5rem; height: 2.5rem"
+                src="/assets/book-hub.png"
+                alt="img"
+            /></a>
           </div>
           <!-- CATEGORIAS
           <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
@@ -35,15 +40,7 @@
             </div>
           </div> -->
           <div
-            style="
-              border: #616161 solid 1px;
-              color: #616161;
-              padding: 0.3rem;
-              border-radius: 0.6rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
+          class="buscar-libro-cont"
           >
             <input
               id="buscar-libro"
@@ -53,20 +50,37 @@
               type="text"
               placeholder="Buscar libro..."
             />
-            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
+            <img
+              style="width: 16px; height: 16px"
+              src="/assets/icons/search.svg"
+              alt=""
+            />
           </div>
         </div>
 
         <div class="box">
           <a
-            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+          class="subir-btn"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 0.5rem;
+            "
             href="/agregar"
             style="color: black"
-            >Subir libro <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
+            >Subir libro
+            <img
+              style="width: 18px; height: 18px"
+              src="/assets/icons/upload.svg"
+              alt=""
+            />
           </a>
 
           <div class="profile-picture">
-            <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
+            <a href="/profile"
+              ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
+            /></a>
           </div>
         </div>
       </nav>
@@ -94,28 +108,35 @@
     // });
     let timeout;
     const barraBusqueda = document.getElementById("buscar-libro");
+    let parent = document.getElementById("parent").innerHTML;
     barraBusqueda.addEventListener("input", async (event) => {
+      if (!barraBusqueda.value) {
+        document.getElementById("parent").innerHTML = parent;
+      }
       clearTimeout(timeout);
       timeout = setTimeout(async () => {
-        if (!barraBusqueda.value) return;
+        if (!barraBusqueda.value) {
+          document.getElementById("parent").innerHTML = parent;
+        }
         console.log(barraBusqueda.value);
-        const response = await buscarLibroPorTitulo(barraBusqueda.value);
-        const html = response.text()
-        document.body.innerHTML = html
-      }, 1000);
+        const html = await buscarLibroPorTitulo(barraBusqueda.value);
+        document.getElementById("parent").innerHTML = html;
+      }, 500);
     });
 
     const buscarLibroPorTitulo = async (titulo) => {
       const response = await fetch(`/filtrar`, {
         method: "POST",
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: titulo,
       });
       if (!response.ok) {
         alert("No se pudo encontrar libros");
         return;
       }
-      return;
+      return response.text();
     };
   </script>
 </html>

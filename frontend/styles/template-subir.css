@@ -1,5 +1,7 @@
 body {
   font-family: "Roboto";
+  padding: 0;
+  margin: 0;
 }
 form {
   display: flex;
@@ -25,6 +27,19 @@ form {
 .campo input {
   width: 3rem;
 }
+.subir-btn {
+  background-color: #147c58;
+  color: white;
+  /* font-weight: 700; */
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.subir-btn img {
+  filter: invert(100%);
+  height: 18px;
+  width: 18px;
+}
 
 .informacion-libro input {
   border-radius: 0.2rem;
@@ -48,11 +63,27 @@ button {
 }
 
 .portada {
-  border: green dashed 0.2rem;
+  border: #147c58 dashed 0.2rem;
   display: flex;
   height: fit-content;
   align-items: center;
   padding: 2rem;
+}
+
+.portadat:within {
+  border: 3px solid #147c58;
+}
+
+.label-file {
+  border: none;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 3rem;
+  color: white;
+  font-weight: 300;
 }
 
 .portada input {
@@ -162,7 +193,7 @@ a {
 button {
   border: none;
   color: white;
-  background-color: green;
+  background-color: #147c58;
   padding: 0.6rem 4rem;
   font-size: 18px;
   font-weight: 700;

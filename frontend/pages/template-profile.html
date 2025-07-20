@@ -152,6 +152,20 @@
       font-weight: 700;
       display: none;
     }
+
+    .subir-btn{
+  background-color: #147c58;
+  color: white;
+  /* font-weight: 700; */
+  padding: .5rem 2rem;
+  border-radius: 2rem;
+}
+
+.subir-btn img{
+filter: invert(100%);
+height: 18px;
+width: 18px;
+}
   </style>
   <body>
     <nav class="nav-bar">
@@ -182,7 +196,7 @@
             </div>
           </div>
         </div> -->
-        <form
+        <div
           style="
             border: #616161 solid 1px;
             color: #616161;
@@ -195,11 +209,12 @@
         >
           <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
           <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
-        </form>
+        </div>
       </div>
 
       <div class="box">
         <a
+        class="subir-btn"
           style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
           href="/agregar"
           style="color: black"

@@ -111,6 +111,20 @@ p {
   padding: 0;
 }
 
+.subir-btn{
+  background-color: #147c58;
+  color: white;
+  /* font-weight: 700; */
+  padding: .5rem 2rem;
+  border-radius: 2rem;
+}
+
+.subir-btn img{
+filter: invert(100%);
+height: 18px;
+width: 18px;
+}
+
 .element img {
   height: 16px;
   object-fit: contain;
