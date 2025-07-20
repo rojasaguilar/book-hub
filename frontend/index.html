@@ -34,7 +34,7 @@
               </div>
             </div>
           </div> -->
-          <form
+          <div
             style="
               border: #616161 solid 1px;
               color: #616161;
@@ -45,9 +45,16 @@
               justify-content: center;
             "
           >
-            <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
+            <input
+              id="buscar-libro"
+              name="buscar-libro"
+              class="buscar-libro"
+              style="border: none; outline: none"
+              type="text"
+              placeholder="Buscar libro..."
+            />
             <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
-          </form>
+          </div>
         </div>
 
         <div class="box">
@@ -65,12 +72,12 @@
       </nav>
 
       <div id="main-page">
-        <div class="parent">%libros%</div>
+        <div id="parent" class="parent">%libros%</div>
       </div>
     </div>
   </body>
   <script>
-    let open = false;
+    // let open = false;
 
     // const selector = document.getElementById("cat");
     // selector.addEventListener("click", (event) => {
@@ -85,5 +92,30 @@
     //     return;
     //   }
     // });
+    let timeout;
+    const barraBusqueda = document.getElementById("buscar-libro");
+    barraBusqueda.addEventListener("input", async (event) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(async () => {
+        if (!barraBusqueda.value) return;
+        console.log(barraBusqueda.value);
+        const response = await buscarLibroPorTitulo(barraBusqueda.value);
+        const html = response.text()
+        document.body.innerHTML = html
+      }, 1000);
+    });
+
+    const buscarLibroPorTitulo = async (titulo) => {
+      const response = await fetch(`/filtrar`, {
+        method: "POST",
+        "Content-Type": "application/json",
+        body: titulo,
+      });
+      if (!response.ok) {
+        alert("No se pudo encontrar libros");
+        return;
+      }
+      return;
+    };
   </script>
 </html>

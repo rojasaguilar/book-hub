@@ -19,6 +19,7 @@ const {
   toggleFav,
   isFav,
   editProfile,
+  filtrarLibrosPorNombre,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -507,7 +508,7 @@ const server = http.createServer((req, res) => {
           return;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           res.writeHead(500, {
             "Content-Type": "application/json",
           });
@@ -517,6 +518,51 @@ const server = http.createServer((req, res) => {
     });
 
     //PETICION PARA EDTIAR USUARIO
+  }
+
+  if (req.url.includes("/filtrar")) {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      // return false
+    }
+    let body = "";
+    req.on("data", (chunk) => {
+      body +=chunk;
+    });
+    req.on("end", async () => {
+      console.log(body)
+      const filtro = body;
+      console.log(filtro)
+      filtrarLibrosPorNombre(filtro)
+        .then((libros) => {
+          console.log(libros)
+          if (libros) {
+            res.writeHead(200, {
+              "Content-Type": "text/html",
+            });
+            let page = fs.readFileSync(`index.html`, "utf-8");
+            const tarjetas = libros
+              .map(
+                (libro) =>
+                  `
+  <div class="cont-libro">
+      <a class="libro" href="/libro?titulo=${libro.titulo}">
+        <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
+        <strong>${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+        <p style="margin: 0; padding: 0">${libro.categoria}</p>
+      </a>
+  </div>
+            `
+              )
+              .join("");
+            page = page.replace("%libros%", tarjetas);
+            res.end(page);
+            return;
+          }
+        })
+        .catch((err) => {});
+    });
   }
 });
 
