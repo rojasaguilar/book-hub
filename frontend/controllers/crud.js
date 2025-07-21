@@ -32,6 +32,11 @@ const getLibro = async (titulo) => {
   return book;
 };
 
+const getLibrosFav = async (idUser) => {
+  const user = await User.findById(idUser).populate("librosFavoritos")
+  return user.librosFavoritos || [];
+}
+
 const addBook = async (idLibro, idUser) => {
   const user = await User.findById(idUser);
   if (!user) {
@@ -108,4 +113,5 @@ module.exports = {
   isFav,
   editProfile,
   filtrarLibrosPorNombre,
+  getLibrosFav
 };

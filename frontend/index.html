@@ -17,12 +17,7 @@
       <nav class="nav-bar">
         <div class="box">
           <div>
-            <a href="/home"
-              ><img
-                style="width: 2.5rem; height: 2.5rem"
-                src="/assets/book-hub.png"
-                alt="img"
-            /></a>
+            <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
           </div>
           <!-- CATEGORIAS
           <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
@@ -39,9 +34,7 @@
               </div>
             </div>
           </div> -->
-          <div
-          class="buscar-libro-cont"
-          >
+          <div class="buscar-libro-cont">
             <input
               id="buscar-libro"
               name="buscar-libro"
@@ -50,41 +43,26 @@
               type="text"
               placeholder="Buscar libro..."
             />
-            <img
-              style="width: 16px; height: 16px"
-              src="/assets/icons/search.svg"
-              alt=""
-            />
+            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
           </div>
         </div>
 
         <div class="box">
           <div class="favorito">
-            <a href="/favoritos">Favoritos</a>
+            <a id="fav-link" href="/favoritos">Favoritos</a>
             <!-- <img src="/assets/icons/star.svg" alt=""> -->
           </div>
           <a
-          class="subir-btn"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-            "
+            class="subir-btn"
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
             href="/agregar"
             style="color: black"
             >Subir libro
-            <img
-              style="width: 18px; height: 18px"
-              src="/assets/icons/upload.svg"
-              alt=""
-            />
+            <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
           </a>
 
           <div class="profile-picture">
-            <a href="/profile"
-              ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
-            /></a>
+            <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
           </div>
         </div>
       </nav>
@@ -110,6 +88,11 @@
     //     return;
     //   }
     // });
+
+    const link = document.getElementById("fav-link");
+    const url = window.location.href;
+    if (url.includes("/favoritos")) link.style.borderBottom = "2px solid #147c58";
+    
     let timeout;
     const barraBusqueda = document.getElementById("buscar-libro");
     let parent = document.getElementById("parent").innerHTML;

@@ -20,6 +20,7 @@ const {
   isFav,
   editProfile,
   filtrarLibrosPorNombre,
+  getLibrosFav,
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -528,7 +529,7 @@ const server = http.createServer((req, res) => {
     }
     let body = "";
     req.on("data", (chunk) => {
-      body +=chunk;
+      body += chunk;
     });
     req.on("end", async () => {
       const filtro = body;
@@ -559,6 +560,41 @@ const server = http.createServer((req, res) => {
           }
         })
         .catch((err) => {});
+    });
+  }
+
+  if (req.url === "/favoritos") {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      res.writeHead(401, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`, "utf-8"));
+      return;
+    }
+    let page = fs.readFileSync(`${__dirname}/index.html`, "utf-8");
+    getLibrosFav(user._id).then((libros) => {
+      const tarjetas = libros
+        .map(
+          (libro) =>
+            `
+  <div class="cont-libro">
+      <a class="libro" href="/libro?titulo=${libro.titulo}">
+        <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
+        <strong>${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+        <p style="margin: 0; padding: 0">${libro.categoria}</p>
+      </a>
+  </div>
+`
+        )
+        .join("");
+      page = page.replace("%libros%", tarjetas);
+      res.writeHead(200, {
+        "Content-Type": "text/html",
+      });
+      res.end(page);
+      return;
     });
   }
 });
