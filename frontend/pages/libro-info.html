@@ -234,7 +234,7 @@
     };
 
     const addFav = async (titulo) => {
-      const response = await fetch(`/favorito?titulo=${encodeURIComponent(titulo)}`);
+      const response = await fetch(`/toggleFavorito?titulo=${encodeURIComponent(titulo)}`);
       if (!response.ok) {
         throw new Error("Error al marcar favorito");
       }

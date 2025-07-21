@@ -450,7 +450,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  if (req.url.includes("/favorito") && req.method === "GET") {
+  if (req.url.includes("/toggleFavorito") && req.method === "GET") {
     const cookie = getCookies(req);
     const user = sessiones.get(cookie.sessionID);
     if (!user) {
@@ -531,7 +531,6 @@ const server = http.createServer((req, res) => {
       body +=chunk;
     });
     req.on("end", async () => {
-      console.log(body)
       const filtro = body;
       filtrarLibrosPorNombre(filtro)
         .then((libros) => {
