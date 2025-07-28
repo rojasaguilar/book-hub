@@ -16,14 +16,47 @@
     <div id="root">
       <nav class="nav-bar">
         <div class="box">
-          <div>
-            <a href="/home"
-              ><img
-                style="width: 2.5rem; height: 2.5rem"
-                src="/assets/book-hub.png"
-                alt="img"
-            /></a>
+          <a class="logo-titulo" href="/home"
+            ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
+
+            <p>Book-hub</p></a
+          >
+        </div>
+
+        <div class="box-links" id="">
+          <!-- <div class="libros-home"> -->
+          <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
+          <!-- <img src="/assets/icons/star.svg" alt=""> -->
+          <!-- </div> -->
+          <!-- <div class="favorito"> -->
+
+          <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
+          <!-- </div> -->
+        </div>
+
+        <div class="box-profile">
+          <a
+            class="subir-btn"
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+            href="/agregar"
+            style="color: black"
+          >
+            <img src="/assets/icons/upload.svg" alt="" />
+          </a>
+
+          <div class="profile-picture">
+            <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
           </div>
+        </div>
+      </nav>
+
+      <div id="main-page">
+        <div class="mensaje-buscar">
+          <div class="titulo-mensaje">
+            <h1>Nuevos &</h1>
+            <h1>populares</h1>
+          </div>
+          <p>Explora nuevos títulos</p>
           <div class="buscar-libro-cont">
             <input
               id="buscar-libro"
@@ -31,80 +64,17 @@
               class="buscar-libro"
               style="border: none; outline: none"
               type="text"
-              placeholder="Buscar libro..."
+              placeholder="Titulo"
             />
-            <img
-              style="width: 16px; height: 16px"
-              src="/assets/icons/search.svg"
-              alt=""
-            />
+            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
           </div>
         </div>
 
-        <div class="box-links" id="">
-          <!-- <div class="libros-home"> -->
-          <a id="home-link" href="/home"
-            >Libros <img src="/assets/icons/library-big.svg" alt=""
-          /></a>
-          <!-- <img src="/assets/icons/star.svg" alt=""> -->
-          <!-- </div> -->
-          <!-- <div class="favorito"> -->
-
-          <a id="fav-link" href="/favoritos"
-            >Favoritos <img src="/assets/icons/star.svg" alt=""
-          /></a>
-          <!-- </div> -->
-        </div>
-
-        <div class="box">
-          <a
-            class="subir-btn"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-            "
-            href="/agregar"
-            style="color: black"
-          >
-            <img
-              style="width: 18px; height: 18px"
-              src="/assets/icons/upload.svg"
-              alt=""
-            />
-          </a>
-
-          <div class="profile-picture">
-            <a href="/profile"
-              ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
-            /></a>
-          </div>
-        </div>
-      </nav>
-
-      <div id="main-page">
         <div id="parent" class="parent">%libros%</div>
       </div>
     </div>
   </body>
   <script>
-    // let open = false;
-
-    // const selector = document.getElementById("cat");
-    // selector.addEventListener("click", (event) => {
-    //   const categorias = document.getElementById("categorias");
-    //   if (!open) {
-    //     categorias.style.visibility = "visible";
-    //     open = true;
-    //     return;
-    //   } else {
-    //     categorias.style.visibility = "hidden";
-    //     open = false;
-    //     return;
-    //   }
-    // });
-
     const link = document.getElementById("fav-link");
     const linkHome = document.getElementById("home-link");
     const url = window.location.href;

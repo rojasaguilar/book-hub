@@ -64,9 +64,14 @@ const server = http.createServer((req, res) => {
             `
   <div class="cont-libro">
       <a class="libro" href="/libro?titulo=${libro.titulo}">
-        <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
-        <strong>${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
-        <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        <img src="/public/portadas/${libro.portada}" alt="" />
+        <div class = "info-libro">
+          <div class = "titulo-autor">
+            <strong class="titulo">${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+            <p>${libro.autor}</p>
+          </div>
+          <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        </div>
       </a>
   </div>
             `
@@ -539,16 +544,20 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, {
               "Content-Type": "text/html",
             });
-            let page = fs.readFileSync(`index.html`, "utf-8");
             const tarjetas = libros
               .map(
                 (libro) =>
                   `
   <div class="cont-libro">
       <a class="libro" href="/libro?titulo=${libro.titulo}">
-        <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
-        <strong>${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
-        <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        <img src="/public/portadas/${libro.portada}" alt="" />
+        <div class = "info-libro">
+          <div class = "titulo-autor">
+            <strong class="titulo">${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+            <p>${libro.autor}</p>
+          </div>
+          <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        </div>
       </a>
   </div>
             `
@@ -581,11 +590,17 @@ const server = http.createServer((req, res) => {
             `
   <div class="cont-libro">
       <a class="libro" href="/libro?titulo=${libro.titulo}">
-        <div><img src="/public/portadas/${libro.portada}" alt="" /></div>
-        <strong>${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
-        <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        <img src="/public/portadas/${libro.portada}" alt="" />
+        <div class = "info-libro">
+          <div class = "titulo-autor">
+            <strong class="titulo">${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+            <p>${libro.autor}</p>
+          </div>
+          <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        </div>
       </a>
   </div>
+
 `
         )
         .join("");
