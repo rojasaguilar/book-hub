@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap");
+
 body {
-  font-family: "Roboto";
+  font-family: "Work Sans";
   padding: 0;
   margin: 0;
 }
@@ -26,19 +29,6 @@ form {
 
 .campo input {
   width: 3rem;
-}
-.subir-btn {
-  background-color: #147c58;
-  color: white;
-  /* font-weight: 700; */
-  padding: 0.5rem 2rem;
-  border-radius: 2rem;
-}
-
-.subir-btn img {
-  filter: invert(100%);
-  height: 18px;
-  width: 18px;
 }
 
 .informacion-libro input {
@@ -102,15 +92,82 @@ textarea {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  font-family: "Work Sans";
 }
 
 .box {
   width: fit-content;
   display: flex;
+  align-items: center;
+  align-content: center;
+  /* gap: 4rem; */
+  width: 10rem;
+}
+.box-profile {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: end;
+  gap: 2rem;
+  width: 10rem;
+}
+.box-links {
+  width: fit-content;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  gap: 4rem;
+  gap: 0.2rem;
+}
+
+#fav-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+}
+
+#home-link img {
+  height: 18px;
+}
+#home-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+}
+
+#fav-link img {
+  height: 18px;
+}
+
+.logo-titulo {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.logo-titulo p {
+  font-size: 20px;
+  font-weight: medium;
+}
+.subir-btn {
+  background-color: #147c58;
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.subir-btn img {
+  filter: invert(100%);
+  height: 18px;
+  width: 18px;
 }
 
 .profile-picture img {

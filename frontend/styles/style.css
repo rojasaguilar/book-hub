@@ -72,20 +72,6 @@ a {
   /* width: 70%; */
 }
 
-.select-categorias {
-  background-color: red;
-  visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  z-index: 3000;
-  position: absolute;
-  top: 3rem;
-  width: 20rem;
-  left: 8rem;
-  height: fit-content;
-  font-size: large;
-}
-
 body {
   font-family: "Roboto";
 }
@@ -93,6 +79,19 @@ body {
 .subir-btn img {
   height: 22px;
   width: 22px;
+}
+
+.subir-btn {
+  background-color: #147c58;
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.subir-btn img {
+  filter: invert(100%);
+  height: 18px;
+  width: 18px;
 }
 
 /* GRID */
@@ -185,7 +184,6 @@ body {
   gap: 0.3rem;
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
-  transition: background-color 2s ease-in-out;
 }
 
 #fav-link img {
@@ -226,15 +224,14 @@ p {
   align-items: center;
 }
 
-
 .mensaje-buscar {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap:1rem;
+  gap: 1rem;
 }
 
 .mensaje-buscar p {
-  color:#757575;
+  color: #757575;
 }

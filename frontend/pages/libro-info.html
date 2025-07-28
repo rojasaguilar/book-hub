@@ -5,60 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/styles/libro-info.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="root">
       <nav class="nav-bar">
         <div class="box">
-          <div>
-            <a href="/home"><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" /></a>
-          </div>
+          <a class="logo-titulo" href="/home"
+            ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
 
-          <!-- CATEGORIAS
-          <div id="cat" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem">
-            <p>Categorías</p>
-            <img style="width: 18px; height: 18px" src="/assets/icons/chevron-down.svg" alt="" />
-            <div class="select-categorias" id="categorias">
-              <div class="row">
-                <a href="">Terror</a>
-                <a href="">Juegos</a>
-              </div>
-
-              <div class="row">
-                <a href="">Aventura</a>
-              </div>
-            </div>
-          </div> -->
-          <form
-            style="
-              border: #616161 solid 1px;
-              color: #616161;
-              padding: 0.3rem;
-              border-radius: 0.6rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
+            <p>Book-hub</p></a
           >
-            <input class="buscar-libro" style="border: none; outline: none" type="text" placeholder="Buscar libro..." />
-            <img style="width: 16px; height: 16px" src="/assets/icons/search.svg" alt="" />
-          </form>
         </div>
 
-        <div class="box">
+        <div class="box-links" id="">
+          <!-- <div class="libros-home"> -->
+          <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
+          <!-- <img src="/assets/icons/star.svg" alt=""> -->
+          <!-- </div> -->
+          <!-- <div class="favorito"> -->
+
+          <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
+          <!-- </div> -->
+        </div>
+
+        <div class="box-profile">
           <a
+            class="subir-btn"
             style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
             href="/agregar"
             style="color: black"
-            class="subir-btn"
-            >Subir libro
-            <img style="width: 18px; height: 18px" src="/assets/icons/upload.svg" alt="" />
+          >
+            <img src="/assets/icons/upload.svg" alt="" />
           </a>
 
           <div class="profile-picture">
