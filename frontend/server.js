@@ -67,7 +67,10 @@ const server = http.createServer((req, res) => {
         <img src="/public/portadas/${libro.portada}" alt="" />
         <div class = "info-libro">
           <div class = "titulo-autor">
-            <strong class="titulo">${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+            <strong class="titulo">${libro.titulo.replace(
+              libro.titulo[0],
+              libro.titulo[0].toUpperCase()
+            )}</strong>
             <p>${libro.autor}</p>
           </div>
           <p style="margin: 0; padding: 0">${libro.categoria}</p>
@@ -239,7 +242,9 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/find") {
-    addFav("6876b36c1995b8c47120fef9", "6876b9fa82943df813e1f3ec").then(() => console.log("si"));
+    addFav("6876b36c1995b8c47120fef9", "6876b9fa82943df813e1f3ec").then(() =>
+      console.log("si")
+    );
   }
 
   if (req.url === "/libros") {
@@ -409,9 +414,14 @@ const server = http.createServer((req, res) => {
       const etiquetaTemplate = `<div class="etiqueta">
         <p>%tag%</p>
        </div>`;
-      const etiquetas = libro.etiquetas.map((tag) => etiquetaTemplate.replace("%tag%", tag)).join("");
+      const etiquetas = libro.etiquetas
+        .map((tag) => etiquetaTemplate.replace("%tag%", tag))
+        .join("");
       pagina = pagina.replace("%etiquetas%", etiquetas);
-      pagina = pagina.replace("%titulo%", libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase()));
+      pagina = pagina.replace(
+        "%titulo%",
+        libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())
+      );
       pagina = pagina.replace("%noPaginas%", libro.noPaginas);
       pagina = pagina.replace("%autor%", libro.autor);
       pagina = pagina.replace("%capitulos%", libro.capitulos);
@@ -495,7 +505,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(401, {
         "Content-Type": "text/html",
       });
-      res.end(fs.readFileSync(`${$__dirname}/pages/landingPage.html`, "utf-8"));
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`, "utf-8"));
       return;
     }
     let body = "";
@@ -553,7 +563,10 @@ const server = http.createServer((req, res) => {
         <img src="/public/portadas/${libro.portada}" alt="" />
         <div class = "info-libro">
           <div class = "titulo-autor">
-            <strong class="titulo">${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+            <strong class="titulo">${libro.titulo.replace(
+              libro.titulo[0],
+              libro.titulo[0].toUpperCase()
+            )}</strong>
             <p>${libro.autor}</p>
           </div>
           <p style="margin: 0; padding: 0">${libro.categoria}</p>
@@ -593,7 +606,10 @@ const server = http.createServer((req, res) => {
         <img src="/public/portadas/${libro.portada}" alt="" />
         <div class = "info-libro">
           <div class = "titulo-autor">
-            <strong class="titulo">${libro.titulo.replace(libro.titulo[0], libro.titulo[0].toUpperCase())}</strong>
+            <strong class="titulo">${libro.titulo.replace(
+              libro.titulo[0],
+              libro.titulo[0].toUpperCase()
+            )}</strong>
             <p>${libro.autor}</p>
           </div>
           <p style="margin: 0; padding: 0">${libro.categoria}</p>
@@ -611,6 +627,22 @@ const server = http.createServer((req, res) => {
       res.end(page);
       return;
     });
+  }
+
+  if (req.url.includes("/logout")) {
+    const cookie = getCookies(req);
+    if (sessiones.delete(cookie.sessionID)) {
+      res.writeHead(200, {
+        "Content-Type": "text/html",
+      });
+      res.end(fs.readFileSync(`${__dirname}/pages/landingPage.html`, "utf-8"));
+      return;
+    }
+     res.writeHead(500, {
+        "Content-Type": "text/html",
+      });
+      res.end(JSON.stringify({status: "error"}));
+      return;
   }
 });
 
