@@ -186,3 +186,10 @@ a {
   font-weight: 700;
   display: none;
 }
+
+.logout{
+  padding:  .5rem 2rem;
+  background-color: #21ba64;
+  width: fit-content;
+  position: absolute;
+}

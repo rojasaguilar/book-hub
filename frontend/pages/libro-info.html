@@ -12,7 +12,11 @@
       <nav class="nav-bar">
         <div class="box">
           <a class="logo-titulo" href="/home"
-            ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
+            ><img
+              style="width: 2.5rem; height: 2.5rem"
+              src="/assets/book-hub.png"
+              alt="img"
+            />
 
             <p>Book-hub</p></a
           >
@@ -20,19 +24,28 @@
 
         <div class="box-links" id="">
           <!-- <div class="libros-home"> -->
-          <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
+          <a id="home-link" href="/home"
+            >Libros <img src="/assets/icons/library-big.svg" alt=""
+          /></a>
           <!-- <img src="/assets/icons/star.svg" alt=""> -->
           <!-- </div> -->
           <!-- <div class="favorito"> -->
 
-          <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
+          <a id="fav-link" href="/favoritos"
+            >Favoritos <img src="/assets/icons/star.svg" alt=""
+          /></a>
           <!-- </div> -->
         </div>
 
         <div class="box-profile">
           <a
             class="subir-btn"
-            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 0.5rem;
+            "
             href="/agregar"
             style="color: black"
           >
@@ -40,7 +53,9 @@
           </a>
 
           <div class="profile-picture">
-            <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
+            <a href="/profile"
+              ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
+            /></a>
           </div>
         </div>
       </nav>
@@ -112,20 +127,14 @@
   </body>
   <script>
     let open = false;
-
-    // const selector = document.getElementById("cat");
-    // selector.addEventListener("click", (event) => {
-    //   const categorias = document.getElementById("categorias");
-    //   if (!open) {
-    //     categorias.style.visibility = "visible";
-    //     open = true;
-    //     return;
-    //   } else {
-    //     categorias.style.visibility = "hidden";
-    //     open = false;
-    //     return;
-    //   }
-    // });
+    const link = document.getElementById("fav-link");
+    const linkHome = document.getElementById("home-link");
+    const url = window.location.href;
+    if (url.includes("/favoritos")) {
+      link.style.backgroundColor = "#21BA64";
+    } else if (url.includes("/libro")) {
+      linkHome.style.backgroundColor = "#21BA64";
+    }
 
     (async () => {
       const favIcon = document.getElementById("fav");
@@ -137,7 +146,9 @@
         if (!response.ok) throw new Error("No se pudo obtener");
 
         const data = await response.json();
-        favIcon.src = data.favorito ? "/assets/icons/blackStar.svg" : "/assets/icons/star.svg";
+        favIcon.src = data.favorito
+          ? "/assets/icons/blackStar.svg"
+          : "/assets/icons/star.svg";
       } catch (err) {
         console.error(err);
       }
@@ -212,7 +223,9 @@
     };
 
     const addFav = async (titulo) => {
-      const response = await fetch(`/toggleFavorito?titulo=${encodeURIComponent(titulo)}`);
+      const response = await fetch(
+        `/toggleFavorito?titulo=${encodeURIComponent(titulo)}`
+      );
       if (!response.ok) {
         throw new Error("Error al marcar favorito");
       }
