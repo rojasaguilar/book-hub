@@ -589,7 +589,7 @@ const server = http.createServer((req, res) => {
           (libro) =>
             `
   <div class="cont-libro">
-      <a class="libro" href="/libro?titulo=${libro.titulo}">
+      <a class="libro" href="/favoritos/libro?titulo=${libro.titulo}">
         <img src="/public/portadas/${libro.portada}" alt="" />
         <div class = "info-libro">
           <div class = "titulo-autor">
