@@ -96,6 +96,7 @@ body {
 
 /* GRID */
 .parent {
+  background-color: #1f5341;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 2rem;

@@ -142,6 +142,9 @@ a {
   z-index: 30;
 }
 .content {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #e6f4ea;
   width: 50%;
   flex: 1;
   display: flex;
@@ -149,6 +152,7 @@ a {
   gap: 1rem;
 }
 .text {
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -232,3 +236,35 @@ a {
 .login p {
   cursor: pointer;
 }
+
+nav {
+ background-color: #0e5c43; 
+color: white;
+
+}
+/* Responsive */
+@media (max-width: 600px) {
+  .form-container,
+  .login-container {
+    width: 90%;
+    padding: 2rem;
+  }
+
+  .campos-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .form-signup button,
+  .form-login button {
+    width: 100%;
+  }
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  z-index: 30;
+}
+
