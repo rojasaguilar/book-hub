@@ -1,142 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book-Hub | Lectura a tu alcance</title>
-    <link rel="icon" href="assets/book-hub.png" type="image/png"  />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/styles/landingPage.css" />
-  </head>
 
-  <body>
-    <!-- Contenido principal -->
-    <div class="main" id="main">
-      <!-- Navbar -->
-      <nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book-Hub | Lectura a tu alcance</title>
+  <link rel="icon" href="assets/book-hub.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/landingPage.css" />
+</head>
+
+<body>
+  <!-- Contenido principal -->
+  <div class="main" id="main">
+    <!-- Navbar -->
+    <nav>
         <div class="container">
           <img class="logo" src="/assets/book-hub.png" alt="" />
-          <p style="color: white;">BOOK-HUB</p>
+          <p style="color: rgb(255, 255, 255);">BOOK-HUB</p>
         </div>
 
-        <div class="container">
-          <a style="color: white;" href="#">Sobre nosotros</a>
-        </div>
+     
 
         <div class="container">
-          <p style="color: white;" class="login" id="login">Iniciar sesión</p>
+          <!-- <a href="/login">Iniciar sesión</a> -->
+          <p class="login" id="login">Iniciar sesión</p>
+          <!-- <a class="signup" href="/signup">Regístrate</a> -->
           <button class="signup" id="signup">Regístrate</button>
         </div>
       </nav>
       
-      <!-- Contenido de la landing -->
-      <div class="content">
+    <!-- Contenido de la landing -->
+    <div class="content">
+      <div class="text-content">
         <div class="text">
-          <div style="display: flex; flex-direction: column; gap: 2rem">
-            <h1 style="color: #147c58">Hola, Somos BOOK-HUB.</h1>
-            <p style="font-weight: 700; font-size: 24px">La comunidad digital donde los libros viven y crecen.</p>
-          </div>
-          <p style="font-weight: 300; font-size: 16px">
-            En nuestra biblioteca virtual, los lectores y escritores se conectan para compartir, descubrir y disfrutar
-            de historias únicas. Aquí, cada usuario puede contribuir subiendo sus propios libros, creando así un
-            repositorio vivo que crece con cada nueva lectura.
-          </p>
-          <p>Únete a una comunidad apasionada por los libros.</p>
-          <strong>Empieza a leer. Empieza a compartir.</strong>
+          <h1 >Hola, Somos BOOK-HUB.</h1>
+          <p class="tagline">La comunidad digital donde los libros viven y crecen.</p>
         </div>
-        <div class="imagen">
-          <!-- Imagen opcional -->
-        </div>
+        <p>
+          En nuestra biblioteca virtual, los lectores y escritores se conectan para compartir, descubrir y disfrutar
+          de historias únicas. Aquí, cada usuario puede contribuir subiendo sus propios libros, creando así un
+          repositorio vivo que crece con cada nueva lectura.
+        </p>
+        <p>Únete a una comunidad apasionada por los libros.</p>
+        <strong class="call-to-action">Empieza a leer. Empieza a compartir.</strong>
+      </div>
+
+      <div class="image-container">
+        <img src="https://i.pinimg.com/736x/c2/46/1b/c2461bc7058cddbe5eb780f1cd5f73dc.jpg" alt="Libros en estantería" >
       </div>
     </div>
+  </div>
 
-    <!-- Formulario de Registro -->
-    <div class="form-container" id="form-container">
-      <div class="icon-msg">
-        <img src="/assets/book-hub.png" alt="logo" />
-        <h2>Registrate en book-hub</h2>
-        <p>Campos obligatorios marcados con *</p>
-      </div>
-
-      <form id="formulario" class="form-signup" action="">
-        <div class="form-row">
-          <div class="form-group">
-            <div class="input-container">
-              <input required name="nombreUsuario" type="text" />
-              <label for="nombreUsuario">Usuario*</label>
-            </div>
-          </div>
-          
-        </div>
-
-        <div class="form-group">
-          <div class="input-container">
-            <input name="email" type="email" id="Correo" />
-            <label for="email">Email*</label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="input-container">
-            <input required name="password" type="password" id="password" />
-            <label for="password">Contraseña*</label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="input-container">
-            <input required name="password2" type="password" />
-            <label for="password2">Confirmar Contraseña*</label>
-          </div>
-        </div>
-
-        <div class="checkbox-group">
-          <input type="checkbox" id="terms" name="terms" required />
-          <label for="terms">Acepto las terminos y condiciones del producto.</label>
-        </div>
-
-        <button type="submit" class="submit-btn">Cree su cuenta de BOOK-HUB</button>
-      </form>
+  <!-- Formulario de Registro -->
+  <div class="form-container" id="form-container">
+    <div class="icon-msg">
+      <img src="/assets/book-hub.png" alt="logo" />
+      <h2>Registrate en book-hub</h2>
+      <p>Campos obligatorios marcados con *</p>
     </div>
 
-    <!-- Formulario de Login -->
-    <div id="login-container" class="login-container">
-      <div class="icon-msg">
-        <img src="/assets/book-hub.png" alt="logo" />
-        <strong>Inicia sesión en book-hub</strong>
+    <form id="formulario" class="form-signup" action="">
+      <div class="form-row">
+        <div class="form-group">
+          <div class="input-container">
+            <input required name="nombreUsuario" type="text" />
+            <label for="nombreUsuario">Usuario*</label>
+          </div>
+        </div>
+
       </div>
 
-      <form class="form-login" action="" id="form-login">
-        <div class="form-group">
-          <div class="input-container">
-            <input required name="nombreUsuario" type="text" id="login-usuario" />
-            <label for="login-usuario">Usuario</label>
-          </div>
+      <div class="form-group">
+        <div class="input-container">
+          <input name="email" type="email" id="Correo" />
+          <label for="email">Email*</label>
         </div>
+      </div>
 
-        <div class="form-group">
-          <div class="input-container">
-            <input required name="password" type="password" id="login-password" />
-            <label for="login-password">Contraseña</label>
-          </div>
+      <div class="form-group">
+        <div class="input-container">
+          <input required name="password" type="password" id="password" />
+          <label for="password">Contraseña*</label>
         </div>
+      </div>
 
-        <button type="submit" class="submit-btn">Iniciar sesión</button>
-      </form>
+      <div class="form-group">
+        <div class="input-container">
+          <input required name="password2" type="password" />
+          <label for="password2">Confirmar Contraseña*</label>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="terms" name="terms" required />
+        <label for="terms">Acepto las terminos y condiciones del producto.</label>
+      </div>
+
+      <button type="submit" class="submit-btn">Cree su cuenta de BOOK-HUB</button>
+    </form>
+  </div>
+
+  <!-- Formulario de Login -->
+  <div id="login-container" class="login-container">
+    <div class="icon-msg">
+      <img src="/assets/book-hub.png" alt="logo" />
+      <strong>Inicia sesión en book-hub</strong>
     </div>
-    <footer>
-      <div class="footer-content">
-        <p>© 2025 Book-Hub. Todos los derechos reservados.</p>
-        <p>Desarrollado por Popas</p>
+
+    <form class="form-login" action="" id="form-login">
+      <div class="form-group">
+        <div class="input-container">
+          <input required name="nombreUsuario" type="text" id="login-usuario" />
+          <label for="login-usuario">Usuario</label>
+        </div>
       </div>
 
+      <div class="form-group">
+        <div class="input-container">
+          <input required name="password" type="password" id="login-password" />
+          <label for="login-password">Contraseña</label>
+        </div>
+      </div>
 
-    </footer>
-    <script src="/scripts/landingpage.js"></script>
-  </body>
+      <button type="submit" class="submit-btn">Iniciar sesión</button>
+    </form>
+  </div>
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 Book-Hub. Todos los derechos reservados.</p
+      <p>Desarrollado por Popas</p>
+    </div>
+
+
+  </footer>
+  <script src="/scripts/landingpage.js"></script>
+</body>
+
 </html>

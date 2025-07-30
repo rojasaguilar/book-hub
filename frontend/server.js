@@ -38,7 +38,11 @@ const server = http.createServer((req, res) => {
     res.end(landing);
     return;
   }
-
+  if (req.url === "/assets/libro.png") {
+   const libro= fs.readFileSync(`${__dirname}/assets/libro.png`); res.writeHead(200, { "Content-Type": "image/png" });
+    res.end(libro);
+    return;
+  }
   if (req.url.includes("/portadas")) {
     res.writeHead(200, { "Content-Type": "image/webp" });
     const portada = fs.readFileSync(`${__dirname}${req.url}`);
@@ -496,7 +500,7 @@ const server = http.createServer((req, res) => {
       });
     });
   }
-
+  
   if (req.url.includes("/editar") && req.method === "POST") {
     const cookie = getCookies(req);
     const user = sessiones.get(cookie.sessionID);
@@ -535,6 +539,7 @@ const server = http.createServer((req, res) => {
 
     //PETICION PARA EDTIAR USUARIO
   }
+  
 
   if (req.url.includes("/filtrar")) {
     const cookie = getCookies(req);
