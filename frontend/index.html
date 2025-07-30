@@ -44,19 +44,11 @@
         </div>
 
         <div class="box-profile">
-          <a
-            class="subir-btn"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-            "
-            href="/agregar"
-            style="color: black"
-          >
-            <img src="/assets/icons/upload.svg" alt="" />
-          </a>
+         <a class="subir-btn" href="/agregar">
+  <img src="/assets/icons/upload.svg" alt="" />
+  <p>Agregar libro</p>
+</a>
+
 
           <div class="profile-picture">
             <a href="/profile"
@@ -69,25 +61,25 @@
       <div id="main-page">
         <div class="mensaje-buscar">
           <div class="titulo-mensaje">
-            <h1 style="font-family: Arial, Helvetica, sans-serif;"><strong>Nuevos &</strong></h1>
+            <h1 style="font-family: Arial, Helvetica, sans-serif; padding-top: 2rem;"><strong>Nuevos &</strong></h1>
             <h1 style="font-family: Arial, Helvetica, sans-serif;"><strong>populares</strong></h1>
           </div>
           <p>Explora nuevos títulos</p>
-          <div class="buscar-libro-cont">
-            <input
-              id="buscar-libro"
-              name="buscar-libro"
-              class="buscar-libro"
-              style="border: none; outline: none"
-              type="text"
-              placeholder="Titulo"
-            />
-            <img
-              style="width: 16px; height: 16px"
-              src="/assets/icons/search.svg"
-              alt=""
-            />
-          </div>
+   <div class="search-container">
+  <input
+    id="buscar-libro"
+    name="buscar-libro"
+    class="search-input"
+    type="text"
+    placeholder="Buscar libros por título..."
+    aria-label="Buscar libros"
+  />
+  <button class="search-button" aria-label="Buscar">
+    <img src="/assets/icons/search.svg" alt="Buscar" />
+  </button>
+</div>
+
+
         </div>
 
         <div id="parent" class="parent">%libros%</div>

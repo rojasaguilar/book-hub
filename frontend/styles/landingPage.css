@@ -344,3 +344,40 @@ footer {
   }
 
 }
+
+
+/* Responsive design */
+@media (max-width: 799px) {
+  .content {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: 2rem auto;
+    width: 90%;
+  }
+  .text-content {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .text-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .image-container {
+    display: none;
+  }
+
+  .form-container,
+  .login-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+}
