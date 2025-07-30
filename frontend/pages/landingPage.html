@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book-Hub | Lectura a tu alcance</title>
+    <title>Book-Hub | Lectura a tu alcance</title>
     <link rel="icon" href="assets/book-hub.png" type="image/png"  />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,25 +15,26 @@
   </head>
 
   <body>
+    <!-- Contenido principal -->
     <div class="main" id="main">
+      <!-- Navbar -->
       <nav>
         <div class="container">
           <img class="logo" src="/assets/book-hub.png" alt="" />
-          <p>BOOK-HUB</p>
+          <p style="color: white;">BOOK-HUB</p>
         </div>
 
         <div class="container">
-          <a href="#" style="color: white;">Sobre nosotros</a>
+          <a style="color: white;" href="#">Sobre nosotros</a>
         </div>
 
         <div class="container">
-          <!-- <a href="/login">Iniciar sesión</a> -->
-          <p class="login" id="login">Iniciar sesión</p>
-          <!-- <a class="signup" href="/signup">Regístrate</a> -->
+          <p style="color: white;" class="login" id="login">Iniciar sesión</p>
           <button class="signup" id="signup">Regístrate</button>
         </div>
       </nav>
-      <!-- <div class="content-container"> -->
+      
+      <!-- Contenido de la landing -->
       <div class="content">
         <div class="text">
           <div style="display: flex; flex-direction: column; gap: 2rem">
@@ -48,70 +49,94 @@
           <p>Únete a una comunidad apasionada por los libros.</p>
           <strong>Empieza a leer. Empieza a compartir.</strong>
         </div>
-              </div>
-
         <div class="imagen">
-          <!-- <img src="/assets/imagen-landing.jpeg" alt=""> -->
+          <!-- Imagen opcional -->
         </div>
-      <!-- </div> -->
+      </div>
     </div>
 
+    <!-- Formulario de Registro -->
     <div class="form-container" id="form-container">
       <div class="icon-msg">
-        <img src="/assets/book-hub.png" alt="imgaen" />
-        <strong>Registrate en book-hub</strong>
+        <img src="/assets/book-hub.png" alt="logo" />
+        <h2>Registrate en book-hub</h2>
+        <p>Campos obligatorios marcados con *</p>
       </div>
 
       <form id="formulario" class="form-signup" action="">
-        <div class="campos-container">
-          <div class="usuario-email">
-            <div class="campo">
-              <label for="email">Email</label>
-              <input required name="email" type="email" placeholder="Ingresa tu correo electrónico" />
-            </div>
-
-            <div class="campo">
-              <label for="nombreUsuario">Nombre de usuario</label>
-              <input required name="nombreUsuario" type="text" placeholder="Ingresa tu nombre de usuario" />
+        <div class="form-row">
+          <div class="form-group">
+            <div class="input-container">
+              <input required name="nombreUsuario" type="text" />
+              <label for="nombreUsuario">Usuario*</label>
             </div>
           </div>
+          
+        </div>
 
-          <div class="contras">
-            <div class="campo">
-              <label for="password">Contraseña</label>
-              <input required name="password" type="password" placeholder="Ingresa tu contraseña" />
-            </div>
-            <div class="campo">
-              <label for="password2">Confirma tu contraseña</label>
-              <input required name="password2" type="password" placeholder="Confirma tu contraseña" />
-            </div>
+        <div class="form-group">
+          <div class="input-container">
+            <input name="email" type="email" id="Correo" />
+            <label for="email">Email*</label>
           </div>
         </div>
 
-        <button type="submit">Registrarse</button>
+        <div class="form-group">
+          <div class="input-container">
+            <input required name="password" type="password" id="password" />
+            <label for="password">Contraseña*</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-container">
+            <input required name="password2" type="password" />
+            <label for="password2">Confirmar Contraseña*</label>
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">Acepto las terminos y condiciones del producto.</label>
+        </div>
+
+        <button type="submit" class="submit-btn">Cree su cuenta de BOOK-HUB</button>
       </form>
     </div>
 
+    <!-- Formulario de Login -->
     <div id="login-container" class="login-container">
       <div class="icon-msg">
-        <img src="/assets/book-hub.png" alt="img" />
+        <img src="/assets/book-hub.png" alt="logo" />
         <strong>Inicia sesión en book-hub</strong>
       </div>
 
       <form class="form-login" action="" id="form-login">
-        <div class="campo">
-          <label for="nombreUsuario">Usuario</label>
-          <input name="nombreUsuario" type="usuario" placeholder="Usuario" />
+        <div class="form-group">
+          <div class="input-container">
+            <input required name="nombreUsuario" type="text" id="login-usuario" />
+            <label for="login-usuario">Usuario</label>
+          </div>
         </div>
 
-        <div class="campo">
-          <label for="password">Contraseña</label>
-          <input name="password" type="text" placeholder="Ingresa tu contraseña" />
+        <div class="form-group">
+          <div class="input-container">
+            <input required name="password" type="password" id="login-password" />
+            <label for="login-password">Contraseña</label>
+          </div>
         </div>
 
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" class="submit-btn">Iniciar sesión</button>
       </form>
     </div>
+    <footer>
+      <div class="footer-content">
+        <p>© 2025 Book-Hub. Todos los derechos reservados.</p>
+        <p>Desarrollado por Popas</p>
+      </div>
+
+
+    </footer>
+    <script src="/scripts/landingpage.js"></script>
   </body>
-  <script src="/scripts/landingpage.js"></script>
 </html>
