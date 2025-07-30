@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Work Sans";
+  background-color: rgb(245 240 230);
 }
 .profile-info {
   display: flex;
@@ -12,7 +13,7 @@ body {
   gap: 1.5rem;
   width: fit-content;
   align-content: center;
-  padding: 3rem 0 1.5rem 0;
+  padding: 1rem 0 1.5rem 0;
 }
 
 .profile-info img {
@@ -139,23 +140,19 @@ a {
 .contenedor-sobre-mi {
   padding: 1rem 0rem;
   display: flex;
-  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  /* gap: 1rem; */
   width: 100%;
-  /* background-color: red; */
 }
 
 .se-unio {
-  /* background-color: blue; */
   width: 100%;
 }
 
 .sobre-mi textarea {
   border: none;
   resize: none;
-  background-color: white;
+  background-color: rgb(245 240 230);
 }
 .editar {
   display: flex;
@@ -191,7 +188,7 @@ a {
   padding: 0.5rem 3rem;
   border: 1px solid #dfdfdf;
   background-color: white;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   width: fit-content;
   position: absolute;
   font-size: 16px;
