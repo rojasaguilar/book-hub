@@ -17,11 +17,7 @@
       <nav class="nav-bar">
         <div class="box">
           <a class="logo-titulo" href="/home"
-            ><img
-              style="width: 2.5rem; height: 2.5rem"
-              src="/assets/book-hub.png"
-              alt="img"
-            />
+            ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
 
             <p>Book-hub</p></a
           >
@@ -29,28 +25,19 @@
 
         <div class="box-links" id="">
           <!-- <div class="libros-home"> -->
-          <a id="home-link" href="/home"
-            >Libros <img src="/assets/icons/library-big.svg" alt=""
-          /></a>
+          <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
           <!-- <img src="/assets/icons/star.svg" alt=""> -->
           <!-- </div> -->
           <!-- <div class="favorito"> -->
 
-          <a id="fav-link" href="/favoritos"
-            >Favoritos <img src="/assets/icons/star.svg" alt=""
-          /></a>
+          <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
           <!-- </div> -->
         </div>
 
         <div class="box-profile">
           <a
             class="subir-btn"
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.5rem;
-            "
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
             href="/agregar"
             style="color: black"
           >
@@ -62,19 +49,11 @@
               ><img id="profile-picture" src="/assets/cat.jpg" alt="img" />
               <div class="logout exited" id="logout">
                 <div class="item entrar-perfil">
-                  <img
-                    src="/assets/icons/user-round.svg"
-                    style="width: 16px; height: 16px"
-                    alt=""
-                  />
+                  <img src="/assets/icons/user-round.svg" style="width: 16px; height: 16px" alt="" />
                   <p>Perfil</p>
                 </div>
                 <div class="item btn_logout">
-                  <img
-                    src="/assets/icons/log-out.svg"
-                    style="width: 16px; height: 16px"
-                    alt=""
-                  />
+                  <img src="/assets/icons/log-out.svg" style="width: 16px; height: 16px" alt="" />
                   <p>Logout</p>
                 </div>
               </div>
@@ -86,24 +65,22 @@
       <div id="main-page">
         <div class="mensaje-buscar">
           <div class="titulo-mensaje">
-            <h1>Nuevos &</h1>
-            <h1>populares</h1>
+            <h1 style="font-family: Arial, Helvetica, sans-serif; padding-top: 2rem"><strong>Nuevos &</strong></h1>
+            <h1 style="font-family: Arial, Helvetica, sans-serif"><strong>populares</strong></h1>
           </div>
           <p>Explora nuevos títulos</p>
-          <div class="buscar-libro-cont">
+          <div class="search-container">
             <input
               id="buscar-libro"
               name="buscar-libro"
-              class="buscar-libro"
-              style="border: none; outline: none"
+              class="search-input"
               type="text"
-              placeholder="Titulo"
+              placeholder="Buscar libros por título..."
+              aria-label="Buscar libros"
             />
-            <img
-              style="width: 16px; height: 16px"
-              src="/assets/icons/search.svg"
-              alt=""
-            />
+            <button class="search-button" aria-label="Buscar">
+              <img src="/assets/icons/search.svg" alt="Buscar" />
+            </button>
           </div>
         </div>
 
