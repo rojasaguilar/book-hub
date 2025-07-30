@@ -21,6 +21,7 @@ const {
   editProfile,
   filtrarLibrosPorNombre,
   getLibrosFav,
+  filtrarLibrosPorNombreFav
 } = require("./controllers/crud.js");
 const connectDB = require("./database");
 
@@ -536,7 +537,7 @@ const server = http.createServer((req, res) => {
     //PETICION PARA EDTIAR USUARIO
   }
 
-  if (req.url.includes("/filtrar")) {
+  if (req.url === "/filtrar") {
     const cookie = getCookies(req);
     const user = sessiones.get(cookie.sessionID);
     if (!user) {
@@ -585,6 +586,58 @@ const server = http.createServer((req, res) => {
     });
   }
 
+    if (req.url === "/filtrarFav") {
+    const cookie = getCookies(req);
+    const user = sessiones.get(cookie.sessionID);
+    if (!user) {
+      // return false
+    }
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+    req.on("end", async () => {
+      const filtro = body;
+      filtrarLibrosPorNombreFav(user._id,filtro)
+        .then((libros) => {
+          if (libros) {
+            res.writeHead(200, {
+              "Content-Type": "text/html",
+            });
+            const tarjetas = libros
+              .map(
+                (libro) =>
+                  `
+  <div class="cont-libro">
+      <a class="libro" href="/libro?titulo=${libro.titulo}">
+        <img src="/public/portadas/${libro.portada}" alt="" />
+        <div class = "info-libro">
+          <div class = "titulo-autor">
+            <strong class="titulo">${libro.titulo.replace(
+              libro.titulo[0],
+              libro.titulo[0].toUpperCase()
+            )}</strong>
+            <p>${libro.autor}</p>
+          </div>
+          <p style="margin: 0; padding: 0">${libro.categoria}</p>
+        </div>
+      </a>
+  </div>
+            `
+              )
+              .join("");
+            // page = page.replace("%libros%", tarjetas);
+            res.end(tarjetas);
+            return;
+          }
+        })
+        .catch((err) => {});
+    });
+  }
+
+
+
+
   if (req.url === "/favoritos") {
     const cookie = getCookies(req);
     const user = sessiones.get(cookie.sessionID);
@@ -628,6 +681,7 @@ const server = http.createServer((req, res) => {
       return;
     });
   }
+  
 
   if (req.url.includes("/logout")) {
     const cookie = getCookies(req);
