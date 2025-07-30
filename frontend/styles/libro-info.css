@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Work Sans";
+  background-color: rgb(245 240 230);
 }
 .profile-info {
   display: flex;
@@ -143,13 +144,12 @@ a {
   display: flex;
   flex-direction: row;
   gap: 4rem;
-  border-bottom: 1px solid #9e9e9e;
-  box-shadow: #9e9e9e 0rem 0.1rem;
+  box-shadow: 0 4px 6px rgba(200, 180, 150, 0.3);
   justify-content: center;
   padding: 1rem 0 1rem 0;
 }
 
-.cont-titulo strong{
+.cont-titulo strong {
   margin: 0;
   display: flex;
   align-items: center;
@@ -161,7 +161,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem 0;
-  gap:1rem;
+  gap: 1rem;
 }
 
 .cont-titulo {
@@ -196,18 +196,18 @@ p {
   padding: 0;
 }
 
-.subir-btn{
+.subir-btn {
   background-color: #147c58;
   color: white;
   /* font-weight: 700; */
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 2rem;
 }
 
-.subir-btn img{
-filter: invert(100%);
-height: 18px;
-width: 18px;
+.subir-btn img {
+  filter: invert(100%);
+  height: 18px;
+  width: 18px;
 }
 
 .element img {
@@ -228,11 +228,11 @@ width: 18px;
   width: fit-content;
 }
 
-.icon{
-  filter:invert(100%)
+.icon {
+  filter: invert(100%);
 }
 
-.texto{
+.texto {
   text-align: justify;
 }
 
@@ -265,9 +265,8 @@ width: 18px;
   flex-direction: column;
   gap: 2rem;
   /* background-color: red; */
-    max-width: 32rem; 
-    min-width: 22rem;
-
+  max-width: 32rem;
+  min-width: 22rem;
 }
 
 .icono {
@@ -281,7 +280,7 @@ width: 18px;
   gap: 0.3rem;
 }
 
-.element strong{
+.element strong {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
@@ -307,7 +306,7 @@ width: 18px;
   /* background-color: blue; */
 }
 
-.fav{
+.fav {
   height: 1.8rem;
   width: 1.8rem;
   object-fit: cover;
@@ -338,10 +337,43 @@ width: 18px;
 .etiqueta {
   display: flex;
   align-items: center;
-  background-color: #21BA64;
+  background-color: #21ba64;
   font-size: 14px;
   height: 2.8rem;
   padding: 0 0.7rem 0 0.7rem;
   border-radius: 1.5rem;
   color: black;
+}
+
+.logout {
+  padding: 0.5rem 3rem;
+  border: 1px solid #dfdfdf;
+  background-color: white;
+  border-radius: 0.5rem;
+  width: fit-content;
+  position: absolute;
+  font-size: 16px;
+  display: flex;
+  right: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.entered {
+  visibility: visible;
+}
+
+.exited {
+  visibility: hidden;
 }

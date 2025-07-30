@@ -4,6 +4,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: rgb(245 240 230);
 }
 
 .nav-bar {
@@ -71,6 +72,54 @@ a {
   justify-content: center;
   /* width: 70%; */
 }
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 2px solid #147c58;
+  border-radius: 2rem;
+  padding: 0.4rem 0.8rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.search-container:focus-within {
+  box-shadow: 0 0 0 3px rgba(20, 124, 88, 0.4);
+}
+
+.search-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+  filter: invert(28%) sepia(83%) saturate(311%) hue-rotate(112deg) brightness(95%) contrast(94%);
+}
+
+.search-button:hover {
+  transform: scale(1.1);
+}
 
 body {
   font-family: "Roboto";
@@ -105,11 +154,17 @@ body {
 }
 
 .cont-libro {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Work sans";
-  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.cont-libro:hover {
+  transform: scale(1.03);
+  box-shadow: 8px 8px 10px rgba(200, 180, 150, 0.8);
 }
 
 .cont-libro p {
@@ -234,4 +289,51 @@ p {
 
 .mensaje-buscar p {
   color: #757575;
+}
+
+.logout {
+  padding: 0.5rem 3rem;
+  border: 1px solid #dfdfdf;
+  background-color: white;
+  border-radius: 0.5rem;
+  width: fit-content;
+  position: absolute;
+  font-size: 16px;
+  display: flex;
+  right: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.entered {
+  visibility: visible;
+}
+
+.exited {
+  visibility: hidden;
+}
+
+/*Responsiva */
+@media (max-width: 768px) {
+  .parent {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .parent {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
 }

@@ -18,24 +18,16 @@
     <nav class="nav-bar">
       <div class="box">
         <a class="logo-titulo" href="/home"
-          ><img
-            style="width: 2.5rem; height: 2.5rem"
-            src="/assets/book-hub.png"
-            alt="img"
-          />
+          ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
 
           <p>Book-hub</p></a
         >
       </div>
 
       <div class="box-links" id="">
-        <a id="home-link" href="/home"
-          >Libros <img src="/assets/icons/library-big.svg" alt=""
-        /></a>
+        <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
 
-        <a id="fav-link" href="/favoritos"
-          >Favoritos <img src="/assets/icons/star.svg" alt=""
-        /></a>
+        <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
       </div>
 
       <div class="box-profile">
@@ -50,53 +42,36 @@
 
         <div class="profile-picture">
           <a href="/profile"
-            ><img id="profile-picture" src="/assets/cat.jpg" alt="img"
-          />
-          <div class="logout" id="logout">Cerrar Sesión</div>
-        </a>
+            ><img id="profile-picture" src="/assets/cat.jpg" alt="img" />
+            <div class="logout exited" id="logout">
+              <div class="item entrar-perfil">
+                <img src="/assets/icons/user-round.svg" style="width: 16px; height: 16px" alt="" />
+                <p>Perfil</p>
+              </div>
+              <div class="item btn_logout">
+                <img src="/assets/icons/log-out.svg" style="width: 16px; height: 16px" alt="" />
+                <p>Logout</p>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </nav>
-    <div
-      style="
-        width: 100%;
-        background-color: cyan;
-        height: fit-content;
-        display: flex;
-        justify-content: center;
-      "
-    >
+    <div style="width: 100%; height: fit-content; display: flex; justify-content: center">
       <div class="profile-info">
-        <div
-          style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center"
-        >
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
           <img src="../assets/cat.jpg" alt="" />
           <p style="font-weight: 600; font-size: x-large">%correo%</p>
           <p style="height: fit-content">@%nombreUsuario%</p>
         </div>
 
         <div class="profile-stats">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 0.5rem;
-              align-items: center;
-              width: fit-content;
-            "
-          >
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center; width: fit-content">
             <p>%librosSubidos%</p>
             <p>Libros subidos</p>
           </div>
 
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 0.5rem;
-              align-items: center;
-            "
-          >
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center">
             <p>%favoritos%</p>
             <p>Favoritos</p>
           </div>
@@ -106,14 +81,7 @@
 
     <div class="contenedor-sobre-mi">
       <div class="sobre-mi">
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 100%;
-          "
-        >
+        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
           <p style="font-weight: 600; font-size: large">Sobre mi</p>
           <div class="editar" id="editar">
             <img src="/assets/icons/settings.svg" alt="" />
@@ -153,6 +121,13 @@
       }
     });
 
+    const entrar_profile = document.querySelector('.entrar-perfil');
+    entrar_profile.addEventListener('click', async() => {
+      const response = await fetch('/profile');
+    })
+    
+
+
     btn.addEventListener("click", async () => {
       const texto = textArea.value;
       const response = await sendUpdate(texto);
@@ -179,23 +154,31 @@
       return true;
     };
 
-    const btn_logout = document.getElementById('logout');
-    btn_logout.addEventListener('click', async()=> {
+    const div_logout = document.getElementById("logout");
+    const btn_logout = document.querySelector('.btn_logout')
+    btn_logout.addEventListener("click", async () => {
       const response = await requestLogout();
-      if(response){
-       alert("cerrada la sesion correctamente")
+      if (response) {
+        alert("cerrada la sesion correctamente");
       }
+    });
 
-    })
+    const profile_picture = document.querySelector(".profile-picture");
+    profile_picture.addEventListener("mouseenter", () => {
+      div_logout.classList.remove("exited");
+      div_logout.classList.add("entered");
+    });
+    profile_picture.addEventListener("mouseleave", () => {
+      div_logout.classList.add("exited");
+    });
 
-    const requestLogout = async() => {
-      const response = await fetch('/logout');
-      if(!response.ok){
+    const requestLogout = async () => {
+      const response = await fetch("/logout");
+      if (!response.ok) {
         alert("error");
-        return null
+        return null;
       }
       return response.text();
-    }
-    
+    };
   </script>
 </html>

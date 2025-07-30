@@ -33,9 +33,9 @@ const getLibro = async (titulo) => {
 };
 
 const getLibrosFav = async (idUser) => {
-  const user = await User.findById(idUser).populate("librosFavoritos")
+  const user = await User.findById(idUser).populate("librosFavoritos");
   return user.librosFavoritos || [];
-}
+};
 
 const addBook = async (idLibro, idUser) => {
   const user = await User.findById(idUser);
@@ -60,7 +60,9 @@ const removeFav = async (idLibro, idUser) => {
   if (!user) {
     throw new Error("cant find user");
   }
-  user.librosFavoritos = user.librosFavoritos.filter((libro) => idLibro.toString() !== libro.toString());
+  user.librosFavoritos = user.librosFavoritos.filter(
+    (libro) => idLibro.toString() !== libro.toString()
+  );
   return await user.save();
 };
 
@@ -69,7 +71,9 @@ const toggleFav = async (idLibro, idUser) => {
   if (!user) {
     throw new Error("cant find user");
   }
-  const libro = user.librosFavoritos.some((libro) => idLibro.toString() === libro.toString());
+  const libro = user.librosFavoritos.some(
+    (libro) => idLibro.toString() === libro.toString()
+  );
   if (libro) {
     await removeFav(idLibro, idUser);
     return { favorito: false };
@@ -99,6 +103,14 @@ const filtrarLibrosPorNombre = async (title) => {
   if (!libros) throw new Error("Ningun libro encontrado");
   return libros;
 };
+
+const filtrarLibrosPorNombreFav = async (idUser, title) => {
+  const libros = await Book.find({ titulo: { $regex: `^${title}` } });
+  if (!libros) throw new Error("Ningun libro encontrado");
+  const user = await User.findById(idUser);
+  const librosFav = new Set(user.librosFavoritos.map((id) => id.toString()));
+  return libros.filter((libro) => librosFav.has(libro._id.toString()));
+};
 module.exports = {
   getUser,
   getUsers,
@@ -113,5 +125,6 @@ module.exports = {
   isFav,
   editProfile,
   filtrarLibrosPorNombre,
-  getLibrosFav
+  getLibrosFav,
+  filtrarLibrosPorNombreFav
 };
