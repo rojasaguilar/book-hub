@@ -122,10 +122,11 @@
     });
 
     const entrar_profile = document.querySelector('.entrar-perfil');
-
     entrar_profile.addEventListener('click', async() => {
       const response = await fetch('/profile');
     })
+    
+
 
     btn.addEventListener("click", async () => {
       const texto = textArea.value;

@@ -235,3 +235,36 @@ p {
 .mensaje-buscar p {
   color: #757575;
 }
+
+.logout {
+  padding: 0.5rem 3rem;
+  border: 1px solid #dfdfdf;
+  background-color: white;
+  border-radius: 0.5rem;
+  width: fit-content;
+  position: absolute;
+  font-size: 16px;
+  display: flex;
+  right: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.entered {
+  visibility: visible;
+}
+
+.exited {
+  visibility: hidden;
+}
