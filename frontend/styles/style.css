@@ -115,6 +115,13 @@ body {
   width: 100%;
 }
 
+.cont-libro img:hover{
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  box-shadow: 2px 10px 10px #147c58;
+  transform: scale(1.1);
+  transition-duration: 0.5s ;
+}
 .cont-libro p {
   color: #757575;
   font-size: 14px;
