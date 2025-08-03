@@ -148,17 +148,6 @@ textarea {
   height: 18px;
 }
 
-.logo-titulo {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.logo-titulo p {
-  font-size: 20px;
-  font-weight: medium;
-}
 .subir-btn {
   background-color: #147c58;
   color: white;
@@ -177,6 +166,18 @@ textarea {
   height: 3rem;
   object-fit: cover;
   border-radius: 100%;
+}
+
+.logo-titulo {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.logo-titulo p {
+  font-size: 20px;
+  font-weight: medium;
 }
 
 a {
@@ -246,4 +247,37 @@ button {
 .form-container {
   display: flex;
   justify-content: center;
+}
+
+.logout {
+  padding: 0.5rem 3rem;
+  border: 1px solid #dfdfdf;
+  background-color: white;
+  border-radius: 0.5rem;
+  width: fit-content;
+  position: absolute;
+  font-size: 16px;
+  display: flex;
+  right: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.entered {
+  visibility: visible;
+}
+
+.exited {
+  visibility: hidden;
 }

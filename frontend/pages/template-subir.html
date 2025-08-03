@@ -14,42 +14,53 @@
     <link rel="stylesheet" href="/styles/template-subir.css" />
   </head>
 
-  <body>
-    <nav class="nav-bar">
-      <div class="box">
-        <a class="logo-titulo" href="/home"
-          ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
+      <nav class="nav-bar">
+        <div class="box">
+          <a class="logo-titulo" href="/home"
+            ><img style="width: 2.5rem; height: 2.5rem" src="/assets/book-hub.png" alt="img" />
 
-          <p>Book-hub</p></a
-        >
-      </div>
-
-      <div class="box-links" id="">
-        <!-- <div class="libros-home"> -->
-        <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
-        <!-- <img src="/assets/icons/star.svg" alt=""> -->
-        <!-- </div> -->
-        <!-- <div class="favorito"> -->
-
-        <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
-        <!-- </div> -->
-      </div>
-
-      <div class="box-profile">
-        <a
-          class="subir-btn"
-          style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
-          href="/agregar"
-          style="color: black"
-        >
-          <img src="/assets/icons/upload.svg" alt="" />
-        </a>
-
-        <div class="profile-picture">
-          <a href="/profile"><img id="profile-picture" src="/assets/cat.jpg" alt="img" /></a>
+            <p>Book-hub</p></a
+          >
         </div>
-      </div>
-    </nav>
+
+        <div class="box-links" id="">
+          <!-- <div class="libros-home"> -->
+          <a id="home-link" href="/home">Libros <img src="/assets/icons/library-big.svg" alt="" /></a>
+          <!-- <img src="/assets/icons/star.svg" alt=""> -->
+          <!-- </div> -->
+          <!-- <div class="favorito"> -->
+
+          <a id="fav-link" href="/favoritos">Favoritos <img src="/assets/icons/star.svg" alt="" /></a>
+          <!-- </div> -->
+        </div>
+
+        <div class="box-profile">
+          <a
+            class="subir-btn"
+            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem"
+            href="/agregar"
+            style="color: black"
+          >
+            <img src="/assets/icons/upload.svg" alt="" />
+          </a>
+
+          <div class="profile-picture">
+            <a href="/profile"
+              ><img id="profile-picture" src="/assets/cat.jpg" alt="img" />
+              <div class="logout exited" id="logout">
+                <div class="item entrar-perfil">
+                  <img src="/assets/icons/user-round.svg" style="width: 16px; height: 16px" alt="" />
+                  <p>Perfil</p>
+                </div>
+                <div class="item btn_logout">
+                  <img src="/assets/icons/log-out.svg" style="width: 16px; height: 16px" alt="" />
+                  <p>Logout</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </nav>
     <div class="form-container">
       <form id="form-libro" action="/agregar" method="POST" enctype="multipart/form-data">
         <div id="campo-imagen" class="campo-imagen">
@@ -57,12 +68,7 @@
           <div class="portada">
             <label for="portada" class="label-file">
               <img class="imagen-portada" src="" alt="" />
-              <p
-                class="plus"
-                style="margin: 0; padding: 0 1rem 0 1rem; background-color: #147c58"
-              >
-                +
-              </p>
+              <p class="plus" style="margin: 0; padding: 0 1rem 0 1rem; background-color: #147c58">+</p>
             </label>
             <input
               class="portada-input"
@@ -74,19 +80,8 @@
           </div>
         </div>
 
-        <div
-          class="informacion-libro"
-          style="display: flex; flex-direction: column; gap: 2rem"
-        >
-          <p
-            style="
-              border-bottom: 2px solid #147c58;
-              padding: 0;
-              margin: 0;
-              width: fit-content;
-              font-size: 16px;
-            "
-          >
+        <div class="informacion-libro" style="display: flex; flex-direction: column; gap: 2rem">
+          <p style="border-bottom: 2px solid #147c58; padding: 0; margin: 0; width: fit-content; font-size: 16px">
             Detalles del libro
           </p>
 
@@ -154,13 +149,7 @@
             <div class="campo">
               <p>Etiquetas</p>
               <!-- <input class="etiquetas" name="etiquetas" type="text" /> -->
-              <textarea
-                rows="7"
-                cols="48"
-                class="etiquetas"
-                name="etiquetas"
-                id=""
-              ></textarea>
+              <textarea rows="7" cols="48" class="etiquetas" name="etiquetas" id=""></textarea>
             </div>
           </div>
           <button type="submit">Guardar</button>
@@ -180,6 +169,39 @@
       const add = document.querySelector(".plus");
       add.setAttribute("style", "display: none;");
       // document.getElementById("imagen-portada").style.display = block;
+
+      const entrar_profile = document.querySelector(".entrar-perfil");
+      entrar_profile.addEventListener("click", async () => {
+        const response = await fetch("/profile");
+      });
+
+     
     });
+
+     const div_logout = document.getElementById("logout");
+      const btn_logout = document.querySelector(".btn_logout");
+      btn_logout.addEventListener("click", async () => {
+        const response = await requestLogout();
+        if (response) {
+          alert("cerrada la sesion correctamente");
+        }
+      });
+    const profile_picture = document.querySelector(".profile-picture");
+      profile_picture.addEventListener("mouseenter", () => {
+        div_logout.classList.remove("exited");
+        div_logout.classList.add("entered");
+      });
+      profile_picture.addEventListener("mouseleave", () => {
+        div_logout.classList.add("exited");
+      });
+
+      const requestLogout = async () => {
+        const response = await fetch("/logout");
+        if (!response.ok) {
+          alert("error");
+          return null;
+        }
+        return response.text();
+      };
   </script>
 </html>
